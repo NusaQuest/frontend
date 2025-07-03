@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-    --color-terracotta: #D96C2B
+  --color-background: #1c1c1e;
+  --color-primary: #5dade2;
+  --color-secondary: #f6f6fd;
 }
