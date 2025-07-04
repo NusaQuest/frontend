@@ -7,6 +7,10 @@ export function navs() {
       destination: "/",
     },
     {
+      title: "Register",
+      destination: "/register",
+    },
+    {
       title: "Quest",
       destination: "/quest",
     },

@@ -15,7 +15,7 @@ const HeroSection = () => {
           concert tickets NFT.
         </p>
         <div className="w-full flex items-center justify-center mt-6">
-          <button className="bg-primary rounded-xl p-2">
+          <button className="bg-primary rounded-xl p-2 duration-200 cursor-pointer hover:scale-105">
             <div className="flex flex-row items-center">
               <img src={xellar} className="h-8 w-8" />
               <h1 className="font-bold text-secondary">Connect Wallet</h1>
