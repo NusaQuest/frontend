@@ -1,7 +1,9 @@
 import React from "react";
 import xellar from "../../assets/xellar.png";
+// import { useConnectModal } from "@xellar/kit";
 
 const HeroSection = () => {
+  // const { open } = useConnectModal();
   return (
     <div className="flex justify-center items-center min-h-[90vh]">
       <div className="">
@@ -15,7 +17,10 @@ const HeroSection = () => {
           concert tickets NFT.
         </p>
         <div className="w-full flex items-center justify-center mt-6">
-          <button className="bg-primary rounded-xl p-2 duration-200 cursor-pointer hover:scale-105">
+          <button
+            // onClick={open}
+            className="bg-primary rounded-xl p-2 duration-200 cursor-pointer hover:scale-105"
+          >
             <div className="flex flex-row items-center">
               <img src={xellar} className="h-8 w-8" />
               <h1 className="font-bold text-secondary">Connect Wallet</h1>
