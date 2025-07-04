@@ -5,10 +5,12 @@ import Home from "./pages/Home";
 import Footer from "./components/fixed/Footer";
 import NavMenu from "./components/fixed/NavMenu";
 import Register from "./pages/Register";
+import { useAccount } from "wagmi";
 
 const Content = () => {
   const [click, setClick] = useState(false);
   const [currentPage, setCurrentPage] = useState("Home");
+  const { address, isConnecting, isDisconnected } = useAccount();
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -21,7 +23,7 @@ const Content = () => {
     navigate(`${newPage.destination}`);
   };
 
-  useEffect(() => {}, [click, currentPage]);
+  useEffect(() => {}, [click, currentPage, address]);
 
   return (
     <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col">
@@ -41,7 +43,7 @@ const Content = () => {
 
       <div className="flex-1 mb-12">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home address={address} />} />
           <Route path="/register" element={<Register />} />
         </Routes>
       </div>
