@@ -6,10 +6,10 @@ import Footer from "./components/fixed/Footer";
 import NavMenu from "./components/fixed/NavMenu";
 import Register from "./pages/Register";
 import { useAccount } from "wagmi";
+import Quest from "./pages/Quest";
 
 const Content = () => {
   const [click, setClick] = useState(false);
-  const [currentPage, setCurrentPage] = useState("Home");
   const { address, isConnecting, isDisconnected } = useAccount();
   const navigate = useNavigate();
 
@@ -18,12 +18,11 @@ const Content = () => {
   };
 
   const handleCurrentPage = (newPage) => {
-    setCurrentPage(newPage.title);
     setClick(false);
     navigate(`${newPage.destination}`);
   };
 
-  useEffect(() => {}, [click, currentPage, address]);
+  useEffect(() => {}, [click, address]);
 
   return (
     <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col">
@@ -33,7 +32,7 @@ const Content = () => {
 
       {click && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <NavMenu currentPage={currentPage} action={handleCurrentPage} />
+          <NavMenu action={handleCurrentPage} />
         </div>
       )}
 
@@ -45,10 +44,10 @@ const Content = () => {
         <Routes>
           <Route path="/" element={<Home address={address} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/quest" element={<Quest />} />
         </Routes>
       </div>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

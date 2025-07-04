@@ -3,6 +3,7 @@ import Gift from "../../assets/gift.png";
 import Users from "../../assets/users.png";
 import Brain from "../../assets/brain.png";
 import IdCard from "../../assets/id_card.png";
+import Header from "./Header";
 
 const iconMap = {
   gift: Gift,
@@ -41,15 +42,14 @@ const advantages = [
 const AdvantageSection = () => {
   return (
     <div>
-      <div className="text-secondary text-center mb-6">
-        <h1 className="font-bold text-3xl mb-2">
-          Why Join <span className="text-primary">NusaQuest </span>?
-        </h1>
-        <p className="text-sm">
-          Explore the unique benefits of joining Indonesia’s first DAO for beach
-          cleanups — where real action meets real rewards.
-        </p>
-      </div>
+      <Header
+        firstText={"Why Join"}
+        boldText={"NusaQuest"}
+        secondText={"?"}
+        paragraph={
+          "Explore the unique benefits of joining Indonesia’s first DAO for beach cleanups — where real action meets real rewards."
+        }
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {advantages.map((item, index) => (
           <div key={index} className="p-4">

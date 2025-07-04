@@ -25,8 +25,12 @@ export function navs() {
       destination: "/quest",
     },
     {
-      title: "Profile",
-      destination: "/profile",
+      title: "Impact",
+      destination: "/impact",
+    },
+    {
+      title: "Redeem",
+      destination: "/redeem",
     },
   ];
 }
