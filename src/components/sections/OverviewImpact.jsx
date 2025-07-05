@@ -1,6 +1,7 @@
 import React from "react";
 import { FileText, CheckCircle, Activity } from "lucide-react";
 import Title from "./Title";
+import CountUp from "react-countup"; // ← Import
 
 const OverviewImpact = ({ totalProposals, totalVotes, totalActions }) => {
   const items = [
@@ -33,7 +34,8 @@ const OverviewImpact = ({ totalProposals, totalVotes, totalActions }) => {
             <div className="p-3 bg-white/10 rounded-full">{item.icon}</div>
             <div>
               <h2 className="text-2xl font-bold text-secondary">
-                {item.value}
+                <CountUp end={item.value} duration={5} />{" "}
+                {/* Animated count */}
               </h2>
               <p className="text-sm text-secondary">{item.label}</p>
             </div>
