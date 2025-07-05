@@ -7,6 +7,7 @@ import NavMenu from "./components/fixed/NavMenu";
 import Register from "./pages/Register";
 import { useAccount } from "wagmi";
 import Quest from "./pages/Quest";
+import Redeem from "./pages/Redeem";
 
 const Content = () => {
   const [click, setClick] = useState(false);
@@ -45,6 +46,7 @@ const Content = () => {
           <Route path="/" element={<Home address={address} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/quest" element={<Quest />} />
+          <Route path="/redeem" element={<Redeem />} />
         </Routes>
       </div>
 

@@ -50,9 +50,9 @@ const QuestCard = ({ item }) => {
         />
         <div className="absolute inset-0 rounded-t-xl bg-black/20 opacity-0 hover:opacity-100 transition" />
       </div>
-      <div className="px-4 pb-4 pt-2 flex flex-col gap-3">
+      <div className="p-4 flex flex-col gap-3">
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-lg font-bold text-secondary">{item.name}</h2>
+          <h2 className="text-lg font-bold text-primary">{item.name}</h2>
           <a
             href={item.maps}
             target="_blank"

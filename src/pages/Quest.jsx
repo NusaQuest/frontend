@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/sections/Header";
-import QuestsSection from "../components/sections/QuestsSection";
+import PageSection from "../components/sections/PageSection";
 
 const quests = [
   {
@@ -77,9 +77,9 @@ const Quest = () => {
         firstText="Explore"
         boldText="Quests"
         secondText="for Impact"
-        paragraph="Join community-driven cleanups across Indonesia. Browse available quests, earn 60 $NUSA tokens, and help restore our beaches."
+        paragraph="Join community-driven cleanups across Indonesia. Browse available quests, earn $NUSA tokens, and help restore our beaches."
       />
-      <QuestsSection quests={quests} />
+      <PageSection datas={quests} type="quest"/>
     </div>
   );
 };
