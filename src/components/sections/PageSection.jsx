@@ -1,15 +1,19 @@
 import React from "react";
 import QuestCard from "../cards/QuestCard";
 import NFTCard from "../cards/NFTCard";
+import Title from "./Title";
 
-const PageSection = ({ datas, type }) => {
+const PageSection = ({ datas, type, title }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {type === "quest" &&
-        datas.map((item, index) => <QuestCard key={index} item={item} />)}
+    <div>
+      <Title title={title}/>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {type === "quest" &&
+          datas.map((item, index) => <QuestCard key={index} item={item} />)}
 
-      {type === "redeem" &&
-        datas.map((item, index) => <NFTCard key={index} item={item} />)}
+        {type === "redeem" &&
+          datas.map((item, index) => <NFTCard key={index} item={item} />)}
+      </div>
     </div>
   );
 };

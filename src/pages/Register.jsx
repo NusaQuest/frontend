@@ -3,6 +3,7 @@ import TextField from "../components/inputs/Textfield";
 import FileUploadField from "../components/inputs/FileUploadField";
 import ReusableButton from "../components/buttons/ReusableButton";
 import Header from "../components/sections/Header";
+import Title from "../components/sections/Title";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -27,6 +28,7 @@ const Register = () => {
             "Register with your full name and valid KTP to join the NusaQuest movement."
           }
         />
+        <Title title={"KTP Verification"} />
         <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/10 flex flex-col gap-6">
           <TextField
             label="Full Name (as per KTP)"

@@ -5,7 +5,8 @@ import PageSection from "../components/sections/PageSection";
 const nfts = [
   {
     name: "Nusa Warrior #0123",
-    image: "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
+    image:
+      "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
     description:
       "A legendary beach guardian NFT from the NusaQuest series, protecting the ocean with honor.",
     attributes: [
@@ -20,7 +21,8 @@ const nfts = [
   },
   {
     name: "Wave Cleaner #0456",
-    image: "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
+    image:
+      "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
     description:
       "This NFT represents a hero who leads massive cleanup quests in Java’s coastline.",
     attributes: [
@@ -35,7 +37,8 @@ const nfts = [
   },
   {
     name: "Guardian of Bali #0789",
-    image: "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
+    image:
+      "https://puspapknstan.org/wp-content/uploads/2023/09/Website_Perstaxtive-15-1024x576.png",
     description:
       "Summoned from Balinese legends, this NFT guards the sacred shores.",
     attributes: [
@@ -59,7 +62,7 @@ const Redeem = () => {
         secondText="Pass Awaits"
         paragraph="You've earned it — redeem your $NUSA tokens for NFT concert tickets. Join the crowd before it's gone!"
       />
-      <PageSection datas={nfts} type="redeem" />
+      <PageSection datas={nfts} type="redeem" title={"Claimable NFTs"} />
     </div>
   );
 };

@@ -79,7 +79,7 @@ const Quest = () => {
         secondText="for Impact"
         paragraph="Join community-driven cleanups across Indonesia. Browse available quests, earn $NUSA tokens, and help restore our beaches."
       />
-      <PageSection datas={quests} type="quest"/>
+      <PageSection datas={quests} type="quest" title={"Explore Quests"}/>
     </div>
   );
 };
