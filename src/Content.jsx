@@ -9,6 +9,8 @@ import { useAccount } from "wagmi";
 import Quest from "./pages/Quest";
 import Redeem from "./pages/Redeem";
 import Impact from "./pages/Impact";
+import QuestDetail from "./pages/QuestDetail";
+import RedeemDetail from "./pages/RedeemDetail";
 
 const Content = () => {
   const [click, setClick] = useState(false);
@@ -49,6 +51,8 @@ const Content = () => {
           <Route path="/quest" element={<Quest />} />
           <Route path="/redeem" element={<Redeem />} />
           <Route path="/impact" element={<Impact />} />
+          <Route path="/quest/:id" element={<QuestDetail />} />
+          <Route path="/redeem/:id" element={<RedeemDetail />} />
         </Routes>
       </div>
 

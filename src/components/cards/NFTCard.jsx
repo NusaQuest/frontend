@@ -1,9 +1,15 @@
 import React from "react";
 import { Coins, Ticket, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const NFTCard = ({ item }) => {
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate("/redeem/" + id);
+  };
   return (
     <div
+      onClick={() => handleNavigate(item.id)}
       className="bg-white/5 border border-white/10 backdrop-blur-md rounded-xl shadow-lg
         hover:scale-[1.02] hover:outline-primary hover:outline-2 
         active:scale-95 transition-all duration-200 overflow-hidden flex flex-col"
@@ -15,7 +21,7 @@ const NFTCard = ({ item }) => {
       />
 
       <div className="p-4 flex flex-col gap-3">
-        <h2 className="text-lg font-bold text-primary">{item.name}</h2>
+        <h2 className="text-lg font-bold text-secondary">{item.name}</h2>
 
         <p className="text-sm text-secondary line-clamp-2">
           {item.description}

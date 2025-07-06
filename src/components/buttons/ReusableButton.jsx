@@ -4,7 +4,7 @@ const ReusableButton = ({ text, action }) => {
   return (
     <button
       onClick={() => action}
-      className="bg-primary p-3 w-full rounded-xl cursor-pointer duration-200"
+      className="bg-primary px-3 py-2.5 w-full rounded-xl cursor-pointer duration-200"
     >
       <h1 className="font-bold text-secondary">{text}</h1>
     </button>

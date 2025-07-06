@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/sections/Header";
 import PageSection from "../components/sections/PageSection";
 
-const quests = [
+export const quests = [
   {
     id: "64f6c2e0a29b3c001c7d9f0a",
     scId: 1,
@@ -19,7 +19,8 @@ const quests = [
     map: "https://maps.google.com/?q=Kuta+Beach+Bali",
     images: [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYI7LqH-eXp_z3hW4-XRWp7J8eS0bEqazWaQ&s",
-      "https://example.com/images/kuta2.jpg",
+      "https://media.cntraveler.com/photos/675f30d1796d888fdbf7c595/16:9/w_2580,c_limit/Bark-Beach-miami_GettyImages-1540357059.jpg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYI7LqH-eXp_z3hW4-XRWp7J8eS0bEqazWaQ&s",
     ],
     voteStart: 1751808000, // 2025-07-06T08:00:00Z
     voteEnd: 1751980800, // 2025-07-08T08:00:00Z
@@ -79,7 +80,7 @@ const Quest = () => {
         secondText="for Impact"
         paragraph="Join community-driven cleanups across Indonesia. Browse available quests, earn $NUSA tokens, and help restore our beaches."
       />
-      <PageSection datas={quests} type="quest" title={"Explore Quests"}/>
+      <PageSection datas={quests} type="quest" title={"Explore Quests"} />
     </div>
   );
 };

@@ -24,7 +24,6 @@ function App() {
         </XellarKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
-    // <Content />
   );
 }
 

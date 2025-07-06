@@ -1,8 +1,10 @@
 import React from "react";
 import { MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const QuestCard = ({ item }) => {
   const now = Date.now() / 1000;
+  const navigate = useNavigate();
 
   let status = "Unknown";
   if (now < item.voteStart) {
@@ -31,8 +33,13 @@ const QuestCard = ({ item }) => {
     Executed: "✅",
   };
 
+  const handleNavigate = (id) => {
+    navigate("/quest/" + id);
+  };
+
   return (
     <div
+      onClick={() => handleNavigate(item.id)}
       className="relative bg-white/5 border border-white/10 backdrop-blur-md rounded-xl flex flex-col 
         hover:scale-[1.02] hover:outline-primary hover:outline-2 
         active:scale-95 transition-all duration-200 shadow-lg cursor-pointer"
@@ -52,7 +59,7 @@ const QuestCard = ({ item }) => {
       </div>
       <div className="p-4 flex flex-col gap-3">
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-lg font-bold text-primary">{item.name}</h2>
+          <h2 className="text-lg font-bold text-secondary">{item.name}</h2>
           <a
             href={item.maps}
             target="_blank"
