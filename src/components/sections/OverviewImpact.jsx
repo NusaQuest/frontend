@@ -35,7 +35,6 @@ const OverviewImpact = ({ totalProposals, totalVotes, totalActions }) => {
             <div>
               <h2 className="text-2xl font-bold text-secondary">
                 <CountUp end={item.value} duration={5} />{" "}
-                {/* Animated count */}
               </h2>
               <p className="text-sm text-secondary">{item.label}</p>
             </div>
