@@ -7,7 +7,7 @@ const NavMenu = ({ action }) => {
       {navs().map((item, index) => (
         <h1
           key={index}
-          className={`font-semibold text-4xl text-secondary`}
+          className={`font-semibold text-4xl text-secondary cursor-pointer`}
           onClick={() => action(item)}
         >
           {item.title}

@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import Title from "./Title";
 import ProposalTable from "../table/ProposalTable";
 
-const Proposals = ({ proposals }) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const handleOnClick = () => {
-    setIsClicked(!isClicked);
-  };
+const Proposals = ({ proposals, onAction }) => {
   return (
     <div>
       <div className="mt-6">
         <Title
           title={"My Proposals"}
           needCreate={true}
-          onClick={handleOnClick}
+          onClick={onAction}
         />
         <ProposalTable proposals={proposals} />
       </div>

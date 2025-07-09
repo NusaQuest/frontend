@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Footer from "./components/fixed/Footer";
 import NavMenu from "./components/fixed/NavMenu";
 import Register from "./pages/Register";
-import { useAccount } from "wagmi";
+import { useAccount, useWriteContract, useReadContract } from "wagmi";
 import Quest from "./pages/Quest";
 import Redeem from "./pages/Redeem";
 import Impact from "./pages/Impact";
@@ -15,7 +15,7 @@ import History from "./pages/History";
 
 const Content = () => {
   const [click, setClick] = useState(false);
-  const { address, isConnecting, isDisconnected } = useAccount();
+  const { address } = useAccount();
   const navigate = useNavigate();
 
   const handleClick = () => {

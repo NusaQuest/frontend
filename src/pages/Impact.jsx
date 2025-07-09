@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/sections/Header";
 import OverviewImpact from "../components/sections/OverviewImpact";
 import Proposals from "../components/sections/Proposals";
 import Votes from "../components/sections/Votes";
 import CleanupRecord from "../components/sections/CleanupRecord";
+import CreateProposal from "../components/modals/CreateProposal";
 
 const proposals = [
   {
@@ -74,6 +75,22 @@ const proposals = [
 ];
 
 const Impact = () => {
+  const [isClick, setIsClick] = useState(false);
+
+  const [proposalName, setProposalName] = useState("");
+  const [proposalDescription, setProposalDescription] = useState("");
+  const [images, setImages] = useState(null);
+  const [beachName, setBeachName] = useState("");
+  const [province, setProvince] = useState("");
+  const [city, setCity] = useState("");
+  const [maps, setMaps] = useState("");
+
+  const handleClick = () => {
+    setIsClick(!isClick);
+  };
+
+  useEffect(() => {}, [isClick]);
+
   return (
     <div>
       <Header
@@ -83,9 +100,22 @@ const Impact = () => {
         paragraph="Every proposal, vote, and quest tells your story. Review your journey in building a better future."
       />
       <OverviewImpact totalProposals={10} totalVotes={20} totalActions={10} />
-      <Proposals proposals={proposals} />
+      <Proposals proposals={proposals} onAction={handleClick} />
       <Votes proposals={proposals} />
       <CleanupRecord proposals={proposals} />
+
+      {isClick && (
+        <CreateProposal
+          setProposalName={setProposalName}
+          setProposalDescription={setProposalDescription}
+          setImages={setImages}
+          setBeachName={setBeachName}
+          setProvince={setProvince}
+          setCity={setCity}
+          setMaps={setMaps}
+          onClose={handleClick}
+        />
+      )}
     </div>
   );
 };
