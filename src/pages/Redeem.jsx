@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/sections/Header";
 import PageSection from "../components/sections/PageSection";
 
-const nfts = [
+export const nfts = [
   {
     name: "Nusa Warrior #0123",
     image:

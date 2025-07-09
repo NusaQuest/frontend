@@ -42,7 +42,11 @@ const Register = () => {
             file={ktpFile}
             onChange={handleKtpFileChange}
           />
-          <ReusableButton text={"Submit"} />
+          <ReusableButton
+            text={"Submit"}
+            buttonColor={"bg-primary"}
+            textColor={"text-secondary"}
+          />
         </div>
       </div>
     </div>
