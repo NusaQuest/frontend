@@ -50,7 +50,7 @@ const AdvantageSection = () => {
           "Explore the unique benefits of joining Indonesia’s first DAO for beach cleanups — where real action meets real rewards."
         }
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:max-w-6xl mx-auto">
         {advantages.map((item, index) => (
           <div key={index} className="p-4">
             <div className="flex flex-row space-x-4">
@@ -58,8 +58,8 @@ const AdvantageSection = () => {
                 <img src={iconMap[item.icon]} />
               </div>{" "}
               <div className="text-secondary w-2/3">
-                <h1 className="text-lg font-bold">{item.advantage}</h1>
-                <p className="text-sm">{item.description}</p>
+                <h1 className="text-lg font-bold lg:text-2xl">{item.advantage}</h1>
+                <p className="text-sm lg:text-base">{item.description}</p>
               </div>
             </div>
           </div>

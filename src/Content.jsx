@@ -30,7 +30,7 @@ const Content = () => {
   useEffect(() => {}, [click, address]);
 
   return (
-    <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col">
+    <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col lg:px-8">
       {click && (
         <div className="absolute inset-0 bg-black opacity-70 z-40"></div>
       )}
@@ -42,7 +42,7 @@ const Content = () => {
       )}
 
       <div className="z-50 relative">
-        <Navbar click={click} action={handleClick} />
+        <Navbar click={click} action={handleClick} address={address} />
       </div>
 
       <div className="flex-1 mb-12">
