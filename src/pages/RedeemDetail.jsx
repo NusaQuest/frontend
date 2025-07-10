@@ -30,25 +30,32 @@ const RedeemDetail = () => {
   const isSoldOut = nft.purchased >= nft.stock;
 
   return (
-    <div>
-      <RedeemImage nft={nft} />
-      <NFTDetail nft={nft} />
-      <NFTDescription nft={nft} />
-      <NFTMetadata nft={nft} />
-      {isSoldOut ? (
-        <ReusableButton
-          text="Sold Out"
-          buttonColor={"bg-gray-600"}
-          textColor={"text-gray-300"}
-        />
-      ) : (
-        <ReusableButton
-          text="Redeem"
-          action={handleRedeem}
-          buttonColor={"bg-primary"}
-          textColor={"text-secondary"}
-        />
-      )}
+    <div className="lg:mt-8">
+      <Title title={nft.name} />
+      <div className="flex flex-col lg:flex-row space-x-8">
+        <div className="lg:w-1/2">
+          <RedeemImage nft={nft} />
+        </div>
+        <div className="lg:w-1/2">
+          <NFTDetail nft={nft} />
+          <NFTDescription nft={nft} />
+          <NFTMetadata nft={nft} />
+          {isSoldOut ? (
+            <ReusableButton
+              text="Sold Out"
+              buttonColor={"bg-gray-600"}
+              textColor={"text-gray-300"}
+            />
+          ) : (
+            <ReusableButton
+              text="Redeem"
+              action={handleRedeem}
+              buttonColor={"bg-primary"}
+              textColor={"text-secondary"}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

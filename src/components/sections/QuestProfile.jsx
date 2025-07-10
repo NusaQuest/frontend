@@ -13,14 +13,14 @@ const QuestProfile = ({ quest, isDescription }) => {
             href={quest.maps}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-sm italic text-secondary hover:underline"
+            className="flex items-center gap-1 text-sm lg:text-base italic text-secondary hover:underline"
           >
             <MapPin size={14} className="text-primary" />
             {quest.beachName}, {quest.city}, {quest.province}
           </a>
           <div className="flex flex-row gap-1 items-center mt-2 mb-4">
             <User className="text-primary size-4" />
-            <p className="text-secondary italic text-sm">
+            <p className="text-secondary italic text-sm lg:text-base">
               {truncate(quest.wallet, 4, 4, 11)}
             </p>
             <Copy className="text-primary size-3 cursor-pointer" />
@@ -29,7 +29,7 @@ const QuestProfile = ({ quest, isDescription }) => {
       ) : (
         <div>
           <Title title={"Description"} />
-          <p className="text-secondary text-sm">{quest.proposalDescription}</p>
+          <p className="text-secondary text-sm lg:text-base">{quest.proposalDescription}</p>
         </div>
       )}
     </div>

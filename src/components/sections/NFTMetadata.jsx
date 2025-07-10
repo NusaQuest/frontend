@@ -11,7 +11,7 @@ const NFTMetadata = ({ nft }) => {
         {nft.attributes.map((attr, index) => (
           <div
             key={index}
-            className="px-3 py-1 rounded-full bg-white/10 text-xs text-secondary flex items-center gap-1"
+            className="px-3 py-1 rounded-full bg-white/10 text-xs lg:text-sm text-secondary flex items-center gap-1"
           >
             {attr.trait_type === "Rarity" && <Sparkles className="size-3" />}
             {attr.trait_type === "Aura" && <Flame className="size-3" />}

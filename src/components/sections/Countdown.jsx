@@ -4,6 +4,7 @@ import Title from "./Title";
 const Countdown = ({ now, countdown, quest }) => {
   return (
     <div>
+      <Title title={"Countdown"} />
       <div className="mt-3">
         {now <= quest.voteStart && <Title title={"Voting starts on"} />}
         {now > quest.voteStart && now <= quest.voteEnd && (
@@ -13,26 +14,26 @@ const Countdown = ({ now, countdown, quest }) => {
           <Title title={"Awaiting quest execution"} />
         )}
       </div>
-      <div className="flex flex-row gap-2 items-center justify-center mb-6">
-        <div className="bg-primary rounded-xl size-16 flex items-center justify-center">
+      <div className="flex flex-row gap-2 lg:justify-start items-center justify-center mb-6">
+        <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">
           <h1 className="text-secondary font-semibold text-2xl">
             {countdown.days}d
           </h1>
         </div>
         <div className="text-secondary font-bold">:</div>
-        <div className="bg-primary rounded-xl size-16 flex items-center justify-center">
+        <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">
           <h1 className="text-secondary font-semibold text-2xl">
             {countdown.hours}h
           </h1>
         </div>
         <div className="text-secondary font-bold">:</div>
-        <div className="bg-primary rounded-xl size-16 flex items-center justify-center">
+        <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">
           <h1 className="text-secondary font-semibold text-2xl">
             {countdown.minutes}m
           </h1>
         </div>
         <div className="text-secondary font-bold">:</div>
-        <div className="bg-primary rounded-xl size-16 flex items-center justify-center">
+        <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">
           <h1 className="text-secondary font-semibold text-2xl">
             {countdown.seconds}s
           </h1>

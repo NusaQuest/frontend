@@ -43,17 +43,23 @@ const QuestDetail = () => {
   }
 
   return (
-    <div>
+    <div className="lg:mt-8">
       <QuestProfile quest={quest} isDescription={false} />
-      <QuestImagesSection
-        selected={quest.images[selectedImage]}
-        images={quest.images}
-        onSelect={handleSelectImage}
-        selectedImage={selectedImage}
-      />
-      <Countdown countdown={voteStartCountdown} now={now} quest={quest} />
-      <VoteButton quest={quest} now={now} onVote={handleVote} />
-      <QuestProfile quest={quest} isDescription={true} />
+      <div className="flex flex-col lg:flex-row w-full">
+        <div className="lg:w-1/2 lg:pr-4">
+          <QuestImagesSection
+            selected={quest.images[selectedImage]}
+            images={quest.images}
+            onSelect={handleSelectImage}
+            selectedImage={selectedImage}
+          />
+        </div>
+        <div className="lg:w-1/2 lg:pl-4">
+          <Countdown countdown={voteStartCountdown} now={now} quest={quest} />
+          <VoteButton quest={quest} now={now} onVote={handleVote} />
+          <QuestProfile quest={quest} isDescription={true} />
+        </div>
+      </div>
     </div>
   );
 };

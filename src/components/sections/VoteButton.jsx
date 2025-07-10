@@ -4,8 +4,8 @@ import React from "react";
 const VoteButton = ({ now, quest, onVote }) => {
   return (
     <div>
-      {now > quest.voteStart && now <= quest.voteEnd && (
-        <div className="mt-3 w-full flex flex-col gap-2.5">
+      {/* {now > quest.voteStart && now <= quest.voteEnd && ( */}
+        <div className="w-full flex flex-col lg:flex-row gap-2.5 my-3">
           <button
             onClick={() => onVote(0)}
             className="rounded-xl active:scale-95 duration-200 flex items-center justify-center p-3 flex-row gap-1.5 bg-green-500 hover:bg-green-600 cursor-pointer w-full"
@@ -34,7 +34,7 @@ const VoteButton = ({ now, quest, onVote }) => {
             </h1>
           </button>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };

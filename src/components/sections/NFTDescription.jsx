@@ -5,7 +5,7 @@ const NFTDescription = ({ nft }) => {
   return (
     <div>
       <Title title={"Description"} />
-      <p className="text-sm italic text-secondary mb-4">{nft.description}</p>
+      <p className="text-sm lg:text-base italic text-secondary mb-4">{nft.description}</p>
     </div>
   );
 };
