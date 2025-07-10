@@ -12,7 +12,6 @@ import ReusableButton from "../components/buttons/ReusableButton";
 const RedeemDetail = () => {
   const { id } = useParams("id");
   const [nft, setNft] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
     if (nfts && id) {
