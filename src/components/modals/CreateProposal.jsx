@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import ReusableButton from "../buttons/ReusableButton";
 
 const CreateProposal = ({
   setProposalName,
@@ -16,7 +17,7 @@ const CreateProposal = ({
       <div className="bg-white/5 border border-white/10 backdrop-blur-lg p-6 rounded-xl w-full max-w-xl shadow-xl relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-secondary hover:text-primary"
+          className="absolute top-4 right-4 text-secondary hover:text-primary cursor-pointer"
         >
           <X size={20} />
         </button>
@@ -75,9 +76,12 @@ const CreateProposal = ({
             className="bg-white/10 p-3 rounded-lg text-sm text-secondary outline-none"
           />
 
-          <button className="mt-2 bg-primary text-secondary font-semibold rounded-lg py-2 hover:opacity-90 active:scale-95 transition-all">
-            Submit Proposal
-          </button>
+          <ReusableButton
+            text={"Submit"}
+            action={() => {}}
+            textColor={"text-secondary"}
+            buttonColor={"bg-primary"}
+          />
         </div>
       </div>
     </div>

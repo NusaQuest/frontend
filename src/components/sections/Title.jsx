@@ -6,11 +6,11 @@ const Title = ({ title, needCreate, onClick }) => {
     <div>
       {needCreate ? (
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-secondary text-xl mb-3">{title}</h1>
-          <Plus onClick={onClick} className="text-secondary" />
+          <h1 className="font-bold text-secondary text-xl lg:text-2xl mb-3">{title}</h1>
+          <Plus onClick={onClick} className="text-secondary cursor-pointer hover:text-primary" />
         </div>
       ) : (
-        <h1 className="font-bold text-secondary text-xl mb-3">{title}</h1>
+        <h1 className="font-bold text-secondary text-xl lg:text-2xl mb-3">{title}</h1>
       )}
     </div>
   );

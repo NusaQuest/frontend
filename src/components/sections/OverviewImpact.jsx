@@ -29,7 +29,7 @@ const OverviewImpact = ({ totalProposals, totalVotes, totalActions }) => {
         {items.map((item, index) => (
           <div
             key={index}
-            className="bg-white/5 border cursor-pointer hover:scale-105 active:scale-95 duration-200 border-white/10 rounded-2xl p-4 backdrop-blur-md shadow-lg flex items-center gap-4"
+            className="bg-white/5 border duration-200 border-white/10 rounded-2xl p-4 backdrop-blur-md shadow-lg flex items-center gap-4"
           >
             <div className="p-3 bg-white/10 rounded-full">{item.icon}</div>
             <div>
