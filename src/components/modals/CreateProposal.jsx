@@ -42,9 +42,13 @@ const CreateProposal = ({
           />
 
           <input
-            type="text"
-            placeholder="Image URLs (comma separated)"
-            onChange={(e) => setImages(e.target.value.split(","))}
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => {
+              const files = Array.from(e.target.files);
+              setImages(files);
+            }}
             className="bg-white/10 p-3 rounded-lg text-sm text-secondary outline-none"
           />
 
