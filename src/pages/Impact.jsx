@@ -7,11 +7,14 @@ import CleanupRecord from "../components/sections/CleanupRecord";
 import CreateProposal from "../components/modals/CreateProposal";
 import { useReadContract } from "wagmi";
 import nusaquest_abi from "../build/nusaquest_abi.json";
-import { NUSAQUEST_ADDRESS } from "../utils/env";
-import { getIdentity } from "../server/identity";
-import { getProposals } from "../server/proposal";
+import { NUSAQUEST_ADDRESS, pinata } from "../utils/env";
+import { addProposal, checkProposal, getProposals } from "../server/proposal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { writeContract } from "wagmi/actions";
+import { config } from "../App";
+import { encodeFunctionData } from "viem";
+import { getIdentity } from "../server/identity";
 
 // const proposals = [
 //   {
@@ -81,17 +84,30 @@ import { useNavigate } from "react-router-dom";
 //   },
 // ];
 
-const Impact = ({ address, registered }) => {
+const Impact = ({ address }) => {
+  const [registered, setRegistered] = useState(false);
   const [isClick, setIsClick] = useState(false);
-  const [proposalName, setProposalName] = useState("");
-  const [proposalDescription, setProposalDescription] = useState("");
+  const [isOnAction, setIsOnAction] = useState(false);
+  const [proposalName, setProposalName] = useState("Bersih-bersih Parangtritis");
+  const [proposalDescription, setProposalDescription] = useState(
+    "Organize clean-up at Parangtritis Beach involving local volunteers and waste management partners."
+  );
   const [images, setImages] = useState(null);
-  const [beachName, setBeachName] = useState("");
-  const [province, setProvince] = useState("");
-  const [city, setCity] = useState("");
-  const [maps, setMaps] = useState("");
+  const [beachName, setBeachName] = useState("Parangtritis Beach");
+  const [province, setProvince] = useState("Daerah Istimewa Yogyakarta");
+  const [city, setCity] = useState("Bantul");
+  const [maps, setMaps] = useState("maps.com");
   const [proposals, setProposals] = useState(null);
   const navigate = useNavigate();
+
+  const fetchIdentity = async () => {
+    const res = await getIdentity(address);
+    if (res.status === "success") {
+      setRegistered(true);
+    } else {
+      setRegistered(false);
+    }
+  };
 
   const {
     data: contributionData,
@@ -130,13 +146,213 @@ const Impact = ({ address, registered }) => {
     }
   };
 
+  const uploadPinata = async () => {
+    try {
+      console.log(pinata);
+      console.log(images);
+      const uploadPromises = await images.map((image) =>
+        pinata.upload.public.url(URL.createObjectURL(image))
+      );
+
+      const uploadedResults = await Promise.all(uploadPromises);
+
+      const urls = uploadedResults.map(
+        (res) => `https://gateway.pinata.cloud/ipfs/${res.cid}`
+      );
+
+      return urls;
+    } catch (error) {
+      console.error("Upload failed:", error);
+      return null;
+    }
+  };
+
+  const validateForm = () => {
+    if (
+      !proposalName ||
+      !proposalDescription ||
+      !beachName ||
+      !city ||
+      !province ||
+      !maps ||
+      !images
+    ) {
+      Swal.fire({
+        title: "Oops! 😅",
+        text: "Looks like you missed something. Please complete the form before submitting.",
+        icon: "warning",
+        confirmButtonText: "Will do!",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const handleUpload = async () => {
+    const urls = await uploadPinata();
+    if (urls.length != images.length) {
+      setIsOnAction(false);
+      await Swal.fire({
+        title: "Upload Failed ❌",
+        text: "We couldn’t upload your image. Please check your internet connection or try again later.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
+    return urls;
+  };
+
+  const validateProposalLogic = async (
+    targets,
+    values,
+    calldatas,
+    uploaded
+  ) => {
+    const check = await checkProposal(
+      targets,
+      values,
+      calldatas,
+      address,
+      proposalName,
+      proposalDescription,
+      beachName,
+      city,
+      province,
+      maps,
+      uploaded
+    );
+
+    if (check.status !== "success") {
+      setIsOnAction(false);
+      await Swal.fire({
+        title: "Invalid Proposal ⚠️",
+        text: "Proposal input is not valid. Make sure the location exists and the activity clearly describes a beach cleanup.",
+        icon: "warning",
+        confirmButtonText: "Close",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const submitToContract = async (targets, values, calldatas) => {
+    console.log(targets);
+    console.log(values);
+    console.log(calldatas);
+    try {
+      const contractRes = await writeContract(config, {
+        abi: nusaquest_abi,
+        address: NUSAQUEST_ADDRESS,
+        functionName: "initiate",
+        args: [targets, values, calldatas, proposalDescription],
+        account: address,
+      });
+      console.log(contractRes);
+      if (!contractRes) {
+        throw new Error("No response from contract");
+      }
+      return contractRes;
+    } catch (error) {
+      setIsOnAction(false);
+      await Swal.fire({
+        title: "Contract Execution Failed ❌",
+        text:
+          error?.shortMessage ||
+          error?.message ||
+          "Something went wrong while submitting the proposal.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+      return null;
+    }
+  };
+
+  const submitToBackend = async (targets, values, calldatas, uploaded) => {
+    console.log(uploaded);
+    const res = await addProposal(
+      targets,
+      values,
+      calldatas,
+      address,
+      proposalName,
+      proposalDescription,
+      beachName,
+      city,
+      province,
+      maps,
+      uploaded
+    );
+    if (res.status !== "success") {
+      setIsOnAction(false);
+      await Swal.fire({
+        title: "Failed to Submit Proposal ❌",
+        text: "Something went wrong while submitting your proposal. Please check your input or try again later.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const showSuccessAlert = async () => {
+    setIsOnAction(false);
+    await Swal.fire({
+      title: "Proposal Submitted 🎉",
+      text: "Your proposal has been successfully submitted to the blockchain.",
+      icon: "success",
+      confirmButtonText: "Close",
+    });
+  };
+
   const onCreate = async () => {
-    
-  }
+    if (!validateForm()) return;
+
+    setIsOnAction(true);
+    const uploaded = await handleUpload();
+    if (!uploaded) return;
+
+    const calldata = encodeFunctionData({
+      abi: nusaquest_abi,
+      functionName: "claimProposerReward",
+      args: [address],
+    });
+
+    const targets = [NUSAQUEST_ADDRESS];
+    const values = [0];
+    const calldatas = [calldata];
+
+    const valid = await validateProposalLogic(
+      targets,
+      values,
+      calldatas,
+      uploaded
+    );
+    if (!valid) return;
+
+    const contractResult = await submitToContract(targets, values, calldatas);
+    if (!contractResult) return;
+
+    const backendResult = await submitToBackend(
+      targets,
+      values,
+      calldatas,
+      uploaded
+    );
+    if (!backendResult) return;
+
+    await showSuccessAlert();
+  };
 
   useEffect(() => {
     fetchProposals();
   }, [isClick, proposals, registered]);
+
+  useEffect(() => {}, [isOnAction]);
+
+  useEffect(() => {
+    fetchIdentity();
+  }, []);
 
   return (
     <div>
@@ -165,6 +381,8 @@ const Impact = ({ address, registered }) => {
           setCity={setCity}
           setMaps={setMaps}
           onClose={handleClick}
+          isOnAction={isOnAction}
+          onCreate={onCreate}
         />
       )}
     </div>

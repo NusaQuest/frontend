@@ -16,6 +16,7 @@
     "axios": "^1.10.0",
     "ethers": "^6.15.0",
     "lucide-react": "^0.518.0",
+    "pinata": "^2.4.9",
     "react": "^19.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",

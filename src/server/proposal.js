@@ -15,6 +15,7 @@ export async function addProposal(
   map,
   images
 ) {
+  console.log(images);
   try {
     const res = await axios.post(`${BACKEND_API_URL}/proposals`, {
       sctargets: scTargets,
@@ -36,8 +37,7 @@ export async function addProposal(
   }
 }
 
-export async function updateProposal(
-  scId,
+export async function checkProposal(
   scTargets,
   scValues,
   scCalldatas,
@@ -51,8 +51,7 @@ export async function updateProposal(
   images
 ) {
   try {
-    const res = await axios.patch(`${BACKEND_API_URL}/proposals`, {
-      scid: scId,
+    const res = await axios.post(`${BACKEND_API_URL}/proposals/check`, {
       sctargets: scTargets,
       scvalues: scValues,
       sccalldatas: scCalldatas,

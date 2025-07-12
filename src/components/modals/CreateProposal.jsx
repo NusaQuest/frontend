@@ -11,6 +11,8 @@ const CreateProposal = ({
   setCity,
   setMaps,
   onClose,
+  onCreate,
+  isOnAction,
 }) => {
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 p-4 flex items-center justify-center">
@@ -82,9 +84,10 @@ const CreateProposal = ({
 
           <ReusableButton
             text={"Submit"}
-            action={() => {}}
             textColor={"text-secondary"}
             buttonColor={"bg-primary"}
+            action={onCreate}
+            isOnAction={isOnAction}
           />
         </div>
       </div>

@@ -5,18 +5,20 @@ import Home from "./pages/Home";
 import Footer from "./components/fixed/Footer";
 import NavMenu from "./components/fixed/NavMenu";
 import Register from "./pages/Register";
-import { useAccount, useWriteContract, useReadContract } from "wagmi";
+import { useAccount } from "wagmi";
 import Quest from "./pages/Quest";
 import Redeem from "./pages/Redeem";
 import Impact from "./pages/Impact";
 import QuestDetail from "./pages/QuestDetail";
 import RedeemDetail from "./pages/RedeemDetail";
 import History from "./pages/History";
-import { getProposals } from "./server/proposal";
-import { getIdentity } from "./server/identity";
+import { NUSAQUEST_ADDRESS } from "./utils/env";
+import { encodeFunctionData } from "viem";
+import nusaquest_abi from "./build/nusaquest_abi.json";
+import { config } from "./App";
+import { writeContract } from 'wagmi/actions';
 
 const Content = () => {
-  const [registered, setRegistered] = useState(false);
   const [click, setClick] = useState(false);
   const { address } = useAccount();
   const navigate = useNavigate();
@@ -30,20 +32,35 @@ const Content = () => {
     navigate(`${newPage.destination}`);
   };
 
-  const fetchIdentity = async () => {
-    const res = await getIdentity(address);
-    if (res.status === "success") {
-      setRegistered(true);
-    } else {
-      setRegistered(false);
-    }
-  };
-
   useEffect(() => {}, [click]);
 
   useEffect(() => {
-    fetchIdentity();
-  }, [address, registered]);
+    const calldata = encodeFunctionData({
+      abi: nusaquest_abi,
+      functionName: "claimProposerReward",
+      args: [address],
+    });
+
+    const targets = [NUSAQUEST_ADDRESS];
+    const values = [0];
+    const calldatas = [calldata];
+    console.log(targets);
+    console.log(values);
+    console.log("Calldatas:", calldatas);
+    console.log("typeof calldatas[0]:", typeof calldatas[0]);
+
+    const coba = async () => {
+      const simulation = await writeContract(config, {
+        abi: nusaquest_abi,
+        address: NUSAQUEST_ADDRESS,
+        functionName: "initiate",
+        args: [targets, values, calldatas, "hahaha"],
+        account: address,
+      });
+      console.log(simulation);
+    };
+    // coba();
+  }, []);
 
   return (
     <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col lg:px-8">
@@ -69,12 +86,7 @@ const Content = () => {
           <Route path="/redeem" element={<Redeem />} />
           <Route
             path="/impact"
-            element={
-              <Impact
-                address={address}
-                registered={registered}
-              />
-            }
+            element={<Impact address={address} />}
           />
           <Route path="/history" element={<History />} />
           <Route path="/quest/:id" element={<QuestDetail />} />
