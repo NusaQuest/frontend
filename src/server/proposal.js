@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BACKEND_API_URL } from "../utils/env";
-import { handleError } from "./helper/response";
+import { handleError, handleSuccess } from "./helper/response";
 
 export async function addProposal(
   scTargets,
@@ -29,7 +29,7 @@ export async function addProposal(
       map: map,
       images: images,
     });
-    return res.data;
+    return handleSuccess(res);
   } catch (error) {
     console.error(error);
     return handleError(error);
@@ -65,7 +65,7 @@ export async function updateProposal(
       map: map,
       images: images,
     });
-    return res.data;
+    return handleSuccess(res);
   } catch (error) {
     console.error(error);
     return handleError(error);
@@ -75,7 +75,7 @@ export async function updateProposal(
 export async function getProposals() {
   try {
     const res = await axios.get(`${BACKEND_API_URL}/proposals`);
-    return res.data;
+    return handleSuccess(res);
   } catch (error) {
     console.error(error);
     return handleError(error);

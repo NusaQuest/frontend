@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BACKEND_API_URL } from "../utils/env";
-import { handleError } from "./helper/response";
+import { handleError, handleSuccess } from "./helper/response";
 
 export async function addTransaction(
   wallet,
@@ -17,7 +17,7 @@ export async function addTransaction(
       txhash: txHash,
       txtimestamp: txTimestamp,
     });
-    return res.data;
+    return handleSuccess(res);
   } catch (error) {
     console.error(error);
     return handleError(error);
@@ -27,7 +27,7 @@ export async function addTransaction(
 export async function getWalletTransactions(wallet) {
   try {
     const res = await axios.get(`${BACKEND_API_URL}/transactions/${wallet}`);
-    return res.data;
+    return handleSuccess(res);
   } catch (error) {
     console.error(error);
     return handleError(error);

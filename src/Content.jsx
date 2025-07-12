@@ -48,7 +48,7 @@ const Content = () => {
       <div className="flex-1 mb-12">
         <Routes>
           <Route path="/" element={<Home address={address} />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/register" element={<Register address={address} />} />
           <Route path="/quest" element={<Quest />} />
           <Route path="/redeem" element={<Redeem />} />
           <Route path="/impact" element={<Impact />} />

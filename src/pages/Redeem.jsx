@@ -60,7 +60,7 @@ const Redeem = () => {
         firstText="Your"
         boldText="Concert"
         secondText="Pass Awaits"
-        paragraph="You've earned it — redeem your $NUSA tokens for NFT concert tickets. Join the crowd before it's gone!"
+        paragraph="You have 125 $NUSA tokens — redeem them now for NFT concert tickets. Join the crowd before it’s gone!"
       />
       <PageSection datas={nfts} type="redeem" title={"Claimable NFTs"} />
     </div>

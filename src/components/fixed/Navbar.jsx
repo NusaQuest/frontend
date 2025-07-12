@@ -1,5 +1,5 @@
 import React from "react";
-import { X, Menu } from "lucide-react";
+import { X, Menu, Coins } from "lucide-react";
 import Logo from "../../assets/nusaquest_logo.png";
 import { navs, truncate } from "../../utils/helper";
 import xellar from "../../assets/xellar.png";
