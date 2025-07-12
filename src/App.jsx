@@ -3,14 +3,14 @@ import Content from "./Content";
 import { darkTheme, defaultConfig, XellarKitProvider } from "@xellar/kit";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from "wagmi";
-import { liskSepolia } from "viem/chains";
+import { holesky, liskSepolia } from "viem/chains";
 
 const config = defaultConfig({
   appName: "NusaQuest",
   walletConnectProjectId: import.meta.env.VITE_REOWN_PROJECT_ID,
   xellarAppId: import.meta.env.VITE_XELLAR_APP_ID,
   xellarEnv: "sandbox",
-  chains: [liskSepolia],
+  chains: [holesky],
 });
 
 const queryClient = new QueryClient();

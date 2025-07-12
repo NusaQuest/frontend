@@ -31,64 +31,75 @@ const ProposalTable = ({ proposals, onCancel, onQueue, onExecute }) => {
           </tr>
         </thead>
         <tbody>
-          {proposals.map((item, index) => {
-            const status = getStatus(item);
+          {proposals && proposals.length > 0 ? (
+            proposals.map((item, index) => {
+              const status = getStatus(item);
 
-            return (
-              <tr
-                key={index}
-                className="border-t border-white/10 hover:bg-white/5 transition"
+              return (
+                <tr
+                  key={index}
+                  className="border-t border-white/10 hover:bg-white/5 transition"
+                >
+                  <td className="px-4 py-3 text-secondary font-medium">
+                    <Link
+                      to={`/quest/${item.id}`}
+                      className="hover:underline cursor-pointer transition"
+                    >
+                      {item.name}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`text-xs px-2 py-1 rounded-md font-semibold ${statusColors[status]}`}
+                    >
+                      {status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    {status === "Upcoming" && (
+                      <button
+                        onClick={() => onCancel(item)}
+                        className="text-red-500 hover:underline text-sm font-semibold"
+                      >
+                        Cancel
+                      </button>
+                    )}
+
+                    {status === "Pending" && (
+                      <button
+                        onClick={() => onQueue(item)}
+                        className="text-orange-500 hover:underline text-sm font-semibold"
+                      >
+                        Queue
+                      </button>
+                    )}
+
+                    {status === "Executed" && (
+                      <button
+                        onClick={() => onExecute(item)}
+                        className="text-green-500 hover:underline text-sm font-semibold"
+                      >
+                        Execute
+                      </button>
+                    )}
+
+                    {(status === "Voting" || status === "Unknown") && (
+                      <span className="text-gray-400 text-sm">—</span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td
+                colSpan={3}
+                className="text-center text-gray-400 py-4 text-lg lg:text-xl"
               >
-                <td className="px-4 py-3 text-secondary font-medium">
-                  <Link
-                    to={`/quest/${item.id}`}
-                    className="hover:underline cursor-pointer transition"
-                  >
-                    {item.name}
-                  </Link>
-                </td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`text-xs px-2 py-1 rounded-md font-semibold ${statusColors[status]}`}
-                  >
-                    {status}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  {status === "Upcoming" && (
-                    <button
-                      onClick={() => onCancel(item)}
-                      className="text-red-500 hover:underline text-sm font-semibold"
-                    >
-                      Cancel
-                    </button>
-                  )}
-
-                  {status === "Pending" && (
-                    <button
-                      onClick={() => onQueue(item)}
-                      className="text-orange-500 hover:underline text-sm font-semibold"
-                    >
-                      Queue
-                    </button>
-                  )}
-
-                  {status === "Executed" && (
-                    <button
-                      onClick={() => onExecute(item)}
-                      className="text-green-500 hover:underline text-sm font-semibold"
-                    >
-                      Execute
-                    </button>
-                  )}
-
-                  {(status === "Voting" || status === "Unknown") && (
-                    <span className="text-gray-400 text-sm">—</span>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
+                No proposals found.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

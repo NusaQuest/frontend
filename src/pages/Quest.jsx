@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../components/sections/Header";
 import PageSection from "../components/sections/PageSection";
+import { getProposals } from "../server/proposal";
 
 export const quests = [
   {
@@ -72,6 +73,15 @@ export const quests = [
 ];
 
 const Quest = () => {
+  const [proposals, setProposals] = useState(null);
+
+  const fetchProposals = async () => {
+    const res = await getProposals();
+    if (res.status === "success") {
+      setProposals(res.data.proposals);
+    }
+  };
+
   return (
     <div>
       <Header
