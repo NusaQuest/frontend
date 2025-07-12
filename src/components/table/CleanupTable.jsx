@@ -12,35 +12,46 @@ const CleanupTable = ({ proposals, onView }) => {
           </tr>
         </thead>
         <tbody>
-          {proposals.map((item, index) => {
-            return (
-              <tr
-                key={index}
-                className="border-t border-white/10 hover:bg-white/5 transition"
-              >
-                <td className="px-4 py-3 text-secondary font-medium">
-                  <Link
-                    to={`/quest/${item.id}`}
-                    className="hover:underline cursor-pointer transition"
-                  >
-                    {item.name}
-                  </Link>
-                </td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`text-xs px-2 py-1 rounded-md font-semibold`}
-                  >
-                    <button
-                      onClick={() => onView(item)}
-                      className="text-blue-500 hover:underline text-sm font-semibold"
+          {proposals && proposals.length > 0 ? (
+            proposals.map((item, index) => {
+              return (
+                <tr
+                  key={index}
+                  className="border-t border-white/10 hover:bg-white/5 transition"
+                >
+                  <td className="px-4 py-3 text-secondary font-medium">
+                    <Link
+                      to={`/quest/${item.id}`}
+                      className="hover:underline cursor-pointer transition"
                     >
-                      View
-                    </button>
-                  </span>
-                </td>
-              </tr>
-            );
-          })}
+                      {item.name}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`text-xs px-2 py-1 rounded-md font-semibold`}
+                    >
+                      <button
+                        onClick={() => onView(item)}
+                        className="text-blue-500 hover:underline text-sm font-semibold"
+                      >
+                        View
+                      </button>
+                    </span>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td
+                colSpan={3}
+                className="text-center text-gray-400 py-4 text-lg lg:text-xl"
+              >
+                No proposals found.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

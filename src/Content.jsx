@@ -44,10 +44,6 @@ const Content = () => {
     const targets = [NUSAQUEST_ADDRESS];
     const values = [0];
     const calldatas = [calldata];
-    console.log(targets);
-    console.log(values);
-    console.log("Calldatas:", calldatas);
-    console.log("typeof calldatas[0]:", typeof calldatas[0]);
 
     const coba = async () => {
       const simulation = await writeContract(config, {

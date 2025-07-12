@@ -1,21 +1,73 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { readContract } from "wagmi/actions";
+import { config } from "../../App";
+import nusaquest_abi from "../../build/nusaquest_abi.json";
+import { NUSAQUEST_ADDRESS } from "../../utils/env";
+import { encodeBytes32String } from "ethers";
+import ProposalRow from "../row/ProposalRow";
 
 const ProposalTable = ({ proposals, onCancel, onQueue, onExecute }) => {
   const now = Date.now() / 1000;
 
-  const getStatus = (item) => {
-    if (now < item.voteStart) return "Upcoming";
-    if (now >= item.voteStart && now <= item.voteEnd) return "Voting";
-    if (now > item.voteEnd && now < item.executionDelay) return "Pending";
-    if (now >= item.executionDelay) return "Executed";
-    return "Unknown";
+  // const getStatus = (item) => {
+  //   if (now < item.voteStart) return "Upcoming";
+  //   if (now >= item.voteStart && now <= item.voteEnd) return "Voting";
+  //   if (now > item.voteEnd && now < item.executionDelay) return "Pending";
+  //   if (now >= item.executionDelay) return "Executed";
+  //   return "Unknown";
+  // };
+
+  const getState = async (proposal) => {
+    const proposalId = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "getProposalId",
+      args: [
+        proposal.targets,
+        proposal.values,
+        proposal.calldatas,
+        encodeBytes32String(proposal.proposaldescription),
+      ],
+    });
+    const state = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "state",
+      args: [proposalId],
+    });
+    console.log(state);
+
+    switch (state) {
+      case 0:
+        return "Pending";
+      case 1:
+        return "Active";
+      case 2:
+        return "Canceled";
+      case 3:
+        return "Defeated";
+      case 4:
+        return "Succeeded";
+      case 5:
+        return "Queued";
+      case 6:
+        return "Expired";
+      case 7:
+        return "Executed";
+      default:
+        return "Unknown";
+    }
   };
 
   const statusColors = {
-    Upcoming: "bg-purple-100 text-purple-800",
-    Voting: "bg-yellow-100 text-yellow-800",
     Pending: "bg-orange-100 text-orange-800",
+    Active: "bg-blue-100 text-blue-800",
+    Canceled: "bg-red-100 text-red-800",
+    Defeated: "bg-red-100 text-red-800",
+    Succeeded: "bg-green-100 text-green-800",
+    Queued: "bg-indigo-100 text-indigo-800",
+    Expired: "bg-gray-100 text-gray-800",
     Executed: "bg-green-100 text-green-800",
     Unknown: "bg-gray-100 text-gray-800",
   };
@@ -33,62 +85,7 @@ const ProposalTable = ({ proposals, onCancel, onQueue, onExecute }) => {
         <tbody>
           {proposals && proposals.length > 0 ? (
             proposals.map((item, index) => {
-              const status = getStatus(item);
-
-              return (
-                <tr
-                  key={index}
-                  className="border-t border-white/10 hover:bg-white/5 transition"
-                >
-                  <td className="px-4 py-3 text-secondary font-medium">
-                    <Link
-                      to={`/quest/${item.id}`}
-                      className="hover:underline cursor-pointer transition"
-                    >
-                      {item.name}
-                    </Link>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`text-xs px-2 py-1 rounded-md font-semibold ${statusColors[status]}`}
-                    >
-                      {status}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    {status === "Upcoming" && (
-                      <button
-                        onClick={() => onCancel(item)}
-                        className="text-red-500 hover:underline text-sm font-semibold"
-                      >
-                        Cancel
-                      </button>
-                    )}
-
-                    {status === "Pending" && (
-                      <button
-                        onClick={() => onQueue(item)}
-                        className="text-orange-500 hover:underline text-sm font-semibold"
-                      >
-                        Queue
-                      </button>
-                    )}
-
-                    {status === "Executed" && (
-                      <button
-                        onClick={() => onExecute(item)}
-                        className="text-green-500 hover:underline text-sm font-semibold"
-                      >
-                        Execute
-                      </button>
-                    )}
-
-                    {(status === "Voting" || status === "Unknown") && (
-                      <span className="text-gray-400 text-sm">—</span>
-                    )}
-                  </td>
-                </tr>
-              );
+              return <ProposalRow key={index} proposal={item} />;
             })
           ) : (
             <tr>

@@ -11,84 +11,17 @@ import { NUSAQUEST_ADDRESS, pinata } from "../utils/env";
 import { addProposal, checkProposal, getProposals } from "../server/proposal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { writeContract } from "wagmi/actions";
-import { config } from "../App";
 import { encodeFunctionData } from "viem";
 import { getIdentity } from "../server/identity";
-
-// const proposals = [
-//   {
-//     id: "64f6c2e0a29b3c001c7d9f0a",
-//     scId: 1,
-//     scTargets: ["0x1234567890abcdef1234567890abcdef12345678"],
-//     scValues: [0],
-//     scCalldatas: ["0x"],
-//     wallet: "0xabcDEFabcDEFabcDEFabcDEFabcDEFabcDEF1234",
-//     name: "Clean Up Kuta Beach",
-//     proposalDescription:
-//       "Let’s clean up plastic and trash at Kuta Beach in Bali. This is an effort to preserve one of Indonesia’s most iconic beaches.",
-//     beachName: "Kuta Beach",
-//     city: "Badung",
-//     province: "Bali",
-//     map: "https://maps.google.com/?q=Kuta+Beach+Bali",
-//     images: [
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYI7LqH-eXp_z3hW4-XRWp7J8eS0bEqazWaQ&s",
-//       "https://example.com/images/kuta2.jpg",
-//     ],
-//     voteStart: 1751808000, // 2025-07-06T08:00:00Z
-//     voteEnd: 1751980800, // 2025-07-08T08:00:00Z
-//     executionDelay: 86400, // 24 jam
-//   },
-//   {
-//     id: "64f6c2e0a29b3c001c7d9f0b",
-//     scId: 2,
-//     scTargets: ["0x9876543210fedcba9876543210fedcba98765432"],
-//     scValues: [0],
-//     scCalldatas: ["0x"],
-//     wallet: "0x123ABC123ABC123ABC123ABC123ABC123ABC123A",
-//     name: "Clean Up Parangtritis Beach",
-//     proposalDescription:
-//       "Help clean up the Parangtritis coast and support local eco-tourism while earning $NUSA tokens.",
-//     beachName: "Parangtritis Beach",
-//     city: "Bantul",
-//     province: "Yogyakarta",
-//     map: "https://maps.google.com/?q=Parangtritis+Beach",
-//     images: [
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYI7LqH-eXp_z3hW4-XRWp7J8eS0bEqazWaQ&s",
-//     ],
-//     voteStart: 1751894400, // 2025-07-07T10:00:00Z
-//     voteEnd: 1752067200, // 2025-07-09T10:00:00Z
-//     executionDelay: 43200, // 12 jam
-//   },
-//   {
-//     id: "64f6c2e0a29b3c001c7d9f0c",
-//     scId: 3,
-//     scTargets: ["0xa1b2c3d4e5f6071829384756aabbccddeeff0011"],
-//     scValues: [0],
-//     scCalldatas: ["0x"],
-//     wallet: "0xdef456DEF456DEF456DEF456DEF456DEF4567890",
-//     name: "Clean Up Losari Beach",
-//     proposalDescription:
-//       "Join us to restore the beauty of Losari Beach in Makassar by removing trash and plastic debris with local volunteers.",
-//     beachName: "Losari Beach",
-//     city: "Makassar",
-//     province: "South Sulawesi",
-//     map: "https://maps.google.com/?q=Losari+Beach",
-//     images: [
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYI7LqH-eXp_z3hW4-XRWp7J8eS0bEqazWaQ&s",
-//       "https://example.com/images/losari2.jpg",
-//     ],
-//     voteStart: 1751980800, // 2025-07-08T08:00:00Z
-//     voteEnd: 1752153600, // 2025-07-10T08:00:00Z
-//     executionDelay: 86400, // 24 jam
-//   },
-// ];
+import { contribution, initiate } from "../services/proposal";
 
 const Impact = ({ address }) => {
   const [registered, setRegistered] = useState(false);
   const [isClick, setIsClick] = useState(false);
   const [isOnAction, setIsOnAction] = useState(false);
-  const [proposalName, setProposalName] = useState("Bersih-bersih Parangtritis");
+  const [proposalName, setProposalName] = useState(
+    "Bersih-bersih Parangtritis"
+  );
   const [proposalDescription, setProposalDescription] = useState(
     "Organize clean-up at Parangtritis Beach involving local volunteers and waste management partners."
   );
@@ -98,9 +31,14 @@ const Impact = ({ address }) => {
   const [city, setCity] = useState("Bantul");
   const [maps, setMaps] = useState("maps.com");
   const [proposals, setProposals] = useState(null);
+  const [totalProposals, setTotalProposals] = useState(0);
+  const [totalVotes, setTotalVotes] = useState(0);
+  const [totalQuestsExecuted, setTotalQuestsExecuted] = useState(0);
   const navigate = useNavigate();
 
   const fetchIdentity = async () => {
+    if (!address) return;
+
     const res = await getIdentity(address);
     if (res.status === "success") {
       setRegistered(true);
@@ -109,24 +47,27 @@ const Impact = ({ address }) => {
     }
   };
 
-  const {
-    data: contributionData,
-    isLoading,
-    error,
-  } = useReadContract({
-    abi: nusaquest_abi,
-    address: NUSAQUEST_ADDRESS,
-    functionName: "contribution",
-    args: [address],
-  });
-
-  const [totalProposals, totalVotes, totalActions] = contributionData || [];
-
   const fetchProposals = async () => {
+    if (!address) return;
+
     const res = await getProposals();
     if (res.status === "success") {
-      setProposals(res.data.proposals);
+      const data = res.data.proposals;
+      const myProposals = data.filter(
+        (item) => item.wallet.toLowerCase() === address.toLowerCase()
+      );
+      setProposals(myProposals);
     }
+  };
+
+  const fetchContribution = async () => {
+    if (!address) return;
+
+    const [totalProposals, totalVotes, totalQuestsExecuted] =
+      await contribution(address);
+    setTotalProposals(totalProposals);
+    setTotalVotes(totalVotes);
+    setTotalQuestsExecuted(totalQuestsExecuted);
   };
 
   const handleClick = () => {
@@ -148,8 +89,6 @@ const Impact = ({ address }) => {
 
   const uploadPinata = async () => {
     try {
-      console.log(pinata);
-      console.log(images);
       const uploadPromises = await images.map((image) =>
         pinata.upload.public.url(URL.createObjectURL(image))
       );
@@ -236,22 +175,17 @@ const Impact = ({ address }) => {
   };
 
   const submitToContract = async (targets, values, calldatas) => {
-    console.log(targets);
-    console.log(values);
-    console.log(calldatas);
     try {
-      const contractRes = await writeContract(config, {
-        abi: nusaquest_abi,
-        address: NUSAQUEST_ADDRESS,
-        functionName: "initiate",
-        args: [targets, values, calldatas, proposalDescription],
-        account: address,
-      });
-      console.log(contractRes);
-      if (!contractRes) {
+      const result = await initiate(
+        targets,
+        values,
+        calldatas,
+        proposalDescription
+      );
+      if (!result) {
         throw new Error("No response from contract");
       }
-      return contractRes;
+      return result;
     } catch (error) {
       setIsOnAction(false);
       await Swal.fire({
@@ -268,7 +202,6 @@ const Impact = ({ address }) => {
   };
 
   const submitToBackend = async (targets, values, calldatas, uploaded) => {
-    console.log(uploaded);
     const res = await addProposal(
       targets,
       values,
@@ -346,12 +279,13 @@ const Impact = ({ address }) => {
 
   useEffect(() => {
     fetchProposals();
-  }, [isClick, proposals, registered]);
+  }, [isClick, registered]);
 
   useEffect(() => {}, [isOnAction]);
 
   useEffect(() => {
     fetchIdentity();
+    fetchContribution();
   }, []);
 
   return (
@@ -365,11 +299,11 @@ const Impact = ({ address }) => {
       <OverviewImpact
         totalProposals={parseInt(totalProposals)}
         totalVotes={parseInt(totalVotes)}
-        totalActions={parseInt(totalActions)}
+        totalActions={parseInt(totalQuestsExecuted)}
       />
       <Proposals proposals={proposals} onAction={handleClick} />
-      {/* <Votes proposals={proposals} /> */}
-      {/* <CleanupRecord proposals={proposals} /> */}
+      <Votes proposals={proposals} />
+      <CleanupRecord proposals={proposals} />
 
       {isClick && (
         <CreateProposal
