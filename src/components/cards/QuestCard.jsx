@@ -1,37 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { getProposalId, state } from "../../services/proposal";
+import { mapStateToStatus, statusColors } from "../../utils/helper";
 
 const QuestCard = ({ item }) => {
   const now = Date.now() / 1000;
   const navigate = useNavigate();
+  const [status, setStatus] = useState("Loading");
 
-  let status = "Unknown";
-  if (now < item.voteStart) {
-    status = "Upcoming";
-  } else if (now >= item.voteStart && now <= item.voteEnd) {
-    status = "Voting";
-  } else if (now > item.voteEnd && now < item.executionDelay) {
-    status = "Pending";
-  } else if (now >= item.executionDelay) {
-    status = "Executed";
-  }
+  // let status = "Unknown";
+  // if (now < item.voteStart) {
+  //   status = "Upcoming";
+  // } else if (now >= item.voteStart && now <= item.voteEnd) {
+  //   status = "Voting";
+  // } else if (now > item.voteEnd && now < item.executionDelay) {
+  //   status = "Pending";
+  // } else if (now >= item.executionDelay) {
+  //   status = "Executed";
+  // }
 
-  const statusColors = {
-    Unknown: "bg-primary text-secondary",
-    Upcoming: "bg-purple-100 text-purple-800",
-    Voting: "bg-yellow-100 text-yellow-800",
-    Pending: "bg-orange-100 text-orange-800",
-    Executed: "bg-green-100 text-green-800",
-  };
+  useEffect(() => {
+    const fetchStatus = async () => {
+      try {
+        const proposalId = await getProposalId(item);
+        const proposalState = await state(proposalId);
+        const statusText = mapStateToStatus(proposalState);
+        setStatus(statusText);
+      } catch (err) {
+        console.error("Failed to get status:", err);
+        setStatus("Unknown");
+      }
+    };
 
-  const statusIcons = {
-    Unknown: "❔",
-    Upcoming: "⏳",
-    Voting: "🗳️",
-    Pending: "🕒",
-    Executed: "✅",
-  };
+    fetchStatus();
+  }, [item]);
 
   const handleNavigate = (id) => {
     navigate("/quest/" + id);
@@ -47,7 +50,7 @@ const QuestCard = ({ item }) => {
       <div
         className={`absolute top-3 right-3 z-10 text-xs font-semibold px-3 py-1 rounded-md ${statusColors[status]}`}
       >
-        {statusIcons[status]} {status}
+        {status}
       </div>
       <div className="relative w-full h-48">
         <img
@@ -59,7 +62,9 @@ const QuestCard = ({ item }) => {
       </div>
       <div className="p-4 flex flex-col gap-3">
         <div className="flex flex-col gap-0.5">
-          <h2 className="text-lg font-bold text-secondary">{item.name}</h2>
+          <h2 className="text-lg font-bold text-secondary">
+            {item.proposalname}
+          </h2>
           <a
             href={item.maps}
             target="_blank"
@@ -67,11 +72,11 @@ const QuestCard = ({ item }) => {
             className="flex items-center gap-1 text-xs italic text-secondary hover:underline"
           >
             <MapPin size={14} className="text-primary" />
-            {item.beachName}, {item.city}, {item.province}
+            {item.beachname}, {item.city}, {item.province}
           </a>
         </div>
         <p className="text-sm text-secondary line-clamp-2">
-          {item.proposalDescription}
+          {item.proposaldescription}
         </p>
       </div>
     </div>

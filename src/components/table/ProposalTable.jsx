@@ -18,60 +18,6 @@ const ProposalTable = ({ proposals, onCancel, onQueue, onExecute }) => {
   //   return "Unknown";
   // };
 
-  const getState = async (proposal) => {
-    const proposalId = await readContract(config, {
-      abi: nusaquest_abi,
-      address: NUSAQUEST_ADDRESS,
-      functionName: "getProposalId",
-      args: [
-        proposal.targets,
-        proposal.values,
-        proposal.calldatas,
-        encodeBytes32String(proposal.proposaldescription),
-      ],
-    });
-    const state = await readContract(config, {
-      abi: nusaquest_abi,
-      address: NUSAQUEST_ADDRESS,
-      functionName: "state",
-      args: [proposalId],
-    });
-    console.log(state);
-
-    switch (state) {
-      case 0:
-        return "Pending";
-      case 1:
-        return "Active";
-      case 2:
-        return "Canceled";
-      case 3:
-        return "Defeated";
-      case 4:
-        return "Succeeded";
-      case 5:
-        return "Queued";
-      case 6:
-        return "Expired";
-      case 7:
-        return "Executed";
-      default:
-        return "Unknown";
-    }
-  };
-
-  const statusColors = {
-    Pending: "bg-orange-100 text-orange-800",
-    Active: "bg-blue-100 text-blue-800",
-    Canceled: "bg-red-100 text-red-800",
-    Defeated: "bg-red-100 text-red-800",
-    Succeeded: "bg-green-100 text-green-800",
-    Queued: "bg-indigo-100 text-indigo-800",
-    Expired: "bg-gray-100 text-gray-800",
-    Executed: "bg-green-100 text-green-800",
-    Unknown: "bg-gray-100 text-gray-800",
-  };
-
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm text-left border-collapse">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { quests } from "./Quest";
 import Title from "../components/sections/Title";
 import { getCountdown, truncate } from "../utils/helper";
 import { Copy, MapPin, User, ThumbsUp, ThumbsDown, Circle } from "lucide-react";
@@ -9,6 +8,8 @@ import Countdown from "../components/sections/Countdown";
 import VoteButton from "../components/sections/VoteButton";
 import QuestImagesSection from "../components/sections/QuestImagesSection";
 import QuestProfile from "../components/sections/QuestProfile";
+
+const quests =[]
 
 const QuestDetail = () => {
   const { id } = useParams("id");
