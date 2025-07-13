@@ -1,9 +1,21 @@
 import React from "react";
+import { statusColors } from "../../utils/helper";
 
-const QuestImagesSection = ({ selected, images, onSelect, selectedImage }) => {
+const QuestImagesSection = ({
+  selected,
+  images,
+  onSelect,
+  selectedImage,
+  status,
+}) => {
   return (
     <div>
-      <div className="w-full">
+      <div className="w-full relative">
+        <div
+          className={`absolute top-3 right-3 z-10 text-xs font-semibold px-3 py-1 rounded-md ${statusColors[status]}`}
+        >
+          {status}
+        </div>
         <img src={selected} className="rounded-xl w-full h-48 md:h-full" />
       </div>
       <div className="flex items-center justify-center flex-row gap-2 mt-4 mb-6">

@@ -8,7 +8,7 @@ const QuestProfile = ({ quest, isDescription }) => {
     <div>
       {!isDescription ? (
         <div>
-          <Title title={quest.name} />
+          <Title title={quest.proposalname} />
           <a
             href={quest.maps}
             target="_blank"
@@ -16,7 +16,7 @@ const QuestProfile = ({ quest, isDescription }) => {
             className="flex items-center gap-1 text-sm lg:text-base italic text-secondary hover:underline"
           >
             <MapPin size={14} className="text-primary" />
-            {quest.beachName}, {quest.city}, {quest.province}
+            {quest.beachname}, {quest.city}, {quest.province}
           </a>
           <div className="flex flex-row gap-1 items-center mt-2 mb-4">
             <User className="text-primary size-4" />
@@ -29,7 +29,7 @@ const QuestProfile = ({ quest, isDescription }) => {
       ) : (
         <div>
           <Title title={"Description"} />
-          <p className="text-secondary text-sm lg:text-base">{quest.proposalDescription}</p>
+          <p className="text-secondary text-sm lg:text-base">{quest.proposaldescription}</p>
         </div>
       )}
     </div>
