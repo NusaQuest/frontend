@@ -17,7 +17,7 @@ const advantages = [
     advantage: "Impact & Rewards",
     icon: "gift",
     description:
-      "Join beach cleanups to earn $NUSA tokens and redeem them for concert ticket NFTs.",
+      "Join beach cleanups to earn NUSA tokens and redeem them for concert ticket NFTs.",
   },
   {
     advantage: "DAO-Powered Governance",
@@ -58,7 +58,9 @@ const AdvantageSection = () => {
                 <img src={iconMap[item.icon]} />
               </div>{" "}
               <div className="text-secondary w-2/3">
-                <h1 className="text-lg font-bold lg:text-2xl">{item.advantage}</h1>
+                <h1 className="text-lg font-bold lg:text-2xl">
+                  {item.advantage}
+                </h1>
                 <p className="text-sm lg:text-base">{item.description}</p>
               </div>
             </div>

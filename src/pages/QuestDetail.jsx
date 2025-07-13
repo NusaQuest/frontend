@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Title from "../components/sections/Title";
-import { getCountdown, mapStateToStatus, truncate } from "../utils/helper";
-import { Copy, MapPin, User, ThumbsUp, ThumbsDown, Circle } from "lucide-react";
-import ReusableButton from "../components/buttons/ReusableButton";
+import { mapStateToStatus } from "../utils/helper";
 import Countdown from "../components/sections/Countdown";
 import VoteButton from "../components/sections/VoteButton";
 import QuestImagesSection from "../components/sections/QuestImagesSection";
@@ -13,7 +10,6 @@ import {
   executionDelay,
   getProposalId,
   state,
-  votingDelay,
   votingDelay,
   votingPeriod,
 } from "../services/proposal";

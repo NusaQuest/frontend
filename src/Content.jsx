@@ -16,7 +16,7 @@ import { NUSAQUEST_ADDRESS } from "./utils/env";
 import { encodeFunctionData } from "viem";
 import nusaquest_abi from "./build/nusaquest_abi.json";
 import { config } from "./App";
-import { writeContract } from 'wagmi/actions';
+import { writeContract } from "wagmi/actions";
 
 const Content = () => {
   const [click, setClick] = useState(false);
@@ -79,11 +79,8 @@ const Content = () => {
           <Route path="/" element={<Home address={address} />} />
           <Route path="/register" element={<Register address={address} />} />
           <Route path="/quest" element={<Quest />} />
-          <Route path="/redeem" element={<Redeem />} />
-          <Route
-            path="/impact"
-            element={<Impact address={address} />}
-          />
+          <Route path="/redeem" element={<Redeem address={address} />} />
+          <Route path="/impact" element={<Impact address={address} />} />
           <Route path="/history" element={<History />} />
           <Route path="/quest/:id" element={<QuestDetail />} />
           <Route path="/redeem/:id" element={<RedeemDetail />} />

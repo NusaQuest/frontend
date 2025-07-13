@@ -286,7 +286,7 @@ const Impact = ({ address }) => {
   useEffect(() => {
     fetchIdentity();
     fetchContribution();
-  }, []);
+  }, [address]);
 
   return (
     <div>

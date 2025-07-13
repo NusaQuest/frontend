@@ -3,7 +3,10 @@ import { config } from "../App";
 import nusaquest_abi from "../build/nusaquest_abi.json";
 import { keccak256, toUtf8Bytes } from "ethers";
 import { NUSAQUEST_ADDRESS } from "../utils/env";
-import { getCountdownFromBlockNumber, getCountdownFromBlockTimestamp } from "./helper/converter";
+import {
+  getCountdownFromBlockNumber,
+  getCountdownFromBlockTimestamp,
+} from "./helper/converter";
 
 export async function initiate(
   targets,
@@ -13,14 +16,14 @@ export async function initiate(
   address
 ) {
   try {
-    const res = await writeContract(config, {
+    const result = await writeContract(config, {
       abi: nusaquest_abi,
       address: NUSAQUEST_ADDRESS,
       functionName: "initiate",
       args: [targets, values, calldatas, description],
       account: address,
     });
-    return res;
+    return result;
   } catch (error) {
     console.error(error);
     return;

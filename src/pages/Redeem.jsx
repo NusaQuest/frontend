@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/sections/Header";
 import PageSection from "../components/sections/PageSection";
+import { balanceOf } from "../services/ft";
 
 export const nfts = [
   {
@@ -53,14 +54,27 @@ export const nfts = [
   },
 ];
 
-const Redeem = () => {
+const Redeem = ({ address }) => {
+  const [balance, setBalance] = useState(0);
+
+  const fetchBalance = async () => {
+    if (!address) return;
+
+    const balance = await balanceOf(address);
+    setBalance(balance);
+  };
+
+  useEffect(() => {
+    fetchBalance();
+  }, [address, balance]);
+
   return (
     <div>
       <Header
         firstText="Your"
         boldText="Concert"
         secondText="Pass Awaits"
-        paragraph="You have 125 $NUSA tokens — redeem them now for NFT concert tickets. Join the crowd before it’s gone!"
+        paragraph={`You have ${balance} NUSA tokens — redeem them now for NFT concert tickets. Join the crowd before it’s gone!`}
       />
       <PageSection datas={nfts} type="redeem" title={"Claimable NFTs"} />
     </div>
