@@ -83,7 +83,10 @@ const Content = () => {
           <Route path="/impact" element={<Impact address={address} />} />
           <Route path="/history" element={<History address={address} />} />
           <Route path="/quest/:id" element={<QuestDetail />} />
-          <Route path="/redeem/:id" element={<RedeemDetail />} />
+          <Route
+            path="/redeem/:id"
+            element={<RedeemDetail address={address} />}
+          />
         </Routes>
       </div>
 

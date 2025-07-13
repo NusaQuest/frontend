@@ -30,7 +30,7 @@ const NFTCard = ({ item }) => {
         <div className="flex justify-between items-center text-sm text-secondary mt-2">
           <div className="flex items-center gap-1">
             <Coins className="w-4 h-4 text-yellow-400" />
-            <span>{item.price} $NUSA</span>
+            <span>{item.price} NUSA</span>
           </div>
           <div className="flex items-center gap-1">
             <Ticket className="w-4 h-4 text-green-400" />

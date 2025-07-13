@@ -11,7 +11,7 @@ const NFTDetail = ({ nft }) => {
           <BadgePercent className="text-primary size-5" />
           <div className="text-secondary text-sm">
             <p className="text-xs">Price</p>
-            <p className="font-bold text-base">{nft.price} $NUSA</p>
+            <p className="font-bold text-base">{nft.price} NUSA</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -19,7 +19,7 @@ const NFTDetail = ({ nft }) => {
           <div className="text-secondary text-sm">
             <p className="text-xs">Claimed</p>
             <p className="font-bold text-base">
-              {nft.purchased} / {nft.stock}
+              {nft.purchased} / {nft.stock + nft.purchased}
             </p>
           </div>
         </div>
