@@ -15,7 +15,6 @@ export async function addProposal(
   map,
   images
 ) {
-  console.log(images);
   try {
     const res = await axios.post(`${BACKEND_API_URL}/proposals`, {
       sctargets: scTargets,

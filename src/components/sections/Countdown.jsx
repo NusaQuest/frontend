@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "./Title";
+import { getCountdown } from "../../utils/helper";
 
-const Countdown = ({ now, countdown, quest }) => {
+const Countdown = ({ timestamp, status }) => {
+  const [countdown, setCountdown] = useState(getCountdown(timestamp));
+
+  useEffect(() => {
+    console.log(timestamp);
+
+    const interval = setInterval(() => {
+      setCountdown(getCountdown(timestamp));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timestamp]);
+
   return (
     <div>
-      <Title title={"Countdown"} />
       <div className="mt-3">
-        {now <= quest.voteStart && <Title title={"Voting starts on"} />}
-        {now > quest.voteStart && now <= quest.voteEnd && (
-          <Title title={"Voting ends on"} />
-        )}
-        {now > quest.voteEnd && now <= quest.executionDelay && (
-          <Title title={"Awaiting quest execution"} />
-        )}
+        {status === "Pending" && <Title title={"Voting Starts In"} />}
+        {status === "Active" && <Title title={"Voting Ends In"} />}
+        {status === "Succeeded" && <Title title={"Ready to Be Queued"} />}
+        {status === "Queued" && <Title title={"Awaiting Execution"} />}
+        {status === "Executed" && <Title title={"Quest Executed"} />}
       </div>
       <div className="flex flex-row gap-2 lg:justify-start items-center justify-center mb-6">
         <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">

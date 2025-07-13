@@ -25,13 +25,13 @@ const CreateProposal = ({
         </button>
 
         <h2 className="text-xl font-bold text-secondary mb-4">
-          Create New Proposal
+          Propose New Quest
         </h2>
 
         <div className="flex flex-col gap-4">
           <input
             type="text"
-            placeholder="Proposal Title"
+            placeholder="Quest Name"
             onChange={(e) => setProposalName(e.target.value)}
             className="bg-white/10 p-3 rounded-lg text-sm text-secondary outline-none"
           />

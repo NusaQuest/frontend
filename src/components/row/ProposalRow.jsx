@@ -48,7 +48,7 @@ const ProposalRow = ({ proposal }) => {
           <button className="text-secondary text-sm font-semibold">-</button>
         )}
 
-        {status === "Pending" && (
+        {status === "Succeeded" && (
           <button
             onClick={() => onQueue(proposal)}
             className="text-orange-500 hover:underline text-sm font-semibold"

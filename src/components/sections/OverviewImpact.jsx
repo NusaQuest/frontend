@@ -6,7 +6,7 @@ import CountUp from "react-countup"; // ← Import
 const OverviewImpact = ({ totalProposals, totalVotes, totalActions }) => {
   const items = [
     {
-      label: "Proposals",
+      label: "Quests Created",
       value: totalProposals,
       icon: <FileText size={28} className="text-primary" />,
     },

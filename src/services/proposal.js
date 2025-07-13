@@ -3,10 +3,7 @@ import { config } from "../App";
 import nusaquest_abi from "../build/nusaquest_abi.json";
 import { keccak256, toUtf8Bytes } from "ethers";
 import { NUSAQUEST_ADDRESS } from "../utils/env";
-import {
-  getCountdownFromBlockNumber,
-  getCountdownFromBlockTimestamp,
-} from "./helper/converter";
+import { getCountdownFromBlockNumber } from "./helper/converter";
 
 export async function initiate(
   targets,
@@ -24,6 +21,38 @@ export async function initiate(
       account: address,
     });
     return result;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function vote(proposal, support, reason) {
+  try {
+    const proposalId = await getProposalId(proposal);
+    const result = await writeContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "vote",
+      args: [proposalId, support, reason],
+    });
+    return result;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function proposalVotes(proposal) {
+  try {
+    const proposalId = await getProposalId(proposal);
+    const [totalAgainst, totalFor] = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "proposalVotes",
+      args: [proposalId],
+    });
+    return [totalAgainst, totalFor];
   } catch (error) {
     console.error(error);
     return;
@@ -51,7 +80,6 @@ export async function getProposalId(proposal) {
 }
 
 export async function state(proposalId) {
-  console.log(proposalId);
   try {
     const state = await readContract(config, {
       abi: nusaquest_abi,
@@ -82,14 +110,16 @@ export async function contribution(address) {
   }
 }
 
-export async function votingDelay() {
+export async function proposalSnapshot(proposal) {
   try {
-    const votingDelay = await readContract(config, {
+    const proposalId = await getProposalId(proposal);
+    const snapshot = await readContract(config, {
       abi: nusaquest_abi,
       address: NUSAQUEST_ADDRESS,
-      functionName: "votingDelay",
+      functionName: "proposalSnapshot",
+      args: [proposalId],
     });
-    const countdown = await getCountdownFromBlockNumber(votingDelay);
+    const countdown = await getCountdownFromBlockNumber(snapshot);
     return countdown;
   } catch (error) {
     console.error(error);
@@ -97,14 +127,16 @@ export async function votingDelay() {
   }
 }
 
-export async function votingPeriod() {
+export async function proposalDeadline(proposal) {
   try {
-    const votingPeriod = await readContract(config, {
+    const proposalId = await getProposalId(proposal);
+    const deadline = await readContract(config, {
       abi: nusaquest_abi,
       address: NUSAQUEST_ADDRESS,
-      functionName: "votingPeriod",
+      functionName: "proposalDeadline",
+      args: [proposalId],
     });
-    const countdown = await getCountdownFromBlockNumber(votingPeriod);
+    const countdown = await getCountdownFromBlockNumber(deadline);
     return countdown;
   } catch (error) {
     console.error(error);
@@ -112,17 +144,47 @@ export async function votingPeriod() {
   }
 }
 
-export async function executionDelay() {
-  try {
-    const executionDelay = await readContract(config, {
-      abi: nusaquest_abi,
-      address: NUSAQUEST_ADDRESS,
-      functionName: "executionDelay",
-    });
-    const countdown = await getCountdownFromBlockTimestamp(executionDelay);
-    return countdown;
-  } catch (error) {
-    console.error(error);
-    return;
-  }
-}
+// export async function votingDelay() {
+//   try {
+//     const votingDelay = await readContract(config, {
+//       abi: nusaquest_abi,
+//       address: NUSAQUEST_ADDRESS,
+//       functionName: "votingDelay",
+//     });
+//     const countdown = await getCountdownFromBlockNumber(votingDelay);
+//     return countdown;
+//   } catch (error) {
+//     console.error(error);
+//     return;
+//   }
+// }
+
+// export async function votingPeriod() {
+//   try {
+//     const votingPeriod = await readContract(config, {
+//       abi: nusaquest_abi,
+//       address: NUSAQUEST_ADDRESS,
+//       functionName: "votingPeriod",
+//     });
+//     const countdown = await getCountdownFromBlockNumber(votingPeriod);
+//     return countdown;
+//   } catch (error) {
+//     console.error(error);
+//     return;
+//   }
+// }
+
+// export async function executionDelay() {
+//   try {
+//     const executionDelay = await readContract(config, {
+//       abi: nusaquest_abi,
+//       address: NUSAQUEST_ADDRESS,
+//       functionName: "executionDelay",
+//     });
+//     const countdown = await getCountdownFromBlockTimestamp(executionDelay);
+//     return countdown;
+//   } catch (error) {
+//     console.error(error);
+//     return;
+//   }
+// }

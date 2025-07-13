@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { mapStateToStatus } from "../utils/helper";
+import { useNavigate, useParams } from "react-router-dom";
+import { getCountdown, mapStateToStatus } from "../utils/helper";
 import Countdown from "../components/sections/Countdown";
 import VoteButton from "../components/sections/VoteButton";
 import QuestImagesSection from "../components/sections/QuestImagesSection";
 import QuestProfile from "../components/sections/QuestProfile";
 import { getProposals } from "../server/proposal";
 import {
-  executionDelay,
   getProposalId,
+  proposalDeadline,
+  proposalSnapshot,
+  proposalVotes,
   state,
-  votingDelay,
-  votingPeriod,
+  vote,
 } from "../services/proposal";
+import Swal from "sweetalert2";
+import Title from "../components/sections/Title";
 
 const QuestDetail = () => {
   const { id } = useParams("id");
@@ -21,40 +24,94 @@ const QuestDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [voteStartCountdown, setVoteStartCountdown] = useState(0);
   const [votePeriodCountdown, setVotePeriodCountdown] = useState(0);
-  const now = new Date().getTime() / 1000;
+  const [totalFor, setTotalFor] = useState(0);
+  const [totalAgainst, setTotalAgainst] = useState(0);
+  const [disabled, setDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const fetchQuest = async () => {
     const res = await getProposals();
     if (res.status === "success") {
+      console.log(res.data.proposals);
       setQuest(res.data.proposals.find((item) => item.id === String(id)));
     }
   };
 
   const fetchState = async () => {
+    console.log(quest);
     const proposalId = await getProposalId(quest);
+    console.log(proposalId);
     if (!proposalId) return;
 
     const proposalState = await state(proposalId);
-    if (!proposalState) return;
-
-    // console.log(await votingDelay());
+    console.log(proposalState);
 
     const status = mapStateToStatus(proposalState);
+    console.log(status);
     setStatus(status);
   };
 
-  const fetchExecutionDelay = async () => {
-    const delay = await executionDelay();
+  const fetchVotingActive = async () => {
+    const voteDeadline = await proposalDeadline(quest);
+    setVotePeriodCountdown(voteDeadline);
   };
 
-  const fetchVotingDelay = async () => {
-    const delay = await votingDelay();
-    setVoteStartCountdown(delay);
+  const fetchVotingPending = async () => {
+    const voteStart = await proposalSnapshot(quest);
+    console.log(voteStart);
+    setVoteStartCountdown(voteStart);
   };
 
-  const fetchVotingPeriod = async () => {
-    const delay = await votingPeriod();
-    setVotePeriodCountdown(delay);
+  const fetchTotalVotes = async () => {
+    const [totalAgainst, totalFor] = await proposalVotes(quest);
+    setTotalAgainst(totalAgainst);
+    setTotalFor(totalFor);
+  };
+
+  const handleVote = async (support, reason) => {
+    Swal.fire({
+      title: "Submitting Vote",
+      text: "Please wait while your vote is being submitted...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const result = await vote(quest, support, reason);
+
+      if (result) {
+        console.log(result);
+        navigate(`/quest`);
+        Swal.close();
+        await Swal.fire({
+          title: "Vote Submitted ✅",
+          text: "Your vote has been recorded successfully.",
+          icon: "success",
+          confirmButtonText: "Great!",
+        });
+      } else {
+        Swal.close();
+        await Swal.fire({
+          title: "Vote Failed ❌",
+          text: "Something went wrong while submitting your vote. Please try again.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
+    } catch (error) {
+      Swal.close();
+      console.error("Vote error:", error);
+      await Swal.fire({
+        title: "Error 🚨",
+        text: "An unexpected error occurred. Please try again later.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
   };
 
   useEffect(() => {
@@ -66,68 +123,73 @@ const QuestDetail = () => {
   useEffect(() => {
     if (quest) {
       fetchState();
+      fetchTotalVotes();
     }
-  }, [quest]);
+  }, [quest, id]);
 
   useEffect(() => {
     if (status === "Pending") {
-      fetchVotingDelay();
+      fetchVotingPending();
     }
 
     if (status === "Active") {
-      fetchVotingPeriod();
+      fetchVotingActive();
+      setDisabled(false);
     }
   }, [status]);
 
   useEffect(() => {}, [selectedImage]);
 
-  const handleVote = (id) => {};
-
   const handleSelectImage = (id) => {
     setSelectedImage(id);
   };
 
-  if (!quest) {
-    return <div className="text-secondary">Loading quest details...</div>;
-  }
+  if (quest) {
+    return (
+      <div className="lg:mt-8">
+        <QuestProfile quest={quest} isDescription={false} />
+        <div className="flex flex-col lg:flex-row w-full">
+          <div className="lg:w-1/2 lg:pr-4">
+            <QuestImagesSection
+              selected={quest.images[selectedImage]}
+              images={quest.images}
+              onSelect={handleSelectImage}
+              status={status}
+              selectedImage={selectedImage}
+            />
+          </div>
+          <div className="lg:w-1/2 lg:pl-4">
+            {status === "Pending" && (
+              <Countdown timestamp={voteStartCountdown} status={status} />
+            )}
+            {(status === "Active" ||
+              status === "Defeated" ||
+              status === "Succeeded") && (
+              <div>
+                {status === "Active" && (
+                  <Countdown timestamp={votePeriodCountdown} status={status} />
+                )}
+                <Title title={"Result"} />
+                <VoteButton
+                  onVote={handleVote}
+                  totalAgainst={totalAgainst}
+                  totalFor={totalFor}
+                  disabled={disabled}
+                />
+              </div>
+            )}
 
-  return (
-    <div className="lg:mt-8">
-      <QuestProfile quest={quest} isDescription={false} />
-      <div className="flex flex-col lg:flex-row w-full">
-        <div className="lg:w-1/2 lg:pr-4">
-          <QuestImagesSection
-            selected={quest.images[selectedImage]}
-            images={quest.images}
-            onSelect={handleSelectImage}
-            status={status}
-            selectedImage={selectedImage}
-          />
-        </div>
-        <div className="lg:w-1/2 lg:pl-4">
-          {status === "Pending" && (
-            <Countdown countdown={voteStartCountdown} now={now} quest={quest} />
-          )}
-          {status === "Active" && (
-            <div>
-              <Countdown
-                countdown={votePeriodCountdown}
-                now={now}
-                quest={quest}
-              />
-              <VoteButton quest={quest} now={now} onVote={handleVote} />
-            </div>
-          )}
-          {status === "Executed" && (
-            <div>
-              <div>a</div>
-            </div>
-          )}
-          <QuestProfile quest={quest} isDescription={true} />
+            {status === "Executed" && (
+              <div>
+                <div>a</div>
+              </div>
+            )}
+            <QuestProfile quest={quest} isDescription={true} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default QuestDetail;

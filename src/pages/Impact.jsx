@@ -23,7 +23,7 @@ const Impact = ({ address }) => {
     "Bersih-bersih Parangtritis"
   );
   const [proposalDescription, setProposalDescription] = useState(
-    "Organize clean-up at Parangtritis Beach involving local volunteers and waste management partners."
+    "Organize clean-up at Parangtritis Beach involving local volunteers and waste manageme"
   );
   const [images, setImages] = useState(null);
   const [beachName, setBeachName] = useState("Parangtritis Beach");
@@ -188,6 +188,7 @@ const Impact = ({ address }) => {
       return result;
     } catch (error) {
       setIsOnAction(false);
+      console.error(error);
       await Swal.fire({
         title: "Contract Execution Failed ❌",
         text:
@@ -230,6 +231,7 @@ const Impact = ({ address }) => {
 
   const showSuccessAlert = async () => {
     setIsOnAction(false);
+    navigate(`/quest`);
     await Swal.fire({
       title: "Proposal Submitted 🎉",
       text: "Your proposal has been successfully submitted to the blockchain.",
@@ -294,7 +296,7 @@ const Impact = ({ address }) => {
         firstText="Your"
         boldText="NusaQuest"
         secondText="Journey"
-        paragraph="Every proposal, vote, and quest tells your story. Review your journey in building a better future."
+        paragraph="Every action tells your story. Review your journey in building a better future."
       />
       <OverviewImpact
         totalProposals={parseInt(totalProposals)}
