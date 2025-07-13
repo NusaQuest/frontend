@@ -3,6 +3,10 @@ import HeroSection from "../components/sections/HeroSection";
 import AdvantageSection from "../components/sections/AdvantageSection";
 import Swal from "sweetalert2";
 import { delegate, isAlreadyDelegate } from "../services/ft";
+import { addTransaction } from "../server/transaction";
+import { getBlockTimestamp } from "../services/helper/converter";
+import { simulateContract } from "viem/actions";
+import { config } from "../App";
 
 const Home = ({ address }) => {
   const fetchDelegateStatus = async () => {
@@ -26,18 +30,34 @@ const Home = ({ address }) => {
           },
         });
 
-        const result = await delegate(address);
+        const contractResult = await delegate(address);
+        const timestamp = await getBlockTimestamp();
 
-        // logic http add transaction
-
-        if (result) {
-          Swal.close();
-          await Swal.fire({
-            title: "Success 🎉",
-            text: "You are now a delegate and earned 10 NUSA tokens!",
-            icon: "success",
-            confirmButtonText: "Close",
-          });
+        if (contractResult) {
+          const httpResult = await addTransaction(
+            address,
+            "Delegation",
+            "+10 NUSA",
+            contractResult,
+            timestamp
+          );
+          if (httpResult) {
+            Swal.close();
+            Swal.fire({
+              title: "Success 🎉",
+              text: "You are now a delegate and earned 10 NUSA tokens!",
+              icon: "success",
+              confirmButtonText: "Close",
+            });
+          } else {
+            Swal.close();
+            await Swal.fire({
+              title: "Almost there ✅",
+              text: "Delegation succeeded, but we couldn’t record it in your history. Don’t worry, you still received the 10 NUSA tokens!",
+              icon: "warning",
+              confirmButtonText: "Okay",
+            });
+          }
         } else {
           Swal.close();
           await Swal.fire({

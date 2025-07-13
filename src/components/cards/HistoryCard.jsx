@@ -3,7 +3,7 @@ import { Clock, Link as LinkIcon } from "lucide-react";
 import { format } from "date-fns";
 
 const HistoryCard = ({ item }) => {
-  const date = new Date(item.txTimestamp * 1000); // Convert Unix to JS Date
+  const date = new Date(item.txtimestamp * 1000); // Convert Unix to JS Date
   const formattedDate = format(date, "dd MMM yyyy • HH:mm");
 
   return (
@@ -31,7 +31,7 @@ const HistoryCard = ({ item }) => {
       <div className="flex items-center gap-2 text-xs text-primary hover:underline cursor-pointer">
         <LinkIcon size={14} />
         <a
-          href={`https://sepolia.etherscan.io/tx/${item.txHash}`}
+          href={`https://sepolia.etherscan.io/tx/${item.txhash}`}
           target="_blank"
           rel="noopener noreferrer"
         >

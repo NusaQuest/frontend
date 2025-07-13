@@ -1,7 +1,7 @@
 import { getBlock } from "wagmi/actions";
 import { config } from "../../App";
 
-async function getBlockTimestamp() {
+export async function getBlockTimestamp() {
   const block = await getBlock(config, {
     blockTag: "latest",
   });

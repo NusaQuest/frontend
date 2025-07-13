@@ -81,7 +81,7 @@ const Content = () => {
           <Route path="/quest" element={<Quest />} />
           <Route path="/redeem" element={<Redeem address={address} />} />
           <Route path="/impact" element={<Impact address={address} />} />
-          <Route path="/history" element={<History />} />
+          <Route path="/history" element={<History address={address} />} />
           <Route path="/quest/:id" element={<QuestDetail />} />
           <Route path="/redeem/:id" element={<RedeemDetail />} />
         </Routes>
