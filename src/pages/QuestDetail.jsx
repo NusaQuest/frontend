@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCountdown, mapStateToStatus } from "../utils/helper";
+import { mapStateToStatus } from "../utils/helper";
 import Countdown from "../components/sections/Countdown";
 import VoteButton from "../components/sections/VoteButton";
 import QuestImagesSection from "../components/sections/QuestImagesSection";
@@ -17,6 +17,8 @@ import {
 } from "../services/proposal";
 import Swal from "sweetalert2";
 import Title from "../components/sections/Title";
+import FileUploadField from "../components/inputs/FileUploadField";
+import ReusableButton from "../components/buttons/ReusableButton";
 
 const QuestDetail = () => {
   const { id } = useParams("id");
@@ -29,6 +31,9 @@ const QuestDetail = () => {
   const [totalFor, setTotalFor] = useState(0);
   const [totalAgainst, setTotalAgainst] = useState(0);
   const [disabled, setDisabled] = useState(true);
+  const [videoProof, setVideoProof] = useState(null);
+  const [isOnAction, setIsOnAction] = useState(false);
+
   const navigate = useNavigate();
 
   const fetchQuest = async () => {
@@ -120,6 +125,17 @@ const QuestDetail = () => {
     }
   };
 
+  const handleVideoProofChange = (e) => {
+    setVideoProof(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!videoProof) {
+      return Swal.alert({})
+    }
+    
+  };
+
   useEffect(() => {
     if (id) {
       fetchQuest();
@@ -197,7 +213,23 @@ const QuestDetail = () => {
 
             {status === "Executed" && (
               <div>
-                <div>a</div>
+                <Countdown timestamp={votePeriodCountdown} status={status} />
+                <Title title={"Submit Proof (Video Only)"} />
+                <FileUploadField
+                  name="videoProof"
+                  file={videoProof}
+                  onChange={handleVideoProofChange}
+                  type={"video"}
+                />
+                <div className="mb-5" />
+                <ReusableButton
+                  text={"Submit"}
+                  buttonColor={"bg-primary"}
+                  textColor={"text-secondary"}
+                  action={handleSubmit}
+                  isOnAction={isOnAction}
+                />
+                <div className="mb-5" />
               </div>
             )}
             <QuestProfile quest={quest} isDescription={true} />

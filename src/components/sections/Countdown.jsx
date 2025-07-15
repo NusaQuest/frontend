@@ -21,7 +21,7 @@ const Countdown = ({ timestamp, status }) => {
         {status === "Pending" && <Title title={"Voting Starts In"} />}
         {status === "Active" && <Title title={"Voting Ends In"} />}
         {status === "Queued" && <Title title={"Awaiting Execution"} />}
-        {status === "Executed" && <Title title={"Quest Executed"} />}
+        {status === "Executed" && <Title title="Open for Submission Until" />}
       </div>
       <div className="flex flex-row gap-2 lg:justify-start items-center justify-center mb-6">
         <div className="bg-primary rounded-xl size-16 md:size-20 lg:size-24 flex items-center justify-center">

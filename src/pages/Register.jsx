@@ -108,12 +108,18 @@ const Register = ({ address }) => {
             name="fullName"
             onChange={handleFullNameChange}
           />
-          <FileUploadField
-            label="Upload KTP (Landscape)"
-            name="ktpFile"
-            file={ktpFile}
-            onChange={handleKtpFileChange}
-          />
+          <div className="flex flex-col space-y-4">
+            <label className="font-semibold text-secondary">
+              {"Upload KTP (Landscape)"}
+            </label>
+            <FileUploadField
+              label="Upload KTP (Landscape)"
+              name="ktpFile"
+              file={ktpFile}
+              onChange={handleKtpFileChange}
+              type={"image"}
+            />
+          </div>
           <ReusableButton
             text={"Submit"}
             buttonColor={"bg-primary"}

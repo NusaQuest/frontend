@@ -82,6 +82,22 @@ export async function execute(proposal) {
   }
 }
 
+export async function claimParticipantReward(proposal, proof) {
+  try {
+    const proposalId = await getProposalId(proposal);
+    const result = await writeContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "claimParticipantReward",
+      args: [proposalId, proof],
+    });
+    return result;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
 export async function proposalVotes(proposal) {
   try {
     const proposalId = await getProposalId(proposal);
