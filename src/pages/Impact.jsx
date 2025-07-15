@@ -417,7 +417,7 @@ const Impact = ({ address }) => {
         onExecute={onExecute}
       />
       <Votes proposals={proposals} address={address} />
-      <CleanupRecord proposals={proposals} />
+      <CleanupRecord proposals={proposals} address={address} />
 
       {isClick && (
         <CreateProposal

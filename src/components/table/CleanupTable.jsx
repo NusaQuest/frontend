@@ -1,7 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { userSubmissionHistory } from "../../services/proposal";
+import CleanupRow from "../row/CleanupRow";
 
-const CleanupTable = ({ proposals, onView }) => {
+const CleanupTable = ({ address, proposals, onView }) => {
+  const [submissionHistory, setSubmissionHistory] = useState(null);
+
+  const fetchSubmissionHistory = async () => {
+    const submissionHistory = await userSubmissionHistory(address);
+    setSubmissionHistory(submissionHistory);
+    console.log(submissionHistory);
+  };
+
+  useEffect(() => {
+    fetchSubmissionHistory();
+  }, [proposals, address]);
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm text-left border-collapse">
@@ -12,35 +26,12 @@ const CleanupTable = ({ proposals, onView }) => {
           </tr>
         </thead>
         <tbody>
-          {proposals && proposals.length > 0 ? (
+          {proposals &&
+          proposals.length > 0 &&
+          submissionHistory &&
+          submissionHistory.length > 0 ? (
             proposals.map((item, index) => {
-              return (
-                <tr
-                  key={index}
-                  className="border-t border-white/10 hover:bg-white/5 transition"
-                >
-                  <td className="px-4 py-3 text-secondary font-medium">
-                    <Link
-                      to={`/quest/${item.id}`}
-                      className="hover:underline cursor-pointer transition"
-                    >
-                      {item.name}
-                    </Link>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`text-xs px-2 py-1 rounded-md font-semibold`}
-                    >
-                      <button
-                        onClick={() => onView(item)}
-                        className="text-blue-500 hover:underline text-sm font-semibold"
-                      >
-                        View
-                      </button>
-                    </span>
-                  </td>
-                </tr>
-              );
+              return <CleanupRow key={index} proposal={item} onView={onView} />;
             })
           ) : (
             <tr>
@@ -48,7 +39,7 @@ const CleanupTable = ({ proposals, onView }) => {
                 colSpan={3}
                 className="text-center text-gray-400 py-4 text-lg lg:text-xl"
               >
-                No proposals found.
+                No cleanups found.
               </td>
             </tr>
           )}

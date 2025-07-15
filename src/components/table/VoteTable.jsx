@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getProposalId, userVoteHistory, vote } from "../../services/proposal";
+import { userVoteHistory } from "../../services/proposal";
 import VoteRow from "../row/VoteRow";
 
 const VoteTable = ({ proposals, address }) => {
@@ -45,7 +44,7 @@ const VoteTable = ({ proposals, address }) => {
                 colSpan={3}
                 className="text-center text-gray-400 py-4 text-lg lg:text-xl"
               >
-                No proposals found.
+                No votes found.
               </td>
             </tr>
           )}
