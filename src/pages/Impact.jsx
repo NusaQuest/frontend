@@ -32,6 +32,7 @@ const Impact = ({ address }) => {
   const [city, setCity] = useState("Bantul");
   const [maps, setMaps] = useState("maps.com");
   const [proposals, setProposals] = useState(null);
+  const [allProposals, setAllProposals] = useState(null);
   const [totalProposals, setTotalProposals] = useState(0);
   const [totalVotes, setTotalVotes] = useState(0);
   const [totalQuestsExecuted, setTotalQuestsExecuted] = useState(0);
@@ -57,6 +58,7 @@ const Impact = ({ address }) => {
       const myProposals = data.filter(
         (item) => item.wallet.toLowerCase() === address.toLowerCase()
       );
+      setAllProposals(data);
       setProposals(myProposals);
     }
   };
@@ -416,8 +418,8 @@ const Impact = ({ address }) => {
         onQueue={onQueue}
         onExecute={onExecute}
       />
-      <Votes proposals={proposals} address={address} />
-      <CleanupRecord proposals={proposals} address={address} />
+      <Votes proposals={allProposals} address={address} />
+      <CleanupRecord proposals={allProposals} address={address} />
 
       {isClick && (
         <CreateProposal

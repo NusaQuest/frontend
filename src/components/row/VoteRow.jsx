@@ -18,8 +18,10 @@ const VoteRow = ({ proposal, voteHistory }) => {
     );
     console.log(proposalId);
     console.log(voteHistory);
-    const side = parseInt(searchVoteHistory.support);
-    setVote(side == 0 ? "Against" : "For");
+    if (searchVoteHistory) {
+      const side = parseInt(searchVoteHistory.support);
+      setVote(side == 0 ? "Against" : "For");
+    }
   };
 
   useEffect(() => {
@@ -27,23 +29,28 @@ const VoteRow = ({ proposal, voteHistory }) => {
   }, [proposal]);
 
   return (
-    <tr className="border-t border-white/10 hover:bg-white/5 transition">
-      <td className="px-4 py-3 text-secondary font-medium">
-        <Link
-          to={`/quest/${proposal.id}`}
-          className="hover:underline cursor-pointer transition"
-        >
-          {proposal.proposalname}
-        </Link>
-      </td>
-      <td className="px-4 py-3">
-        <span
-          className={`text-xs px-2 py-1 rounded-md font-semibold ${voteColors[vote]}`}
-        >
-          {vote}
-        </span>
-      </td>
-    </tr>
+    <>
+      {vote == "Against" ||
+        (vote == "For" && (
+          <tr className="border-t border-white/10 hover:bg-white/5 transition">
+            <td className="px-4 py-3 text-secondary font-medium">
+              <Link
+                to={`/quest/${proposal.id}`}
+                className="hover:underline cursor-pointer transition"
+              >
+                {proposal.proposalname}
+              </Link>
+            </td>
+            <td className="px-4 py-3">
+              <span
+                className={`text-xs px-2 py-1 rounded-md font-semibold ${voteColors[vote]}`}
+              >
+                {vote}
+              </span>
+            </td>
+          </tr>
+        ))}
+    </>
   );
 };
 

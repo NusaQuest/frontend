@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { userSubmissionHistory } from "../../services/proposal";
 import CleanupRow from "../row/CleanupRow";
 
-const CleanupTable = ({ address, proposals, onView }) => {
+const CleanupTable = ({ address, proposals }) => {
   const [submissionHistory, setSubmissionHistory] = useState(null);
 
   const fetchSubmissionHistory = async () => {
@@ -29,7 +29,13 @@ const CleanupTable = ({ address, proposals, onView }) => {
           submissionHistory &&
           submissionHistory.length > 0 ? (
             proposals.map((item, index) => {
-              return <CleanupRow key={index} proposal={item} onView={onView} />;
+              return (
+                <CleanupRow
+                  key={index}
+                  proposal={item}
+                  submissionHistory={submissionHistory}
+                />
+              );
             })
           ) : (
             <tr>
