@@ -7,6 +7,7 @@ import QuestImagesSection from "../components/sections/QuestImagesSection";
 import QuestProfile from "../components/sections/QuestProfile";
 import { getProposals } from "../server/proposal";
 import {
+  claimParticipantReward,
   getProposalId,
   proposalDeadline,
   proposalEta,
@@ -19,8 +20,12 @@ import Swal from "sweetalert2";
 import Title from "../components/sections/Title";
 import FileUploadField from "../components/inputs/FileUploadField";
 import ReusableButton from "../components/buttons/ReusableButton";
+import { pinata } from "../utils/env";
+import { addTransaction } from "../server/transaction";
+import { getBlockTimestamp } from "../services/helper/converter";
+import { getIdentity } from "../server/identity";
 
-const QuestDetail = () => {
+const QuestDetail = ({ address }) => {
   const { id } = useParams("id");
   const [quest, setQuest] = useState(null);
   const [status, setStatus] = useState("Loading");
@@ -32,9 +37,20 @@ const QuestDetail = () => {
   const [totalAgainst, setTotalAgainst] = useState(0);
   const [disabled, setDisabled] = useState(true);
   const [videoProof, setVideoProof] = useState(null);
-  const [isOnAction, setIsOnAction] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
   const navigate = useNavigate();
+
+  const fetchIdentity = async () => {
+    if (!address) return;
+
+    const res = await getIdentity(address);
+    if (res.status === "success") {
+      setRegistered(true);
+    } else {
+      setRegistered(false);
+    }
+  };
 
   const fetchQuest = async () => {
     const res = await getProposals();
@@ -79,7 +95,28 @@ const QuestDetail = () => {
     setTotalFor(totalFor);
   };
 
+  const checkRegistered = async () => {
+    if (!registered) {
+      const result = await Swal.fire({
+        title: "KTP Verification Required",
+        text: "You need to verify your KTP before accessing this feature. Please complete the verification first.",
+        icon: "warning",
+        confirmButtonText: "Verify Now",
+      });
+
+      if (result.isConfirmed) {
+        navigate("/register");
+      }
+
+      return false;
+    }
+    return true;
+  };
+
   const handleVote = async (support, reason) => {
+    const allowed = await checkRegistered();
+    if (!allowed) return;
+
     Swal.fire({
       title: "Submitting Vote",
       text: "Please wait while your vote is being submitted...",
@@ -129,11 +166,106 @@ const QuestDetail = () => {
     setVideoProof(e.target.files[0]);
   };
 
-  const handleSubmit = async () => {
-    if (!videoProof) {
-      return Swal.alert({})
+  const uploadPinata = async () => {
+    try {
+      const upload = await pinata.upload.public.file(videoProof);
+      const url = `https://gateway.pinata.cloud/ipfs/` + upload.cid;
+      return url;
+    } catch (error) {
+      console.error(error);
+      return;
     }
-    
+  };
+
+  const handleSubmit = async () => {
+    const allowed = await checkRegistered();
+    if (!allowed) return;
+
+    if (!videoProof) {
+      return Swal.fire({
+        title: "No Proof Uploaded",
+        text: "Please upload your video proof before submitting.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+    }
+
+    Swal.fire({
+      title: "Submitting Your Proof",
+      text: "Please wait while we upload your video and claim your reward...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      // Upload ke IPFS (misal: Pinata)
+      const url = await uploadPinata(videoProof);
+
+      if (!url) {
+        Swal.close();
+        return await Swal.fire({
+          title: "Upload Failed",
+          text: "Could not upload your video. Please try again.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
+
+      // Submit proof to contract
+      const result = await claimParticipantReward(quest, url);
+      const timestamp = await getBlockTimestamp();
+
+      if (result) {
+        // Tambah transaksi ke history
+        const httpResult = await addTransaction(
+          address,
+          "Submitted Cleanup Proof",
+          "+70 NUSA",
+          result,
+          timestamp
+        );
+
+        Swal.close();
+
+        if (httpResult.status === "success") {
+          await Swal.fire({
+            title: "Proof Submitted",
+            text: "Thank you for your contribution! You’ve earned 70 NUSA for participating in the cleanup.",
+            icon: "success",
+            confirmButtonText: "Awesome!",
+          });
+          navigate("/quest");
+        } else {
+          await Swal.fire({
+            title: "Proof Submitted",
+            text: "Reward granted, but logging history failed. Your NUSA is still safe.",
+            icon: "warning",
+            confirmButtonText: "OK",
+          });
+        }
+      } else {
+        Swal.close();
+        await Swal.fire({
+          title: "Submission Failed",
+          text: "We couldn’t verify your submission. Please ensure your proof is valid.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      }
+    } catch (error) {
+      Swal.close();
+      console.error("Submission Error:", error);
+      await Swal.fire({
+        title: "Unexpected Error",
+        text: "Something went wrong during the submission. Please try again later.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+    }
   };
 
   useEffect(() => {
@@ -163,6 +295,10 @@ const QuestDetail = () => {
       fetchEta();
     }
   }, [status]);
+
+  useEffect(() => {
+    fetchIdentity();
+  }, [address]);
 
   useEffect(() => {}, [selectedImage]);
 
@@ -214,7 +350,7 @@ const QuestDetail = () => {
             {status === "Executed" && (
               <div>
                 <Countdown timestamp={votePeriodCountdown} status={status} />
-                <Title title={"Submit Proof (Video Only)"} />
+                <Title title={"Video Proof"} />
                 <FileUploadField
                   name="videoProof"
                   file={videoProof}
@@ -227,7 +363,6 @@ const QuestDetail = () => {
                   buttonColor={"bg-primary"}
                   textColor={"text-secondary"}
                   action={handleSubmit}
-                  isOnAction={isOnAction}
                 />
                 <div className="mb-5" />
               </div>

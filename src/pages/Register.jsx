@@ -39,7 +39,7 @@ const Register = ({ address }) => {
       const res = await registerIdentity(address, now);
       if (res.status === "success") {
         Swal.fire({
-          title: "KTP Verified 🎉",
+          title: "KTP Verified",
           text: "Your identity has been successfully verified. Welcome to NusaQuest!",
           icon: "success",
           confirmButtonText: "Start Your Quest",
@@ -50,7 +50,7 @@ const Register = ({ address }) => {
         });
       } else {
         Swal.fire({
-          title: "Something Went Wrong 😥",
+          title: "Something Went Wrong",
           text: "An internal server error occurred. Please try again in a moment.",
           icon: "error",
           confirmButtonText: "Try Again",
@@ -59,7 +59,7 @@ const Register = ({ address }) => {
       setIsOnAction(false);
     } else {
       Swal.fire({
-        title: "Verification Failed ❌",
+        title: "Verification Failed",
         text: "The name you entered doesn’t match your KTP. Please try again.",
         icon: "error",
         confirmButtonText: "Close",

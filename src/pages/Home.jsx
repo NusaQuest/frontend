@@ -5,8 +5,6 @@ import Swal from "sweetalert2";
 import { delegate, isAlreadyDelegate } from "../services/ft";
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
-import { simulateContract } from "viem/actions";
-import { config } from "../App";
 
 const Home = ({ address }) => {
   const fetchDelegateStatus = async () => {
@@ -44,7 +42,7 @@ const Home = ({ address }) => {
           if (httpResult) {
             Swal.close();
             Swal.fire({
-              title: "Success 🎉",
+              title: "Success",
               text: "You are now a delegate and earned 10 NUSA tokens!",
               icon: "success",
               confirmButtonText: "Close",
@@ -52,7 +50,7 @@ const Home = ({ address }) => {
           } else {
             Swal.close();
             await Swal.fire({
-              title: "Almost there ✅",
+              title: "Almost there",
               text: "Delegation succeeded, but we couldn’t record it in your history. Don’t worry, you still received the 10 NUSA tokens!",
               icon: "warning",
               confirmButtonText: "Okay",
@@ -61,7 +59,7 @@ const Home = ({ address }) => {
         } else {
           Swal.close();
           await Swal.fire({
-            title: "Oops 😓",
+            title: "Oops",
             text: "Failed to delegate. Please check your wallet and try again.",
             icon: "error",
             confirmButtonText: "Close",

@@ -74,7 +74,7 @@ const Impact = ({ address }) => {
   const handleClick = () => {
     if (!registered) {
       Swal.fire({
-        title: "KTP Verification Required 🪪",
+        title: "KTP Verification Required",
         text: "You need to verify your KTP before accessing this feature. Please complete the verification first.",
         icon: "warning",
         confirmButtonText: "Verify Now",
