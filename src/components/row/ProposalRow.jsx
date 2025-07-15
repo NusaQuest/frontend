@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProposalId, state } from "../../services/proposal";
-import { mapStateToStatus, statusColors } from "../../utils/helper";
+import { getProposalId, proposalEta, state } from "../../services/proposal";
+import {
+  getCountdown,
+  mapStateToStatus,
+  statusColors,
+} from "../../utils/helper";
 
-const ProposalRow = ({ proposal }) => {
+const ProposalRow = ({ proposal, onQueue, onExecute }) => {
   const [status, setStatus] = useState("Loading");
+  const [isExecutable, setIsExecutable] = useState(false);
+
+  const fetchStatus = async () => {
+    const proposalId = await getProposalId(proposal);
+    if (!proposalId) return;
+
+    const proposalState = await state(proposalId);
+    if (!proposalState) return;
+
+    const statusText = mapStateToStatus(proposalState);
+    setStatus(statusText);
+  };
+
+  const fetchEta = async () => {
+    const eta = await proposalEta(proposal);
+    const countdown = getCountdown(eta);
+    if (
+      eta &&
+      countdown.days == 0 &&
+      countdown.hours == 0 &&
+      countdown.minutes == 0 &&
+      countdown.seconds == 0
+    ) {
+      setIsExecutable(true);
+    }
+  };
 
   useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const proposalId = await getProposalId(proposal);
-        const proposalState = await state(proposalId);
-        const statusText = mapStateToStatus(proposalState);
-        setStatus(statusText);
-      } catch (err) {
-        console.error("Failed to get status:", err);
-        setStatus("Unknown");
-      }
-    };
-
     fetchStatus();
   }, [proposal]);
+
+  useEffect(() => {
+    fetchEta();
+  }, [status]);
 
   return (
     <tr className="border-t border-white/10 hover:bg-white/5 transition">
@@ -44,8 +66,18 @@ const ProposalRow = ({ proposal }) => {
           status === "Canceled" ||
           status === "Defeated" ||
           status === "Expired" ||
-          status === "Unknown") && (
-          <button className="text-secondary text-sm font-semibold">-</button>
+          status === "Queued" ||
+          status === "Unknown") &&
+          !isExecutable && (
+            <button className="text-secondary text-sm font-semibold" disabled>
+              -
+            </button>
+          )}
+
+        {status === "Executed" && (
+          <button className="text-secondary text-sm font-semibold" disabled>
+            -
+          </button>
         )}
 
         {status === "Succeeded" && (
@@ -57,17 +89,13 @@ const ProposalRow = ({ proposal }) => {
           </button>
         )}
 
-        {status === "Executed" && (
+        {status === "Queued" && isExecutable && (
           <button
             onClick={() => onExecute(proposal)}
             className="text-green-500 hover:underline text-sm font-semibold"
           >
             Execute
           </button>
-        )}
-
-        {(status === "Voting" || status === "Unknown") && (
-          <span className="text-gray-400 text-sm">—</span>
         )}
       </td>
     </tr>

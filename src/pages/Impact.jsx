@@ -5,7 +5,6 @@ import Proposals from "../components/sections/Proposals";
 import Votes from "../components/sections/Votes";
 import CleanupRecord from "../components/sections/CleanupRecord";
 import CreateProposal from "../components/modals/CreateProposal";
-import { useReadContract } from "wagmi";
 import nusaquest_abi from "../build/nusaquest_abi.json";
 import { NUSAQUEST_ADDRESS, pinata } from "../utils/env";
 import { addProposal, checkProposal, getProposals } from "../server/proposal";
@@ -13,7 +12,9 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { encodeFunctionData } from "viem";
 import { getIdentity } from "../server/identity";
-import { contribution, initiate } from "../services/proposal";
+import { contribution, execute, initiate, queue } from "../services/proposal";
+import { addTransaction } from "../server/transaction";
+import { getBlockTimestamp } from "../services/helper/converter";
 
 const Impact = ({ address }) => {
   const [registered, setRegistered] = useState(false);
@@ -279,6 +280,112 @@ const Impact = ({ address }) => {
     await showSuccessAlert();
   };
 
+  const onQueue = async (proposal) => {
+    Swal.fire({
+      title: "Queueing Proposal",
+      text: "Please wait while we queue this proposal...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const result = await queue(proposal);
+      if (result) {
+        Swal.close();
+        await Swal.fire({
+          title: "Queued Successfully",
+          text: "The proposal has been queued and is ready for execution.",
+          icon: "success",
+          confirmButtonText: "Close",
+        });
+      } else {
+        Swal.close();
+        await Swal.fire({
+          title: "Failed to Queue",
+          text: "Something went wrong while queueing the proposal.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
+    } catch (error) {
+      Swal.close();
+      await Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred. Please try again.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+      console.error(error);
+    }
+  };
+
+  const onExecute = async (proposal) => {
+    Swal.fire({
+      title: "Executing Proposal",
+      text: "Please wait while we execute this proposal...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const result = await execute(proposal);
+      const timestamp = await getBlockTimestamp();
+
+      if (result) {
+        const httpResult = await addTransaction(
+          address,
+          "Proposal Executed - 30 NUSA Reward",
+          "+30 NUSA",
+          result,
+          timestamp
+        );
+
+        if (httpResult.status === "success") {
+          Swal.close();
+          await Swal.fire({
+            title: "Executed Successfully",
+            text: "The proposal has been executed successfully.",
+            icon: "success",
+            confirmButtonText: "Close",
+          });
+        } else {
+          Swal.close();
+          await Swal.fire({
+            title: "Execution Recorded Failed",
+            text: "Execution succeeded, but saving to history failed. Please refresh or contact support.",
+            icon: "warning",
+            confirmButtonText: "Close",
+          });
+        }
+      } else {
+        Swal.close();
+        await Swal.fire({
+          title: "Execution Failed",
+          text: "Something went wrong during execution.",
+          icon: "error",
+          confirmButtonText: "Close",
+        });
+      }
+    } catch (error) {
+      Swal.close();
+      await Swal.fire({
+        title: "Error",
+        text: "An unexpected error occurred while executing the proposal.",
+        icon: "error",
+        confirmButtonText: "Close",
+      });
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchProposals();
   }, [isClick, registered]);
@@ -303,7 +410,12 @@ const Impact = ({ address }) => {
         totalVotes={parseInt(totalVotes)}
         totalActions={parseInt(totalQuestsExecuted)}
       />
-      <Proposals proposals={proposals} onAction={handleClick} />
+      <Proposals
+        proposals={proposals}
+        onAction={handleClick}
+        onQueue={onQueue}
+        onExecute={onExecute}
+      />
       <Votes proposals={proposals} />
       <CleanupRecord proposals={proposals} />
 

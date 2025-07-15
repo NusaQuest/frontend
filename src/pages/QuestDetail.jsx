@@ -9,6 +9,7 @@ import { getProposals } from "../server/proposal";
 import {
   getProposalId,
   proposalDeadline,
+  proposalEta,
   proposalSnapshot,
   proposalVotes,
   state,
@@ -24,6 +25,7 @@ const QuestDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [voteStartCountdown, setVoteStartCountdown] = useState(0);
   const [votePeriodCountdown, setVotePeriodCountdown] = useState(0);
+  const [etaCountdown, setEtaCountdown] = useState(0);
   const [totalFor, setTotalFor] = useState(0);
   const [totalAgainst, setTotalAgainst] = useState(0);
   const [disabled, setDisabled] = useState(true);
@@ -58,8 +60,12 @@ const QuestDetail = () => {
 
   const fetchVotingPending = async () => {
     const voteStart = await proposalSnapshot(quest);
-    console.log(voteStart);
     setVoteStartCountdown(voteStart);
+  };
+
+  const fetchEta = async () => {
+    const eta = await proposalEta(quest);
+    setEtaCountdown(eta);
   };
 
   const fetchTotalVotes = async () => {
@@ -136,6 +142,10 @@ const QuestDetail = () => {
       fetchVotingActive();
       setDisabled(false);
     }
+
+    if (status === "Queued") {
+      fetchEta();
+    }
   }, [status]);
 
   useEffect(() => {}, [selectedImage]);
@@ -162,6 +172,9 @@ const QuestDetail = () => {
             {status === "Pending" && (
               <Countdown timestamp={voteStartCountdown} status={status} />
             )}
+            {status === "Queued" && (
+              <Countdown timestamp={etaCountdown} status={status} />
+            )}
             {(status === "Active" ||
               status === "Defeated" ||
               status === "Succeeded") && (
@@ -169,7 +182,10 @@ const QuestDetail = () => {
                 {status === "Active" && (
                   <Countdown timestamp={votePeriodCountdown} status={status} />
                 )}
-                <Title title={"Result"} />
+                {status === "Succeeded" && (
+                  <Title title={"Ready to Be Queued"} />
+                )}
+                {status !== "Succeeded" && <Title title={"Result"} />}
                 <VoteButton
                   onVote={handleVote}
                   totalAgainst={totalAgainst}

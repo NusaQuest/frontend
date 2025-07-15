@@ -91,7 +91,7 @@ const RedeemDetail = ({ address }) => {
       if (result) {
         const addResult = await addTransaction(
           address,
-          `NFT Redeemed — ${nft.name}`,
+          `NFT Redeemed`,
           `-${nft.price} NUSA`,
           result,
           timestamp

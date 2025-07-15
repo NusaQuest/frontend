@@ -13,6 +13,7 @@ export function truncate(text, startChar, endChar, maxLength) {
 export function getCountdown(targetTimestamp) {
   const now = Math.floor(Date.now() / 1000);
   const diff = Number(targetTimestamp) - now;
+  console.log(diff)
 
   if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
 

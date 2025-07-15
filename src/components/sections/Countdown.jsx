@@ -20,7 +20,6 @@ const Countdown = ({ timestamp, status }) => {
       <div className="mt-3">
         {status === "Pending" && <Title title={"Voting Starts In"} />}
         {status === "Active" && <Title title={"Voting Ends In"} />}
-        {status === "Succeeded" && <Title title={"Ready to Be Queued"} />}
         {status === "Queued" && <Title title={"Awaiting Execution"} />}
         {status === "Executed" && <Title title={"Quest Executed"} />}
       </div>

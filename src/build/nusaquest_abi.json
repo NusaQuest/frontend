@@ -154,15 +154,6 @@
   {
     "inputs": [
       { "internalType": "uint256", "name": "proposalId", "type": "uint256" },
-      { "internalType": "address", "name": "user", "type": "address" },
-      { "internalType": "bool", "name": "actual", "type": "bool" }
-    ],
-    "name": "InvalidProofExistence",
-    "type": "error"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "proposalId", "type": "uint256" },
       { "internalType": "bool", "name": "actual", "type": "bool" }
     ],
     "name": "InvalidProposalExistence",
@@ -761,13 +752,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "executionDelay",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       { "internalType": "address", "name": "_user", "type": "address" }
     ],
@@ -959,16 +943,6 @@
     "name": "onERC721Received",
     "outputs": [{ "internalType": "bytes4", "name": "", "type": "bytes4" }],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "_proposalId", "type": "uint256" },
-      { "internalType": "address", "name": "_user", "type": "address" }
-    ],
-    "name": "proof",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1235,6 +1209,52 @@
     "inputs": [{ "internalType": "uint256", "name": "_id", "type": "uint256" }],
     "name": "uri",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_user", "type": "address" }
+    ],
+    "name": "userSubmissionHistory",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "proposalId",
+            "type": "uint256"
+          },
+          { "internalType": "string", "name": "proof", "type": "string" }
+        ],
+        "internalType": "struct NusaQuest.SubmissionHistory[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_user", "type": "address" }
+    ],
+    "name": "userVoteHistory",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "proposalId",
+            "type": "uint256"
+          },
+          { "internalType": "uint8", "name": "support", "type": "uint8" }
+        ],
+        "internalType": "struct NusaQuest.VoteHistory[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
