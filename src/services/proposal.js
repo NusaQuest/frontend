@@ -199,3 +199,33 @@ export async function proposalEta(proposal) {
     return;
   }
 }
+
+export async function userVoteHistory(wallet) {
+  try {
+    const voteHistory = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "userVoteHistory",
+      args: [wallet],
+    });
+    return voteHistory;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function userSubmissionHistory(wallet) {
+  try {
+    const submissionHistory = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "userSubmissionHistory",
+      args: [wallet],
+    });
+    return submissionHistory;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}

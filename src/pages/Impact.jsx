@@ -235,7 +235,7 @@ const Impact = ({ address }) => {
     navigate(`/quest`);
     await Swal.fire({
       title: "Proposal Submitted 🎉",
-      text: "Your proposal has been successfully submitted to the blockchain.",
+      text: "Your proposal has been successfully submitted to the blockchain. If your proposal is approved and executed, you'll receive a reward of 30 NUSA.",
       icon: "success",
       confirmButtonText: "Close",
     });
@@ -416,7 +416,7 @@ const Impact = ({ address }) => {
         onQueue={onQueue}
         onExecute={onExecute}
       />
-      <Votes proposals={proposals} />
+      <Votes proposals={proposals} address={address} />
       <CleanupRecord proposals={proposals} />
 
       {isClick && (

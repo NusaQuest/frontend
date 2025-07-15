@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getProposalId, userVoteHistory, vote } from "../../services/proposal";
+import VoteRow from "../row/VoteRow";
 
-const VoteTable = ({ proposals }) => {
-  const getStatus = () => {
-    const options = ["For", "Against", "Abstain"];
-    const randomIndex = Math.floor(Math.random() * options.length);
-    return options[randomIndex];
+const VoteTable = ({ proposals, address }) => {
+  const [voteHistory, setVoteHistory] = useState(null);
+
+  const fetchVoteHistory = async () => {
+    const voteHistory = await userVoteHistory(address);
+    setVoteHistory(voteHistory);
+    console.log(voteHistory);
   };
-  const voteColors = {
-    Against: "bg-red-100 text-red-800",
-    For: "bg-green-100 text-green-800",
-    Abstain: "bg-gray-100 text-gray-800",
-  };
+
+  useEffect(() => {
+    fetchVoteHistory();
+  }, [proposals, address]);
 
   return (
     <div className="overflow-x-auto">
@@ -23,31 +26,17 @@ const VoteTable = ({ proposals }) => {
           </tr>
         </thead>
         <tbody>
-          {proposals && proposals.length > 0 ? (
+          {proposals &&
+          proposals.length > 0 &&
+          voteHistory &&
+          voteHistory.length > 0 ? (
             proposals.map((item, index) => {
-              const status = getStatus();
-
               return (
-                <tr
+                <VoteRow
                   key={index}
-                  className="border-t border-white/10 hover:bg-white/5 transition"
-                >
-                  <td className="px-4 py-3 text-secondary font-medium">
-                    <Link
-                      to={`/quest/${item.id}`}
-                      className="hover:underline cursor-pointer transition"
-                    >
-                      {item.name}
-                    </Link>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`text-xs px-2 py-1 rounded-md font-semibold ${voteColors[status]}`}
-                    >
-                      {status}
-                    </span>
-                  </td>
-                </tr>
+                  proposal={item}
+                  voteHistory={voteHistory}
+                />
               );
             })
           ) : (
