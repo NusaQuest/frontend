@@ -6,7 +6,7 @@ import xellar from "../../assets/xellar.png";
 import { useConnectModal } from "@xellar/kit";
 import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ click, action, address }) => {
+const Navbar = ({ click, action, address, registered }) => {
   const { open } = useConnectModal();
   const navigate = useNavigate();
 
@@ -27,17 +27,23 @@ const Navbar = ({ click, action, address }) => {
           )}
         </div>
         <div className="hidden lg:flex flex-row gap-12 justify-center items-center">
-          {navs().map((item, index) => (
-            <h1
-              key={index}
-              className={`font-semibold text-lg text-secondary cursor-pointer`}
-              onClick={() => {
-                navigate(`${item.destination}`);
-              }}
-            >
-              {item.title}
-            </h1>
-          ))}
+          {navs().map((item, index) => {
+            // Sembunyikan menu "Register" jika user sudah registered
+            if (registered && item.title.toLowerCase() === "register")
+              return null;
+
+            return (
+              <h1
+                key={index}
+                className="font-semibold text-lg text-secondary cursor-pointer"
+                onClick={() => {
+                  navigate(`${item.destination}`);
+                }}
+              >
+                {item.title}
+              </h1>
+            );
+          })}
         </div>
         <div className="hidden lg:flex">
           <button

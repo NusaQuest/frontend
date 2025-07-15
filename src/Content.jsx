@@ -17,10 +17,13 @@ import { encodeFunctionData } from "viem";
 import nusaquest_abi from "./build/nusaquest_abi.json";
 import { config } from "./App";
 import { writeContract } from "wagmi/actions";
+import { getIdentity } from "./server/identity";
 
 const Content = () => {
   const [click, setClick] = useState(false);
   const { address } = useAccount();
+  const [registered, setRegistered] = useState(false);
+
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -32,31 +35,22 @@ const Content = () => {
     navigate(`${newPage.destination}`);
   };
 
+  const fetchIdentity = async () => {
+    if (!address) return;
+
+    const res = await getIdentity(address);
+    if (res.status === "success") {
+      setRegistered(true);
+    } else {
+      setRegistered(false);
+    }
+  };
+
   useEffect(() => {}, [click]);
 
   useEffect(() => {
-    const calldata = encodeFunctionData({
-      abi: nusaquest_abi,
-      functionName: "claimProposerReward",
-      args: [address],
-    });
-
-    const targets = [NUSAQUEST_ADDRESS];
-    const values = [0];
-    const calldatas = [calldata];
-
-    const coba = async () => {
-      const simulation = await writeContract(config, {
-        abi: nusaquest_abi,
-        address: NUSAQUEST_ADDRESS,
-        functionName: "initiate",
-        args: [targets, values, calldatas, "hahaha"],
-        account: address,
-      });
-      console.log(simulation);
-    };
-    // coba();
-  }, []);
+    fetchIdentity();
+  }, [address]);
 
   return (
     <div className="relative px-4 bg-background min-h-screen w-screen overflow-y-auto flex flex-col lg:px-8">
@@ -66,12 +60,17 @@ const Content = () => {
 
       {click && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <NavMenu action={handleCurrentPage} />
+          <NavMenu action={handleCurrentPage} registered={registered} />
         </div>
       )}
 
       <div className="z-50 relative">
-        <Navbar click={click} action={handleClick} address={address} />
+        <Navbar
+          click={click}
+          action={handleClick}
+          address={address}
+          registered={registered}
+        />
       </div>
 
       <div className="flex-1 mb-12">
