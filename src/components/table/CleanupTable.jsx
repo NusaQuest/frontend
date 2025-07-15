@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { userSubmissionHistory } from "../../services/proposal";
 import CleanupRow from "../row/CleanupRow";
 
@@ -9,7 +8,6 @@ const CleanupTable = ({ address, proposals, onView }) => {
   const fetchSubmissionHistory = async () => {
     const submissionHistory = await userSubmissionHistory(address);
     setSubmissionHistory(submissionHistory);
-    console.log(submissionHistory);
   };
 
   useEffect(() => {

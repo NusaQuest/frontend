@@ -14,6 +14,7 @@ import {
   proposalSnapshot,
   proposalVotes,
   state,
+  userSubmissionHistory,
   vote,
 } from "../services/proposal";
 import Swal from "sweetalert2";
@@ -24,6 +25,7 @@ import { pinata } from "../utils/env";
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
 import { getIdentity } from "../server/identity";
+import { CheckCircle } from "lucide-react";
 
 const QuestDetail = ({ address }) => {
   const { id } = useParams("id");
@@ -38,8 +40,27 @@ const QuestDetail = ({ address }) => {
   const [disabled, setDisabled] = useState(true);
   const [videoProof, setVideoProof] = useState(null);
   const [registered, setRegistered] = useState(false);
+  const [viewUrl, setViewUrl] = useState("");
 
   const navigate = useNavigate();
+
+  const fetchSubmissionHistory = async () => {
+    if (!address) return;
+
+    const submissionHistory = await userSubmissionHistory(address);
+    if (!submissionHistory) return;
+    console.log(submissionHistory);
+
+    const proposalId = await getProposalId(quest);
+    console.log(quest);
+    if (!proposalId) return;
+    console.log(proposalId);
+
+    const findSubmission = submissionHistory.find(
+      (item) => String(item.proposalId) === String(proposalId)
+    );
+    setViewUrl(findSubmission.proof);
+  };
 
   const fetchIdentity = async () => {
     if (!address) return;
@@ -300,6 +321,12 @@ const QuestDetail = ({ address }) => {
     fetchIdentity();
   }, [address]);
 
+  useEffect(() => {
+    if (quest) {
+      fetchSubmissionHistory();
+    }
+  }, [address, quest]);
+
   useEffect(() => {}, [selectedImage]);
 
   const handleSelectImage = (id) => {
@@ -351,19 +378,39 @@ const QuestDetail = ({ address }) => {
               <div>
                 <Countdown timestamp={votePeriodCountdown} status={status} />
                 <Title title={"Video Proof"} />
-                <FileUploadField
-                  name="videoProof"
-                  file={videoProof}
-                  onChange={handleVideoProofChange}
-                  type={"video"}
-                />
-                <div className="mb-5" />
-                <ReusableButton
-                  text={"Submit"}
-                  buttonColor={"bg-primary"}
-                  textColor={"text-secondary"}
-                  action={handleSubmit}
-                />
+                {viewUrl ? (
+                  <div className="border border-green-500 bg-green-100 w-full rounded-md flex flex-row items-center justify-between p-4 gap-3 text-green-800 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="size-5 text-green-600" />
+                      <span className="font-medium text-sm md:text-base">Proof submitted</span>
+                    </div>
+                    <a
+                      href={viewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm md:text-base text-green-700 hover:underline font-semibold"
+                    >
+                      View
+                    </a>
+                  </div>
+                ) : (
+                  <div>
+                    <FileUploadField
+                      name="videoProof"
+                      file={videoProof}
+                      onChange={handleVideoProofChange}
+                      type={"video"}
+                    />
+                    <div className="mb-5" />
+                    <ReusableButton
+                      text={"Submit"}
+                      buttonColor={"bg-primary"}
+                      textColor={"text-secondary"}
+                      action={handleSubmit}
+                    />
+                  </div>
+                )}
+
                 <div className="mb-5" />
               </div>
             )}

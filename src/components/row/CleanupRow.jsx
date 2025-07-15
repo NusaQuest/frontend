@@ -1,5 +1,4 @@
 import React from "react";
-import { getProposalId } from "../../services/proposal";
 import { Link } from "react-router-dom";
 
 const CleanupRow = ({ proposal, onView }) => {
@@ -7,7 +6,7 @@ const CleanupRow = ({ proposal, onView }) => {
     <tr className="border-t border-white/10 hover:bg-white/5 transition">
       <td className="px-4 py-3 text-secondary font-medium">
         <Link
-          to={`/quest/${item.id}`}
+          to={`/quest/${proposal.id}`}
           className="hover:underline cursor-pointer transition"
         >
           {proposal.proposalname}
