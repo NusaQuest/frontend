@@ -10,7 +10,6 @@ export async function initiate(
   values,
   calldatas,
   description,
-  address
 ) {
   try {
     const result = await writeContract(config, {
@@ -240,6 +239,36 @@ export async function userSubmissionHistory(wallet) {
       args: [wallet],
     });
     return submissionHistory;
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function lastProposeTimestamp(wallet) {
+  try {
+    const timestamp = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "lastProposeTimestamp",
+      args: [wallet],
+    });
+    return parseInt(timestamp);
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function lastVoteTimestamp(wallet) {
+  try {
+    const timestamp = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "lastVoteTimestamp",
+      args: [wallet],
+    });
+    return parseInt(timestamp);
   } catch (error) {
     console.error(error);
     return;
