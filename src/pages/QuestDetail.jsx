@@ -8,6 +8,7 @@ import QuestProfile from "../components/sections/QuestProfile";
 import { getProposals } from "../server/proposal";
 import {
   claimParticipantReward,
+  executedTimestamp,
   getProposalId,
   lastVoteTimestamp,
   proposalDeadline,
@@ -35,6 +36,7 @@ const QuestDetail = ({ address }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [voteStartCountdown, setVoteStartCountdown] = useState(0);
   const [votePeriodCountdown, setVotePeriodCountdown] = useState(0);
+  const [submissionPeriod, setSubmissionPeriod] = useState(0);
   const [etaCountdown, setEtaCountdown] = useState(0);
   const [totalFor, setTotalFor] = useState(0);
   const [totalAgainst, setTotalAgainst] = useState(0);
@@ -111,6 +113,12 @@ const QuestDetail = ({ address }) => {
     setEtaCountdown(eta);
   };
 
+  const fetchSubmissionPeriod = async () => {
+    const period = await executedTimestamp(quest);
+    const timeLater = 15 * 60;
+    setSubmissionPeriod(period + timeLater);
+  };
+
   const fetchTotalVotes = async () => {
     const [totalAgainst, totalFor] = await proposalVotes(quest);
     setTotalAgainst(totalAgainst);
@@ -138,7 +146,7 @@ const QuestDetail = ({ address }) => {
   const checkVotingAvailability = async () => {
     const currentTimestamp = await getBlockTimestamp();
     const lastVote = await lastVoteTimestamp(address);
-    const delay = 1 * 60 * 60;
+    const delay = 15 * 60;
     const nextAvailable = lastVote + delay;
 
     if (currentTimestamp < nextAvailable) {
@@ -268,7 +276,7 @@ const QuestDetail = ({ address }) => {
         const httpResult = await addTransaction(
           address,
           "Submitted Cleanup Proof",
-          "+70 NUSA",
+          "+40 NUSA",
           result,
           timestamp
         );
@@ -278,7 +286,7 @@ const QuestDetail = ({ address }) => {
         if (httpResult.status === "success") {
           await Swal.fire({
             title: "Proof Submitted",
-            text: "Thank you for your contribution! You’ve earned 70 NUSA for participating in the cleanup.",
+            text: "Thank you for your contribution! You’ve earned 40 NUSA for participating in the cleanup.",
             icon: "success",
             confirmButtonText: "Awesome!",
           });
@@ -337,6 +345,10 @@ const QuestDetail = ({ address }) => {
 
     if (status === "Queued") {
       fetchEta();
+    }
+
+    if (status == "Executed") {
+      fetchSubmissionPeriod();
     }
   }, [status]);
 
@@ -399,7 +411,7 @@ const QuestDetail = ({ address }) => {
 
             {status === "Executed" && (
               <div>
-                <Countdown timestamp={votePeriodCountdown} status={status} />
+                <Countdown timestamp={submissionPeriod} status={status} />
                 <Title title={"Video Proof"} />
                 {viewUrl ? (
                   <div className="border border-green-500 bg-green-100 w-full rounded-md flex flex-row items-center justify-between p-4 gap-3 text-green-800 shadow-sm">

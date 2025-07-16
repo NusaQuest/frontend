@@ -256,8 +256,8 @@ const Impact = ({ address }) => {
     setIsOnAction(false);
     navigate(`/quest`);
     await Swal.fire({
-      title: "Proposal Submitted 🎉",
-      text: "Your proposal has been successfully submitted to the blockchain. If your proposal is approved and executed, you'll receive a reward of 30 NUSA.",
+      title: "Quest Submitted 🎉",
+      text: "Your quest has been successfully submitted to the blockchain. If your proposal is approved and executed, you'll receive a reward of 10 NUSA.",
       icon: "success",
       confirmButtonText: "Close",
     });
@@ -364,8 +364,8 @@ const Impact = ({ address }) => {
       if (result) {
         const httpResult = await addTransaction(
           address,
-          "Proposal Executed - 30 NUSA Reward",
-          "+30 NUSA",
+          "Quest Executed",
+          "+10 NUSA",
           result,
           timestamp
         );
@@ -374,7 +374,7 @@ const Impact = ({ address }) => {
           Swal.close();
           await Swal.fire({
             title: "Executed Successfully",
-            text: "The proposal has been executed successfully.",
+            text: "Your quest has been executed successfully. You’ve earned 10 NUSA as a proposer on this quest.",
             icon: "success",
             confirmButtonText: "Close",
           });

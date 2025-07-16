@@ -5,12 +5,7 @@ import { keccak256, toUtf8Bytes } from "ethers";
 import { NUSAQUEST_ADDRESS } from "../utils/env";
 import { getCountdownFromBlockNumber } from "./helper/converter";
 
-export async function initiate(
-  targets,
-  values,
-  calldatas,
-  description,
-) {
+export async function initiate(targets, values, calldatas, description) {
   try {
     const result = await writeContract(config, {
       abi: nusaquest_abi,
@@ -267,6 +262,22 @@ export async function lastVoteTimestamp(wallet) {
       address: NUSAQUEST_ADDRESS,
       functionName: "lastVoteTimestamp",
       args: [wallet],
+    });
+    return parseInt(timestamp);
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
+
+export async function executedTimestamp(proposal) {
+  try {
+    const proposalId = await getProposalId(proposal);
+    const timestamp = await readContract(config, {
+      abi: nusaquest_abi,
+      address: NUSAQUEST_ADDRESS,
+      functionName: "executedTimestamp",
+      args: [proposalId],
     });
     return parseInt(timestamp);
   } catch (error) {
