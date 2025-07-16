@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { mapStateToStatus } from "../utils/helper";
+import { formatTimestamp, mapStateToStatus } from "../utils/helper";
 import Countdown from "../components/sections/Countdown";
 import VoteButton from "../components/sections/VoteButton";
 import QuestImagesSection from "../components/sections/QuestImagesSection";
@@ -9,6 +9,7 @@ import { getProposals } from "../server/proposal";
 import {
   claimParticipantReward,
   getProposalId,
+  lastVoteTimestamp,
   proposalDeadline,
   proposalEta,
   proposalSnapshot,
@@ -134,9 +135,31 @@ const QuestDetail = ({ address }) => {
     return true;
   };
 
+  const checkVotingAvailability = async () => {
+    const currentTimestamp = await getBlockTimestamp();
+    const lastVote = await lastVoteTimestamp(address);
+    const delay = 1 * 60 * 60;
+    const nextAvailable = lastVote + delay;
+
+    if (currentTimestamp < nextAvailable) {
+      const formattedTime = formatTimestamp(nextAvailable);
+      Swal.fire({
+        title: "Wait Before Voting Again",
+        text: `You can vote again at ${formattedTime}.`,
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+      return false;
+    }
+    return true;
+  };
+
   const handleVote = async (support, reason) => {
     const allowed = await checkRegistered();
     if (!allowed) return;
+
+    const available = await checkVotingAvailability();
+    if (!available) return;
 
     Swal.fire({
       title: "Submitting Vote",
@@ -382,7 +405,9 @@ const QuestDetail = ({ address }) => {
                   <div className="border border-green-500 bg-green-100 w-full rounded-md flex flex-row items-center justify-between p-4 gap-3 text-green-800 shadow-sm">
                     <div className="flex items-center gap-2">
                       <CheckCircle className="size-5 text-green-600" />
-                      <span className="font-medium text-sm md:text-base">Proof submitted</span>
+                      <span className="font-medium text-sm md:text-base">
+                        Proof submitted
+                      </span>
                     </div>
                     <a
                       href={viewUrl}

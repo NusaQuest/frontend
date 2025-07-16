@@ -24,6 +24,18 @@ export function getCountdown(targetTimestamp) {
   return { days, hours, minutes, seconds };
 }
 
+export function formatTimestamp(timestamp) {
+  const date = new Date(timestamp * 1000);
+  const day = date.toLocaleDateString("en-GB");
+  const time = date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  return `${day} ${time}`;
+}
+
 export function navs() {
   return [
     {

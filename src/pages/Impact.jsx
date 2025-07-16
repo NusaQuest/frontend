@@ -12,9 +12,16 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { encodeFunctionData } from "viem";
 import { getIdentity } from "../server/identity";
-import { contribution, execute, initiate, queue } from "../services/proposal";
+import {
+  contribution,
+  execute,
+  initiate,
+  lastProposeTimestamp,
+  queue,
+} from "../services/proposal";
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
+import { formatTimestamp } from "../utils/helper";
 
 const Impact = ({ address }) => {
   const [registered, setRegistered] = useState(false);
@@ -73,7 +80,12 @@ const Impact = ({ address }) => {
     setTotalQuestsExecuted(totalQuestsExecuted);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    const currentTimestamp = await getBlockTimestamp();
+    const lastPropose = await lastProposeTimestamp(address);
+    const delay = 1 * 60 * 60;
+    const nextAvailable = lastPropose + delay;
+
     if (!registered) {
       Swal.fire({
         title: "KTP Verification Required",
@@ -84,6 +96,14 @@ const Impact = ({ address }) => {
         if (result.isConfirmed) {
           navigate(`/register`);
         }
+      });
+    } else if (currentTimestamp < nextAvailable) {
+      const formattedTime = formatTimestamp(nextAvailable);
+      return Swal.fire({
+        title: "Wait Before Proposing Again",
+        text: `You can propose again at ${formattedTime}.`,
+        icon: "info",
+        confirmButtonText: "OK",
       });
     } else {
       setIsClick(!isClick);
