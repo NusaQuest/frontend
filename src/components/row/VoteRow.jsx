@@ -16,8 +16,6 @@ const VoteRow = ({ proposal, voteHistory }) => {
     const searchVoteHistory = voteHistory.find(
       (item) => String(item.proposalId) === String(proposalId)
     );
-    console.log(proposalId);
-    console.log(voteHistory);
     if (searchVoteHistory) {
       const side = parseInt(searchVoteHistory.support);
       setVote(side == 0 ? "Against" : "For");

@@ -12,8 +12,6 @@ const CleanupRow = ({ proposal, submissionHistory }) => {
     const searchSubmissionHistory = submissionHistory.find(
       (item) => String(item.proposalId) === String(proposalId)
     );
-    console.log(proposalId);
-    console.log(submissionHistory);
     if (searchSubmissionHistory) {
       setProof(searchSubmissionHistory.proof);
     }

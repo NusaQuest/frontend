@@ -8,7 +8,6 @@ const VoteTable = ({ proposals, address }) => {
   const fetchVoteHistory = async () => {
     const voteHistory = await userVoteHistory(address);
     setVoteHistory(voteHistory);
-    console.log(voteHistory);
   };
 
   useEffect(() => {

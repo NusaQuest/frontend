@@ -31,7 +31,7 @@ const Impact = ({ address }) => {
     "Bersih-bersih Parangtritis"
   );
   const [proposalDescription, setProposalDescription] = useState(
-    "Organize clean-up at Parangtritis Beach involving local volunteers and waste manageme"
+    "Organize clean-up at Parangtritis Beach involving local volunteers and waste manage"
   );
   const [images, setImages] = useState(null);
   const [beachName, setBeachName] = useState("Parangtritis Beach");
@@ -62,11 +62,14 @@ const Impact = ({ address }) => {
     const res = await getProposals();
     if (res.status === "success") {
       const data = res.data.proposals;
-      const myProposals = data.filter(
-        (item) => item.wallet.toLowerCase() === address.toLowerCase()
-      );
-      setAllProposals(data);
-      setProposals(myProposals);
+      if (!data) return;
+
+      const myProposals =
+        data.filter(
+          (item) => item.wallet.toLowerCase() === address.toLowerCase()
+        ) || [];
+      setAllProposals(data || []);
+      setProposals(myProposals || []);
     }
   };
 
@@ -192,6 +195,7 @@ const Impact = ({ address }) => {
         icon: "warning",
         confirmButtonText: "Close",
       });
+      clear();
       return false;
     }
     return true;
@@ -247,6 +251,7 @@ const Impact = ({ address }) => {
         icon: "error",
         confirmButtonText: "Close",
       });
+      clear();
       return false;
     }
     return true;
@@ -406,6 +411,16 @@ const Impact = ({ address }) => {
       });
       console.error(error);
     }
+  };
+
+  const clear = () => {
+    setProposalName("");
+    setProposalDescription("");
+    setBeachName("");
+    setCity("");
+    setProvince("");
+    setMaps("");
+    setImages(null);
   };
 
   useEffect(() => {

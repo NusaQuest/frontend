@@ -30,7 +30,6 @@ const Register = ({ address }) => {
     const res = await Tesseract.recognize(ktpFile, "eng", {
       logger: (m) => console.log(m),
     });
-    console.log(res.data.text);
     setOcr(res.data.text);
 
     const extractedName = extractNameFromKTP(res.data.text);
@@ -74,7 +73,6 @@ const Register = ({ address }) => {
     const nameLine = lines.find((line) => line.toLowerCase().includes("nama"));
 
     if (nameLine) {
-      console.log("Ditemukan:", nameLine);
 
       const name = nameLine
         .split(/nama\s*[:=]/i)[1]

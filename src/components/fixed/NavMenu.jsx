@@ -9,7 +9,6 @@ const NavMenu = ({ action, registered }) => {
         if (registered && item.title.toLowerCase() === "register") {
           return null;
         }
-        console.log(registered);
 
         return (
           <h1

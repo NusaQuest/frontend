@@ -202,7 +202,6 @@ export async function proposalEta(proposal) {
       functionName: "proposalEta",
       args: [proposalId],
     });
-    console.log(eta);
     return eta;
   } catch (error) {
     console.error(error);

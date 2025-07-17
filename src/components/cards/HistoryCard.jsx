@@ -31,7 +31,7 @@ const HistoryCard = ({ item }) => {
       <div className="flex items-center gap-2 text-xs text-primary hover:underline cursor-pointer">
         <LinkIcon size={14} />
         <a
-          href={`https://sepolia.etherscan.io/tx/${item.txhash}`}
+          href={`https://sepolia-blockscout.lisk.com/tx/${item.txhash}`}
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -41,7 +41,7 @@ export async function balanceOf(address) {
       functionName: "balanceOf",
       args: [address],
     });
-    return parseInt(balance);
+    return parseInt(balance) / 1e18;
   } catch (error) {
     console.error(error);
     return;

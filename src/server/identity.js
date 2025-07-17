@@ -4,9 +4,6 @@ import { BACKEND_API_URL } from "../utils/env";
 
 export async function registerIdentity(wallet, registeredAt) {
   try {
-    console.log(BACKEND_API_URL);
-    console.log(wallet);
-    console.log(registeredAt);
     const res = await axios.post(`${BACKEND_API_URL}/identities`, {
       wallet: wallet,
       registeredat: registeredAt,

@@ -6,7 +6,6 @@ const Countdown = ({ timestamp, status }) => {
   const [countdown, setCountdown] = useState(getCountdown(timestamp));
 
   useEffect(() => {
-    console.log(timestamp);
 
     const interval = setInterval(() => {
       setCountdown(getCountdown(timestamp));

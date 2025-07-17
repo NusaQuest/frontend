@@ -10,7 +10,9 @@ const History = ({ address }) => {
     if (!address) return;
 
     const result = await getWalletTransactions(address);
-    setHistories(result.data.transactions);
+    if (!result) return;
+
+    setHistories(result.data.transactions.reverse() || []);
   };
 
   useEffect(() => {

@@ -52,17 +52,16 @@ const QuestDetail = ({ address }) => {
 
     const submissionHistory = await userSubmissionHistory(address);
     if (!submissionHistory) return;
-    console.log(submissionHistory);
 
     const proposalId = await getProposalId(quest);
-    console.log(quest);
     if (!proposalId) return;
-    console.log(proposalId);
 
     const findSubmission = submissionHistory.find(
       (item) => String(item.proposalId) === String(proposalId)
     );
-    setViewUrl(findSubmission.proof);
+    if (!findSubmission) return;
+    
+    setViewUrl(findSubmission.proof || "");
   };
 
   const fetchIdentity = async () => {
@@ -79,22 +78,17 @@ const QuestDetail = ({ address }) => {
   const fetchQuest = async () => {
     const res = await getProposals();
     if (res.status === "success") {
-      console.log(res.data.proposals);
       setQuest(res.data.proposals.find((item) => item.id === String(id)));
     }
   };
 
   const fetchState = async () => {
-    console.log(quest);
     const proposalId = await getProposalId(quest);
-    console.log(proposalId);
     if (!proposalId) return;
 
     const proposalState = await state(proposalId);
-    console.log(proposalState);
 
     const status = mapStateToStatus(proposalState);
-    console.log(status);
     setStatus(status);
   };
 
@@ -184,7 +178,6 @@ const QuestDetail = ({ address }) => {
       const result = await vote(quest, support, reason);
 
       if (result) {
-        console.log(result);
         navigate(`/quest`);
         Swal.close();
         await Swal.fire({
