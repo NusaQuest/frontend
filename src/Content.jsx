@@ -12,12 +12,8 @@ import Impact from "./pages/Impact";
 import QuestDetail from "./pages/QuestDetail";
 import RedeemDetail from "./pages/RedeemDetail";
 import History from "./pages/History";
-import { NUSAQUEST_ADDRESS } from "./utils/env";
-import { encodeFunctionData } from "viem";
-import nusaquest_abi from "./build/nusaquest_abi.json";
-import { config } from "./App";
-import { writeContract } from "wagmi/actions";
 import { getIdentity } from "./server/identity";
+import Swal from "sweetalert2";
 
 const Content = () => {
   const [click, setClick] = useState(false);
@@ -43,6 +39,17 @@ const Content = () => {
       setRegistered(true);
     } else {
       setRegistered(false);
+
+      await Swal.fire({
+        title: "KTP Verification Required",
+        text: "You need to verify your KTP before accessing this feature. Please complete the verification first.",
+        icon: "warning",
+        confirmButtonText: "Verify Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/register`);
+        }
+      });
     }
   };
 
@@ -75,15 +82,21 @@ const Content = () => {
 
       <div className="flex-1 mb-12">
         <Routes>
-          <Route path="/" element={<Home address={address} />} />
+          <Route
+            path="/"
+            element={<Home address={address} registered={registered} />}
+          />
           <Route path="/register" element={<Register address={address} />} />
           <Route path="/quest" element={<Quest />} />
           <Route path="/redeem" element={<Redeem address={address} />} />
-          <Route path="/impact" element={<Impact address={address} />} />
+          <Route
+            path="/impact"
+            element={<Impact address={address} registered={registered} />}
+          />
           <Route path="/history" element={<History address={address} />} />
           <Route
             path="/quest/:id"
-            element={<QuestDetail address={address} />}
+            element={<QuestDetail address={address} registered={registered} />}
           />
           <Route
             path="/redeem/:id"

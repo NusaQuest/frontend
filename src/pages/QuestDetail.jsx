@@ -29,7 +29,7 @@ import { getBlockTimestamp } from "../services/helper/converter";
 import { getIdentity } from "../server/identity";
 import { CheckCircle } from "lucide-react";
 
-const QuestDetail = ({ address }) => {
+const QuestDetail = ({ address, registered }) => {
   const { id } = useParams("id");
   const [quest, setQuest] = useState(null);
   const [status, setStatus] = useState("Loading");
@@ -42,7 +42,6 @@ const QuestDetail = ({ address }) => {
   const [totalAgainst, setTotalAgainst] = useState(0);
   const [disabled, setDisabled] = useState(true);
   const [videoProof, setVideoProof] = useState(null);
-  const [registered, setRegistered] = useState(false);
   const [viewUrl, setViewUrl] = useState("");
 
   const navigate = useNavigate();
@@ -60,19 +59,8 @@ const QuestDetail = ({ address }) => {
       (item) => String(item.proposalId) === String(proposalId)
     );
     if (!findSubmission) return;
-    
+
     setViewUrl(findSubmission.proof || "");
-  };
-
-  const fetchIdentity = async () => {
-    if (!address) return;
-
-    const res = await getIdentity(address);
-    if (res.status === "success") {
-      setRegistered(true);
-    } else {
-      setRegistered(false);
-    }
   };
 
   const fetchQuest = async () => {
@@ -345,9 +333,6 @@ const QuestDetail = ({ address }) => {
     }
   }, [status]);
 
-  useEffect(() => {
-    fetchIdentity();
-  }, [address]);
 
   useEffect(() => {
     if (quest) {

@@ -6,9 +6,11 @@ import { delegate, isAlreadyDelegate } from "../services/ft";
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
 
-const Home = ({ address }) => {
+const Home = ({ address, registered }) => {
   const fetchDelegateStatus = async () => {
     if (!address) return;
+
+    if (!registered) return;
 
     const status = await isAlreadyDelegate(address);
     if (!status) {

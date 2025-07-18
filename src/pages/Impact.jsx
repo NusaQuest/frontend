@@ -23,8 +23,7 @@ import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
 import { formatTimestamp } from "../utils/helper";
 
-const Impact = ({ address }) => {
-  const [registered, setRegistered] = useState(false);
+const Impact = ({ address, registered }) => {
   const [isClick, setIsClick] = useState(false);
   const [isOnAction, setIsOnAction] = useState(false);
   const [proposalName, setProposalName] = useState(
@@ -44,17 +43,6 @@ const Impact = ({ address }) => {
   const [totalVotes, setTotalVotes] = useState(0);
   const [totalQuestsExecuted, setTotalQuestsExecuted] = useState(0);
   const navigate = useNavigate();
-
-  const fetchIdentity = async () => {
-    if (!address) return;
-
-    const res = await getIdentity(address);
-    if (res.status === "success") {
-      setRegistered(true);
-    } else {
-      setRegistered(false);
-    }
-  };
 
   const fetchProposals = async () => {
     if (!address) return;
@@ -430,7 +418,6 @@ const Impact = ({ address }) => {
   useEffect(() => {}, [isOnAction]);
 
   useEffect(() => {
-    fetchIdentity();
     fetchContribution();
   }, [address]);
 
