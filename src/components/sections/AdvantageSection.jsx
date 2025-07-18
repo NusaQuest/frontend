@@ -29,7 +29,7 @@ const advantages = [
     advantage: "AI-Powered Relevance Detection",
     icon: "brain",
     description:
-      "Our AI checks every proposal and submission to ensure it's valid, relevant, and beach-related.",
+      "Our AI checks every proposal to ensure it's valid, relevant, and beach-related.",
   },
   {
     advantage: "KTP-Based Registration",
