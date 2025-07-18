@@ -4,15 +4,7 @@
 🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, where anyone can join real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 for their actions, and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. NusaQuest makes it fun and rewarding to protect the planet — while empowering communities through transparent, decentralized systems and meaningful incentives.
 
 ## 💡 Features
-- 🪪 Verify Identity
-- 🗳️ Delegate Voting Power
-- 🧭 Propose a Quest
-- ✅ Vote on Quests
-- 📸 Submit Proof of Action
-- 🔁 Swap $NUSA Tokens
-
-## 📋 How It Works
-- 🪪 Verify Identity
+- 🪪 Verify Identity (KYC with OCR of KTP)
 - 🗳️ Delegate Voting Power
 - 🧭 Propose a Quest
 - ✅ Vote on Quests
