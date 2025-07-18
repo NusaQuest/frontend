@@ -19,8 +19,6 @@
 - 🔗 Live Smart Contract Deployment : [View Blockscout]()
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
-- 🗂️ Business Model Canvas (BMC) : [View File]()
-- 🔑 App Flow : [View Flow]()
 - 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
 
