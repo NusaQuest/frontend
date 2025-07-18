@@ -15,6 +15,7 @@
 - 💻 Frontend : [View Code](https://github.com/NusaQuest/frontend.git)
 - 📜 Smart Contract : [View Code](https://github.com/NusaQuest/smart-contract.git)
 - 🧬 NFT Metadata : [View Metadata](https://github.com/NusaQuest/nft-metadata.git)
+- 🔗 Live Smart Contract Deployment : [View Blockscout]()
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
 - 🗂️ Business Model Canvas (BMC) : [View File]()
@@ -26,7 +27,7 @@
 - 🖥️ Frontend : ReactJS (Javascript)
 - 📜 Smart Contract : Foundry (Solidity)
 - 🔧 Backend : GoFiber (Golang)
-- 🔗 Library : Wagmi
+- 📚 Library : Wagmi
 - 🔐 Authentication : Xellar Wallet
 - 🪪 Identity Verification : OCR (Optical Character Recognition)
 - 🌐 IPFS Provider : Pinata
