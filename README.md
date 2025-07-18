@@ -1,7 +1,7 @@
 # NusaQuest : Beaches aren't gonna clean themselves. 🚀
 
 ## ✨ Overview
-🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, where anyone can join real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 for their actions, and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. NusaQuest makes it fun and rewarding to protect the planet — while empowering communities through transparent, decentralized systems and meaningful incentives.
+🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️. Anyone can join real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 for their actions, and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes protecting the planet fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
 
 ## 💡 Features
 - 🪪 Verify Identity (KYC with OCR of KTP)
@@ -26,6 +26,7 @@
 ## ⚙️ Tech Stack Behind BlocEstate
 - 🖥️ Frontend : ReactJS (Javascript)
 - 📜 Smart Contract : Foundry (Solidity)
+- 🛰️ Network : Lisk Sepolia
 - 🔧 Backend : GoFiber (Golang)
 - 📚 Library : Wagmi
 - 🔐 Authentication : Xellar Wallet
