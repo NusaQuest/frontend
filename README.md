@@ -1,7 +1,7 @@
 # NusaQuest : Beaches aren't gonna clean themselves. 🚀
 
 ## ✨ Overview
-🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, where anyone can participate in real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 as rewards for their positive environmental actions, and redeem those tokens for NFT concert tickets 🎫. Designed to bridge Web3 🌐 with real-world environmental action 🌱, NusaQuest makes it fun and rewarding to protect the planet — while empowering communities through transparent, decentralized systems and meaningful incentives.
+🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, where anyone can join real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 for their actions, and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. NusaQuest makes it fun and rewarding to protect the planet — while empowering communities through transparent, decentralized systems and meaningful incentives.
 
 ## 💡 Features
 - 🪪 Verify Identity
