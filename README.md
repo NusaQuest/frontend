@@ -1,15 +1,16 @@
 # NusaQuest : Beaches aren't gonna clean themselves. 🚀
 
 ## ✨ Overview
-🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️. Anyone can join real beach cleanups across Indonesia 🇮🇩, earn $NUSA tokens 💰 for their actions, and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes protecting the planet fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
+🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️, that turns real-world environmental actions into meaningful digital rewards. Through beach cleanups across Indonesia 🇮🇩, anyone can earn NUSA tokens 💰 and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes protecting the planet fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
 
 ## 💡 Features
-- 🪪 Verify Identity (KYC with OCR of KTP)
-- 🗳️ Delegate Voting Power
-- 🧭 Propose a Quest
-- ✅ Vote on Quests
-- 📸 Submit Proof of Action
-- 🔁 Swap $NUSA Tokens
+- 🪪 Verify Identity (KYC with OCR of KTP) : Verify your identity easily using KTP-based KYC with OCR — secure and effortless! 🔐
+- 🗳️ Delegate Voting Power : Delegate your vote to yourself to join quest voting — and get a chance to earn 10 NUSA tokens! 🎉
+- 🧭 Propose a Quest : Suggest a beach cleanup location in Indonesia — if your quest is approved, you’ll earn 10 NUSA tokens! 📍
+- 🤖 AI Proposal Checker : Our AI checks if your proposed location is a valid beach in Indonesia and ensures the description is relevant and clear! 🧠
+- ✅ Vote on Quests : Help decide which cleanup quests matter most by voting with the community! 🗳️
+- 📸 Submit Proof of Action : Upload a video of your beach cleanup to earn 40 NUSA tokens as proof of real impact! 🎥
+- 🔁 Swap $NUSA Tokens : Redeem your NUSA tokens for exclusive NFT concert tickets available on the platform! 🎫
 
 ## 🚀 NusaQuest Insights
 - 💻 Frontend : [View Code](https://github.com/NusaQuest/frontend.git)
