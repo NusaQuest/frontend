@@ -22,6 +22,7 @@
 ## 🚀 NusaQuest Insights
 - 💻 Frontend : [View Code](https://github.com/NusaQuest/frontend.git)
 - 📜 Smart Contract : [View Code](https://github.com/NusaQuest/smart-contract.git)
+- 🧬 NFT Metadata : [View Metadata](https://github.com/NusaQuest/nft-metadata.git)
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
 - 🗂️ Business Model Canvas (BMC) : [View File]()
@@ -40,14 +41,12 @@
 - 🎨 Styling : TailwindCSS
 
 ## 🖼️ Assets Reference
-- 📢 [Garuda Pancasila picture on certificate](https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/National_emblem_of_Indonesia_Garuda_Pancasila.svg/1200px-National_emblem_of_Indonesia_Garuda_Pancasila.svg.png)
-- 📢 [First house picture](
-https://picture.rumah123.com/r123-images/720x420-crop/customer/1971740/2024-03-21-05-35-42-a11c1467-de70-4b94-9b61-6e3b0fff375d.jpg)
-- 📢 [Second house picture](https://cdn.raywhite.co.id/2023/07/21/395949-67613374__1688709447-28452-IMG-20230705-WA0071-794.jpg)
-- 📢 [Third house picture](https://img-ap-1.trovit.com/img1id/611rA1kA1-K/611rA1kA1-K.1_11.jpg)
-- 📢 [Fourth house picture](https://picture.rumah123.com/r123-images/720x420-crop/customer/1606948/45f10007c60ea8e34c34b0c29d6ec37d.jpg)
-- 📢 [Calendar icon on auction card](https://img.icons8.com/material-sharp/24/calendar--v1.png)
-- 📢 [Arrow icon on auction card](https://img.icons8.com/ios/50/arrow--v1.png) 
+- 📢 [Xellar Wallet Logo on Connect Button](https://play.google.com/store/apps/details?id=com.xellar.wallets&pli=1)
+- 📢 [NFT Images](https://sora.chatgpt.com/explore)
+- 📢 [Gift Illustration — Representative Asset for Impact & Rewards](https://www.flaticon.com/premium-sticker/gift-box_5784099?k=1751555820535&log-in=google)
+- 📢 [Brain Illustration — Representative Asset for AI-Powered Relevance Detection](https://www.flaticon.com/free-sticker/brain_6639851?term=brain&page=1&position=4&origin=search&related_id=6639851)
+- 📢 [People Illustration — Representative Asset for DAO-Powered Governance](https://www.flaticon.com/free-sticker/team_6639779?term=group&page=1&position=1&origin=search&related_id=6639779)
+- 📢 [ID Card Illustration — Representative Asset for KTP-based Registration](https://www.flaticon.com/free-sticker/id-card_8140376?term=identity&page=1&position=11&origin=search&related_id=8140376)
 
 ## 🤝 Contributors
 - 🧑 Yobel Nathaniel Filipus : [@yebology](https://github.com/yebology)
