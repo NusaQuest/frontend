@@ -44,4 +44,7 @@
 - 📢 [ID Card Illustration — Representative Asset for KTP-based Registration](https://www.flaticon.com/free-sticker/id-card_8140376?term=identity&page=1&position=11&origin=search&related_id=8140376)
 
 ## 🤝 Contributors
-- 🧑 Yobel Nathaniel Filipus : [@yebology](https://github.com/yebology)
+- 🧑 Yobel Nathaniel Filipus : 
+  - 🐙 Github : [View Profile](https://github.com/yebology)
+  - 💼 Linkedin : [View Profile](https://linkedin.com/in/yobelnathanielfilipus)
+  - 📧 Email : [yobelnathaniel12@gmail.com](mailto:yobelnathaniel12@gmail.com)
