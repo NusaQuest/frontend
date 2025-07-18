@@ -2,7 +2,7 @@
 
 ## ✨ Overview
 
-🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️, that turns real-world environmental actions into meaningful digital rewards. Through beach cleanups across Indonesia 🇮🇩, anyone can earn NUSA tokens 💰 and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes protecting the planet fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
+🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️, that turns real-world environmental actions into meaningful digital rewards. Through beach cleanups across Indonesia 🇮🇩, anyone can earn NUSA tokens 💰 and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes caring for the environment fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
 
 ## 💡 Features
 
@@ -12,7 +12,7 @@
 - 🤖 AI Proposal Checker : Our AI checks if your proposed location is a valid beach in Indonesia and ensures the description is relevant and clear! 🧠
 - ✅ Vote on Quests : Help decide which cleanup quests matter most by voting with the community! 🗳️
 - 📸 Submit Proof of Action : Upload a video of your beach cleanup to earn 40 NUSA tokens as proof of real impact! 🎥
-- 🔁 Swap $NUSA Tokens : Redeem your NUSA tokens for exclusive NFT concert tickets available on the platform! 🎫
+- 🔁 Swap NUSA Tokens : Redeem your NUSA tokens for exclusive NFT concert tickets available on the platform! 🎫
 
 ## 🚀 NusaQuest Insights
 
@@ -25,9 +25,9 @@
 - 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
 
-## ⚙️ Tech Stack Behind BlocEstate
+## ⚙️ Tech Stack Behind NusaQuest
 
-- 🖥️ Frontend : ReactJS (Javascript)
+- 🖥️ Frontend : ReactJS (JavaScript)
 - 📜 Smart Contract : Foundry (Solidity)
 - 🛰️ Network : Lisk Sepolia
 - 🔧 Backend : GoFiber (Golang)

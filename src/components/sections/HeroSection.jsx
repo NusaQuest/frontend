@@ -14,7 +14,7 @@ const HeroSection = ({ address }) => {
         </h1>
         <p className="font-thin text-secondary text-center text-xs md:text-sm lg:text-lg lg:max-w-5xl">
           NusaQuest is an impact-to-earn platform powered by AI and DAO, where
-          you can join real beach cleanups across Indonesia and earn $NUSA
+          you can join real beach cleanups across Indonesia and earn NUSA
           tokens — redeemable for concert tickets NFT.
         </p>
         <div className="w-full flex items-center justify-center mt-6">

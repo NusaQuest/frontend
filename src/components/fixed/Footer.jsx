@@ -14,7 +14,7 @@ const Footer = () => {
 
         <p className="text-sm lg:text-base text-secondary">
           A community-driven movement to clean Indonesia’s beaches, powered by
-          $NUSA, NFTs, and real-world action.
+          NUSA, NFTs, and real-world action.
         </p>
       </div>
     </div>

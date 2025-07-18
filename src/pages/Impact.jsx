@@ -11,7 +11,6 @@ import { addProposal, checkProposal, getProposals } from "../server/proposal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { encodeFunctionData } from "viem";
-import { getIdentity } from "../server/identity";
 import {
   contribution,
   execute,
@@ -30,7 +29,7 @@ const Impact = ({ address, registered }) => {
     "Bersih-bersih Parangtritis"
   );
   const [proposalDescription, setProposalDescription] = useState(
-    "Organize clean-up at Parangtritis Beach involving local volunteers and waste manage"
+    "Organize clean-up at Parangtritis Beach involving local volunteers and waste"
   );
   const [images, setImages] = useState(null);
   const [beachName, setBeachName] = useState("Parangtritis Beach");
