@@ -22,8 +22,9 @@
 - 🔗 Live Smart Contract Deployment : [View Blockscout]()
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
-- 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
+
+## 🧩 Architecture
 
 ## ⚙️ Tech Stack
 
@@ -36,6 +37,9 @@
 - 🪪 Identity Verification : Tesseract OCR (Optical Character Recognition)
 - 🌐 IPFS Provider : Pinata
 - 🎨 Styling : TailwindCSS
+
+## 🔨 How to Run
+
 
 ## 🖼️ Assets Reference
 
