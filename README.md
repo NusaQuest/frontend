@@ -14,7 +14,7 @@
 - 📸 Submit Proof of Action : Upload a video of your beach cleanup to earn 40 NUSA tokens as proof of real impact! 🎥
 - 🔁 Swap NUSA Tokens : Redeem your NUSA tokens for exclusive NFT concert tickets available on the platform! 🎫
 
-## 🚀 NusaQuest Insights
+## 🚀 Insights
 
 - 💻 Frontend : [View Code](https://github.com/NusaQuest/frontend.git)
 - 📜 Smart Contract : [View Code](https://github.com/NusaQuest/smart-contract.git)
@@ -25,7 +25,7 @@
 - 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
 
-## ⚙️ Tech Stack Behind NusaQuest
+## ⚙️ Tech Stack
 
 - 🖥️ Frontend : ReactJS (JavaScript)
 - 📜 Smart Contract : Foundry (Solidity)
