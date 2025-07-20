@@ -95,24 +95,23 @@
 
     ```
     ├── backend/
-    │   ├── config/
-    │   ├── constants/
-    │   ├── controllers/
-    │   │   └── helper/
-    │   ├── handlers/
-    │   ├── middlewares/
-    │   ├── models/
-    │   ├── output/
-    │   ├── router/
-    │   ├── utils/
-    │   ├── views/
-    │   ├── .env
-    │   ├── .gitignore
-    │   ├── Makefile
-    │   ├── go.mod
-    │   ├── go.sum
-    │   ├── go.mod
-    │   └── main.go
+    │   ├── config/         # Configuration files (e.g., database configuration)
+    │   ├── constants/      # Project-wide constant values (e.g., custom errors, custom success, etc)
+    │   ├── controllers/    # Business logic handlers for each route
+    │   │   └── helper/     # Helper functions used within controllers
+    │   ├── handlers/       # Core functions handling incoming HTTP requests
+    │   ├── middlewares/    # Middleware functions (e.g., database connection handling)
+    │   ├── models/         # Database models or data schemas
+    │   ├── output/         # JSON response structure for success or error results
+    │   ├── router/         # Route definitions and API endpoints
+    │   ├── utils/          # Utility functions (e.g., validator)
+    │   ├── views/          # HTML templates
+    │   ├── .env            # Environment variables
+    │   ├── .gitignore      # Files and folders ignored by Git
+    │   ├── Makefile        # Automation commands for building and running
+    │   ├── go.mod          # Go module definitions (dependencies)
+    │   ├── go.sum          # Hashes of module dependencies for reproducibility
+    │   └── main.go         # Entry point of the backend application
     ```
 
 ## 🔨 How to Run
