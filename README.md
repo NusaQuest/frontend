@@ -88,7 +88,7 @@
     │   ├── .gitignore        # Git ignore rules
     │   ├── .gitmodules       # Tracks git submodules (e.g., external contracts/libs)
     │   ├── Makefile          # Automation commands for building, testing, and deploying
-    │   └── foundry.toml      # Foundry configuration file (e.g., compiler version, optimizer)  
+    │   └── foundry.toml      # Foundry configuration file (e.g., compiler version, optimizer)
     ```
 
 ### 🔧 Backend
@@ -113,8 +113,6 @@
     │   ├── go.sum          # Hashes of module dependencies for reproducibility
     │   └── main.go         # Entry point of the backend application
     ```
-
-## 🔨 How to Run
 
 ## 🖼️ Assets Reference
 
