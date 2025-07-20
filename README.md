@@ -42,10 +42,10 @@
 ### 🖥️ Frontend
 
     ```
-    ├── frontend/
-    │   ├── public/
-    │   ├── src/
-    │   │   ├── assets/
+    ├── frontend/                    # Root of the client-side React application
+    │   ├── public/                  # Static public files
+    │   ├── src/                     # Static public files
+    │   │   ├── assets/              # Main source code
     │   │   ├── build/
     │   │   ├── components/
     │   │   │   ├── buttons/
@@ -77,7 +77,7 @@
 
 ### 📜 Smart Contract
 
-    ```bash
+    ```
     ├── smart-contract/
     │   ├── lib/
     │   ├── scrips/
@@ -93,7 +93,7 @@
 
 ### 🔧 Backend
 
-    ```bash
+    ```
     ├── backend/
     │   ├── config/
     │   ├── constants/
