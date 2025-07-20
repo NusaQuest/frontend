@@ -22,9 +22,8 @@
 - 🔗 Live Smart Contract Deployment : [View Blockscout]()
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
+- 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
-
-## 🧩 Architecture
 
 ## ⚙️ Tech Stack
 
@@ -38,8 +37,49 @@
 - 🌐 IPFS Provider : Pinata
 - 🎨 Styling : TailwindCSS
 
-## 🔨 How to Run
+## 🧩 Architecture
 
+### 🖥️ Frontend
+
+    ```bash
+    ├── frontend/
+    │   ├── public/
+    │   ├── src/
+    │   │   ├── assets/
+    │   │   ├── build/
+    │   │   ├── components/
+    │   │   │   ├── buttons/
+    │   │   │   ├── cards/
+    │   │   │   ├── fixed/
+    │   │   │   ├── inputs/
+    │   │   │   ├── modals/
+    │   │   │   ├── row/
+    │   │   │   ├── sections/
+    │   │   │   └── table/
+    │   │   ├── pages/
+    │   │   ├── server/
+    │   │   ├── services/
+    │   │   ├── utils/
+    │   │   ├── App.jsx
+    │   │   ├── Content.jsx
+    │   │   ├── index.css
+    │   │   ├── main.jsx
+    │   ├── .env
+    │   ├── .gitignore
+    │   ├── eslint.config.js
+    │   ├── index.html
+    │   ├── Makefile
+    │   ├── package-lock.json
+    │   ├── package.json
+    │   ├── README.md
+    │   └── vite.config.js
+    ```
+
+### 📜 Smart Contract
+
+### 🔧 Backend
+
+## 🔨 How to Run
 
 ## 🖼️ Assets Reference
 
