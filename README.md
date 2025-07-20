@@ -77,7 +77,43 @@
 
 ### 📜 Smart Contract
 
+    ```bash
+    ├── smart-contract/
+    │   ├── lib/
+    │   ├── scrips/
+    │   ├── src/
+    │   │   └── lib/
+    │   ├── test/
+    │   ├── .env
+    │   ├── .gitignore
+    │   ├── .gitmodules
+    │   ├── Makefile
+    │   └── foundry.toml
+    ```
+
 ### 🔧 Backend
+
+    ```bash
+    ├── backend/
+    │   ├── config/
+    │   ├── constants/
+    │   ├── controllers/
+    │   │   └── helper/
+    │   ├── handlers/
+    │   ├── middlewares/
+    │   ├── models/
+    │   ├── output/
+    │   ├── router/
+    │   ├── utils/
+    │   ├── views/
+    │   ├── .env
+    │   ├── .gitignore
+    │   ├── Makefile
+    │   ├── go.mod
+    │   ├── go.sum
+    │   ├── go.mod
+    │   └── main.go
+    ```
 
 ## 🔨 How to Run
 
