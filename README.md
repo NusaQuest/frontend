@@ -42,53 +42,53 @@
 ### 🖥️ Frontend
 
     ```
-    ├── frontend/                    # Root of the client-side React application
-    │   ├── public/                  # Static public files
-    │   ├── src/                     # Static public files
-    │   │   ├── assets/              # Visual assets
-    │   │   ├── build/               # Contains compiled smart contract ABI
-    │   │   ├── components/          # Reusable UI components
-    │   │   ├── buttons/             # Custom button components
-    │   │   ├── cards/               # Information card components
-    │   │   ├── fixed/               # Fixed-position components (e.g. navbar and footer)
-    │   │   ├── inputs/              # Input components (e.g text fields, file uploads)
-    │   │   ├── modals/              # Popup/modal components
-    │   │   ├── row/                 # Data row components (used in lists or tables)
-    │   │   ├── sections/            # Page sections (e.g. hero)
-    │   │   ├── table/               # Table-related components
-    │   ├── pages/                   # Main page views (e.g. Home, QuestDetail, etc.)
-    │   ├── server/                  # API handlers for backend communication
-    │   ├── services/                # Logic for Web3/smart contract interactions
-    │   ├── utils/                   # Utility and helper functions
-    │   ├── App.jsx                  # Root component of the app
-    │   ├── Content.jsx              # Layout/content wrapper component
-    │   ├── index.css                # Global styles
-    │   ├── main.jsx                 # Entry point for React rendering
-    ├── .env                         # Environment variables file (API keys, config)
-    ├── .gitignore                   # Files/folders ignored by Git
-    ├── eslint.config.js             # ESLint configuration for code linting
-    ├── index.html                   # HTML template for Vite
-    ├── Makefile                     # Script runner for tasks (optional)
-    ├── package-lock.json            # Dependency lock file (auto-generated)
-    ├── package.json                 # Project metadata and dependencies
-    ├── README.md                    # Project documentation
-    └── vite.config.js               # Vite bundler configuration
+    ├── frontend/                        # Root of the client-side React application
+    │   ├── public/                      # Static public files
+    │   ├── src/                         # Static public files
+    │   │   ├── assets/                  # Visual assets
+    │   │   ├── build/                   # Contains compiled smart contract ABI
+    │   │   ├── components/              # Reusable UI components
+    │   │   │   ├── buttons/             # Custom button components
+    │   │   │   ├── cards/               # Information card components
+    │   │   │   ├── fixed/               # Fixed-position components (e.g. navbar and footer)
+    │   │   │   ├── inputs/              # Input components (e.g text fields, file uploads)
+    │   │   │   ├── modals/              # Popup/modal components
+    │   │   │   ├── row/                 # Data row components (used in lists or tables)
+    │   │   │   ├── sections/            # Page sections (e.g. hero)
+    │   │   │   └── table/               # Table-related components
+    │   │   ├── pages/                   # Main page views (e.g. Home, QuestDetail, etc.)
+    │   │   ├── server/                  # API handlers for backend communication
+    │   │   ├── services/                # Logic for Web3/smart contract interactions
+    │   │   ├── utils/                   # Utility and helper functions
+    │   │   ├── App.jsx                  # Root component of the app
+    │   │   ├── Content.jsx              # Layout/content wrapper component
+    │   │   ├── index.css                # Global styles
+    │   │   └── main.jsx                 # Entry point for React rendering
+    │   ├── .env                         # Environment variables file (API keys, config)
+    │   ├── .gitignore                   # Files/folders ignored by Git
+    │   ├── eslint.config.js             # ESLint configuration for code linting
+    │   ├── index.html                   # HTML template for Vite
+    │   ├── Makefile                     # Script runner for tasks (optional)
+    │   ├── package-lock.json            # Dependency lock file (auto-generated)
+    │   ├── package.json                 # Project metadata and dependencies
+    │   ├── README.md                    # Project documentation
+    │   └── vite.config.js               # Vite bundler configuration
     ```
 
 ### 📜 Smart Contract
 
     ```
     ├── smart-contract/
-    │   ├── lib/
-    │   ├── scrips/
-    │   ├── src/
-    │   │   └── lib/
-    │   ├── test/
-    │   ├── .env
-    │   ├── .gitignore
-    │   ├── .gitmodules
-    │   ├── Makefile
-    │   └── foundry.toml
+    │   ├── lib/              # External dependencies or libraries (via forge install)
+    │   ├── scripts/          # Deployment and automation scripts using Forge
+    │   ├── src/              # Main smart contract source files
+    │   │   └── lib/          # Contains reusable code like custom errors and event declarations
+    │   ├── test/             # Smart contract test files (e.g., unit tests)
+    │   ├── .env              # Environment variables (e.g., RPC URL, private key)
+    │   ├── .gitignore        # Git ignore rules
+    │   ├── .gitmodules       # Tracks git submodules (e.g., external contracts/libs)
+    │   ├── Makefile          # Automation commands for building, testing, and deploying
+    │   └── foundry.toml      # Foundry configuration file (e.g., compiler version, optimizer)  
     ```
 
 ### 🔧 Backend
