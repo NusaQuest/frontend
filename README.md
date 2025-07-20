@@ -45,34 +45,34 @@
     ├── frontend/                    # Root of the client-side React application
     │   ├── public/                  # Static public files
     │   ├── src/                     # Static public files
-    │   │   ├── assets/              # Main source code
-    │   │   ├── build/
-    │   │   ├── components/
-    │   │   │   ├── buttons/
-    │   │   │   ├── cards/
-    │   │   │   ├── fixed/
-    │   │   │   ├── inputs/
-    │   │   │   ├── modals/
-    │   │   │   ├── row/
-    │   │   │   ├── sections/
-    │   │   │   └── table/
-    │   │   ├── pages/
-    │   │   ├── server/
-    │   │   ├── services/
-    │   │   ├── utils/
-    │   │   ├── App.jsx
-    │   │   ├── Content.jsx
-    │   │   ├── index.css
-    │   │   ├── main.jsx
-    │   ├── .env
-    │   ├── .gitignore
-    │   ├── eslint.config.js
-    │   ├── index.html
-    │   ├── Makefile
-    │   ├── package-lock.json
-    │   ├── package.json
-    │   ├── README.md
-    │   └── vite.config.js
+    │   │   ├── assets/              # Visual assets
+    │   │   ├── build/               # Contains compiled smart contract ABI
+    │   │   ├── components/          # Reusable UI components
+    │   │   ├── buttons/             # Custom button components
+    │   │   ├── cards/               # Information card components
+    │   │   ├── fixed/               # Fixed-position components (e.g. navbar and footer)
+    │   │   ├── inputs/              # Input components (e.g text fields, file uploads)
+    │   │   ├── modals/              # Popup/modal components
+    │   │   ├── row/                 # Data row components (used in lists or tables)
+    │   │   ├── sections/            # Page sections (e.g. hero)
+    │   │   ├── table/               # Table-related components
+    │   ├── pages/                   # Main page views (e.g. Home, QuestDetail, etc.)
+    │   ├── server/                  # API handlers for backend communication
+    │   ├── services/                # Logic for Web3/smart contract interactions
+    │   ├── utils/                   # Utility and helper functions
+    │   ├── App.jsx                  # Root component of the app
+    │   ├── Content.jsx              # Layout/content wrapper component
+    │   ├── index.css                # Global styles
+    │   ├── main.jsx                 # Entry point for React rendering
+    ├── .env                         # Environment variables file (API keys, config)
+    ├── .gitignore                   # Files/folders ignored by Git
+    ├── eslint.config.js             # ESLint configuration for code linting
+    ├── index.html                   # HTML template for Vite
+    ├── Makefile                     # Script runner for tasks (optional)
+    ├── package-lock.json            # Dependency lock file (auto-generated)
+    ├── package.json                 # Project metadata and dependencies
+    ├── README.md                    # Project documentation
+    └── vite.config.js               # Vite bundler configuration
     ```
 
 ### 📜 Smart Contract
