@@ -39,8 +39,6 @@
 
 ## 🧩 Architecture
 
-### 🖥️ Frontend
-
     ```
     ├── frontend/                        # Root of the client-side React application
     │   ├── public/                      # Static public files
@@ -73,45 +71,6 @@
     │   ├── package.json                 # Project metadata and dependencies
     │   ├── README.md                    # Project documentation
     │   └── vite.config.js               # Vite bundler configuration
-    ```
-
-### 📜 Smart Contract
-
-    ```
-    ├── smart-contract/
-    │   ├── lib/              # External dependencies or libraries (via forge install)
-    │   ├── scripts/          # Deployment and automation scripts using Forge
-    │   ├── src/              # Main smart contract source files
-    │   │   └── lib/          # Contains reusable code like custom errors and event declarations
-    │   ├── test/             # Smart contract test files (e.g., unit tests)
-    │   ├── .env              # Environment variables (e.g., RPC URL, private key)
-    │   ├── .gitignore        # Git ignore rules
-    │   ├── .gitmodules       # Tracks git submodules (e.g., external contracts/libs)
-    │   ├── Makefile          # Automation commands for building, testing, and deploying
-    │   └── foundry.toml      # Foundry configuration file (e.g., compiler version, optimizer)
-    ```
-
-### 🔧 Backend
-
-    ```
-    ├── backend/
-    │   ├── config/         # Configuration files (e.g., database configuration)
-    │   ├── constants/      # Project-wide constant values (e.g., custom errors, custom success, etc)
-    │   ├── controllers/    # Business logic handlers for each route
-    │   │   └── helper/     # Helper functions used within controllers
-    │   ├── handlers/       # Core functions handling incoming HTTP requests
-    │   ├── middlewares/    # Middleware functions (e.g., database connection handling)
-    │   ├── models/         # Database models or data schemas
-    │   ├── output/         # JSON response structure for success or error results
-    │   ├── router/         # Route definitions and API endpoints
-    │   ├── utils/          # Utility functions (e.g., validator)
-    │   ├── views/          # HTML templates
-    │   ├── .env            # Environment variables
-    │   ├── .gitignore      # Files and folders ignored by Git
-    │   ├── Makefile        # Automation commands for building and running
-    │   ├── go.mod          # Go module definitions (dependencies)
-    │   ├── go.sum          # Hashes of module dependencies for reproducibility
-    │   └── main.go         # Entry point of the backend application
     ```
 
 ## 🖼️ Assets Reference
