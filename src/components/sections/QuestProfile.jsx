@@ -2,8 +2,20 @@ import React from "react";
 import Title from "./Title";
 import { Copy, MapPin, User } from "lucide-react";
 import { truncate } from "../../utils/helper";
+import { toast } from "react-toastify";
 
 const QuestProfile = ({ quest, isDescription }) => {
+  const copyWallet = async () => {
+    try {
+      if (!quest) return;
+
+      await navigator.clipboard.writeText(quest.wallet);
+      toast.success("Copied to clipboard!");
+    } catch (err) {
+      toast.error("Failed to copy.");
+    }
+  };
+
   return (
     <div>
       {!isDescription ? (
@@ -23,13 +35,18 @@ const QuestProfile = ({ quest, isDescription }) => {
             <p className="text-secondary italic text-sm lg:text-base">
               {truncate(quest.wallet, 4, 4, 11)}
             </p>
-            <Copy className="text-primary size-3 cursor-pointer" />
+            <Copy
+              onClick={copyWallet}
+              className="text-primary size-3 cursor-pointer"
+            />
           </div>
         </div>
       ) : (
         <div>
           <Title title={"Description"} />
-          <p className="text-secondary text-sm lg:text-base">{quest.proposaldescription}</p>
+          <p className="text-secondary text-sm lg:text-base">
+            {quest.proposaldescription}
+          </p>
         </div>
       )}
     </div>

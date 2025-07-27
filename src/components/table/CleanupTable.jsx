@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { userSubmissionHistory } from "../../services/proposal";
 import CleanupRow from "../row/CleanupRow";
+import { userSubmissionHistory } from "../../services/history";
 
 const CleanupTable = ({ address, proposals }) => {
   const [submissionHistory, setSubmissionHistory] = useState(null);

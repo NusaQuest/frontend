@@ -13,7 +13,12 @@ const Navbar = ({ click, action, address, registered }) => {
   return (
     <div className="py-6 relative">
       <div className="flex justify-between items-center">
-        <div className="flex flex-row items-center">
+        <div
+          onClick={() => {
+            navigate(`/`);
+          }}
+          className="flex flex-row cursor-pointer items-center"
+        >
           <img src={Logo} className="h-14 w-14" />
           <h1 className="font-bold text-xl cursor-pointer text-primary">
             NusaQuest.

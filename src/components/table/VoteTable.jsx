@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { userVoteHistory } from "../../services/proposal";
 import VoteRow from "../row/VoteRow";
+import { userVoteHistory } from "../../services/history";
 
 const VoteTable = ({ proposals, address }) => {
   const [voteHistory, setVoteHistory] = useState(null);

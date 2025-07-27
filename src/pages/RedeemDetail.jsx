@@ -56,7 +56,7 @@ const RedeemDetail = ({ address }) => {
 
   const handleConfirmation = async () => {
     const result = await Swal.fire({
-      title: "Confirm Redemption 🎟️",
+      title: "Confirm Redemption",
       text: `Do you want to redeem this NFT for ${nft.price} NUSA ?`,
       icon: "question",
       showCancelButton: true,
@@ -101,7 +101,7 @@ const RedeemDetail = ({ address }) => {
         if (addResult && purchaseResult) {
           Swal.close();
           await Swal.fire({
-            title: "Redeemed 🎉",
+            title: "Redeemed",
             text: "You have successfully redeemed your NFT!",
             icon: "success",
             confirmButtonText: "Back to Redeem Page",
@@ -113,7 +113,7 @@ const RedeemDetail = ({ address }) => {
         } else {
           Swal.close();
           await Swal.fire({
-            title: "Recorded Failed 📄",
+            title: "Recorded Failed",
             text: "NFT was redeemed, but failed to record transaction. Please contact support.",
             icon: "warning",
             confirmButtonText: "Understood",
@@ -122,7 +122,7 @@ const RedeemDetail = ({ address }) => {
       } else {
         Swal.close();
         await Swal.fire({
-          title: "Failed 😓",
+          title: "Failed",
           text: "Redemption failed. Please try again or check your wallet.",
           icon: "error",
           confirmButtonText: "Close",

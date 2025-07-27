@@ -12,8 +12,10 @@ import Impact from "./pages/Impact";
 import QuestDetail from "./pages/QuestDetail";
 import RedeemDetail from "./pages/RedeemDetail";
 import History from "./pages/History";
-import { getIdentity } from "./server/identity";
 import Swal from "sweetalert2";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { isAlreadyRegistered } from "./services/identity";
 
 const Content = () => {
   const [click, setClick] = useState(false);
@@ -34,15 +36,13 @@ const Content = () => {
   const fetchIdentity = async () => {
     if (!address) return;
 
-    const res = await getIdentity(address);
-    if (res.status === "success") {
-      setRegistered(true);
-    } else {
-      setRegistered(false);
+    const hasRegistered = await isAlreadyRegistered(address);
+    setRegistered(hasRegistered);
 
+    if (!hasRegistered) {
       await Swal.fire({
         title: "KTP Verification Required",
-        text: "You need to verify your KTP before accessing this feature. Please complete the verification first.",
+        text: "Verify your KTP to access this feature and earn 10 NUSA as a reward!",
         icon: "warning",
         confirmButtonText: "Verify Now",
       }).then((result) => {
@@ -64,13 +64,11 @@ const Content = () => {
       {click && (
         <div className="absolute inset-0 bg-black opacity-70 z-40"></div>
       )}
-
       {click && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <NavMenu action={handleCurrentPage} registered={registered} />
         </div>
       )}
-
       <div className="z-50 relative">
         <Navbar
           click={click}
@@ -79,7 +77,6 @@ const Content = () => {
           registered={registered}
         />
       </div>
-
       <div className="flex-1 mb-12">
         <Routes>
           <Route
@@ -104,7 +101,15 @@ const Content = () => {
           />
         </Routes>
       </div>
-
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar
+        closeOnClick
+        pauseOnHover
+        draggable
+        theme="light"
+      />{" "}
       <Footer />
     </div>
   );

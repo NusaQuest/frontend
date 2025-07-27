@@ -145,6 +145,13 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" }
+    ],
+    "name": "IdentityNotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "account", "type": "address" },
       { "internalType": "uint256", "name": "currentNonce", "type": "uint256" }
     ],
@@ -170,9 +177,9 @@
   { "inputs": [], "name": "InvalidShortString", "type": "error" },
   {
     "inputs": [
-      { "internalType": "address", "name": "user", "type": "address" }
+      { "internalType": "address", "name": "nusaReward", "type": "address" }
     ],
-    "name": "MintAccessDenied",
+    "name": "NusaRewardAlreadySet",
     "type": "error"
   },
   {
@@ -198,6 +205,7 @@
     "name": "StringTooLong",
     "type": "error"
   },
+  { "inputs": [], "name": "UnexpectedCaller", "type": "error" },
   {
     "anonymous": false,
     "inputs": [
@@ -221,19 +229,6 @@
     "anonymous": false,
     "inputs": [],
     "name": "EIP712DomainChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256[]",
-        "name": "ids",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "Minted",
     "type": "event"
   },
   {
@@ -762,15 +757,6 @@
   },
   {
     "inputs": [
-      { "internalType": "address", "name": "_user", "type": "address" }
-    ],
-    "name": "ftBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
       { "internalType": "address[]", "name": "targets", "type": "address[]" },
       { "internalType": "uint256[]", "name": "values", "type": "uint256[]" },
       { "internalType": "bytes[]", "name": "calldatas", "type": "bytes[]" },
@@ -848,7 +834,7 @@
     "inputs": [
       { "internalType": "address", "name": "_user", "type": "address" }
     ],
-    "name": "isAuthorizedMinter",
+    "name": "isAlreadyRegistered",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
@@ -872,38 +858,9 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256[]", "name": "_ids", "type": "uint256[]" },
-      { "internalType": "uint256[]", "name": "_values", "type": "uint256[]" },
-      { "internalType": "uint256[]", "name": "_prices", "type": "uint256[]" },
-      { "internalType": "string[]", "name": "_uris", "type": "string[]" }
-    ],
-    "name": "mint",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "name",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_user", "type": "address" },
-      { "internalType": "uint256", "name": "_nftId", "type": "uint256" }
-    ],
-    "name": "nftBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "_id", "type": "uint256" }],
-    "name": "nftPrice",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -1099,6 +1056,16 @@
   },
   {
     "inputs": [
+      { "internalType": "address", "name": "_user", "type": "address" },
+      { "internalType": "string", "name": "_hash", "type": "string" }
+    ],
+    "name": "registerIdentity",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
       { "internalType": "address", "name": "target", "type": "address" },
       { "internalType": "uint256", "name": "value", "type": "uint256" },
       { "internalType": "bytes", "name": "data", "type": "bytes" }
@@ -1106,6 +1073,19 @@
     "name": "relay",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract NusaReward",
+        "name": "_nusaReward",
+        "type": "address"
+      }
+    ],
+    "name": "setNusaReward",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1212,13 +1192,6 @@
     "name": "updateTimelock",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "uint256", "name": "_id", "type": "uint256" }],
-    "name": "uri",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
     "type": "function"
   },
   {

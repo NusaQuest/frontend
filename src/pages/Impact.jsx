@@ -6,13 +6,12 @@ import Votes from "../components/sections/Votes";
 import CleanupRecord from "../components/sections/CleanupRecord";
 import CreateProposal from "../components/modals/CreateProposal";
 import nusaquest_abi from "../build/nusaquest_abi.json";
-import { NUSAQUEST_ADDRESS, pinata } from "../utils/env";
+import { pinata } from "../utils/env";
 import { addProposal, checkProposal, getProposals } from "../server/proposal";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { encodeFunctionData } from "viem";
 import {
-  contribution,
   execute,
   initiate,
   lastProposeTimestamp,
@@ -21,6 +20,8 @@ import {
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
 import { formatTimestamp } from "../utils/helper";
+import { NUSAQUEST_ADDRESS } from "../utils/address";
+import { contribution } from "../services/history";
 
 const Impact = ({ address, registered }) => {
   const [isClick, setIsClick] = useState(false);
@@ -204,7 +205,7 @@ const Impact = ({ address, registered }) => {
       setIsOnAction(false);
       console.error(error);
       await Swal.fire({
-        title: "Contract Execution Failed ❌",
+        title: "Contract Execution Failed",
         text:
           error?.shortMessage ||
           error?.message ||
@@ -248,7 +249,7 @@ const Impact = ({ address, registered }) => {
     setIsOnAction(false);
     navigate(`/quest`);
     await Swal.fire({
-      title: "Quest Submitted 🎉",
+      title: "Quest Submitted",
       text: "Your quest has been successfully submitted to the blockchain. If your proposal is approved and executed, you'll receive a reward of 10 NUSA.",
       icon: "success",
       confirmButtonText: "Close",

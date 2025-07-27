@@ -3,13 +3,13 @@ import { config } from "../App";
 import nusatoken_abi from "../build/nusatoken_abi.json";
 import { NUSATOKEN_ADDRESS } from "../utils/address";
 
-export async function delegate(address) {
+export async function delegate(hash) {
   try {
     const result = await writeContract(config, {
       abi: nusatoken_abi,
       address: NUSATOKEN_ADDRESS,
       functionName: "delegate",
-      account: address,
+      args: [hash],
     });
     return result;
   } catch (error) {

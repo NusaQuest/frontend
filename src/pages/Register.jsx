@@ -6,14 +6,15 @@ import Header from "../components/sections/Header";
 import Title from "../components/sections/Title";
 import Tesseract from "tesseract.js";
 import Swal from "sweetalert2";
-import { registerIdentity } from "../server/identity";
 import { useNavigate } from "react-router-dom";
+import { delegate } from "../services/ft";
+import { keccak256, toUtf8Bytes } from "ethers";
+import { addTransaction } from "../server/transaction";
+import { getBlockTimestamp } from "../services/helper/converter";
 
 const Register = ({ address }) => {
   const [fullName, setFullName] = useState("");
   const [ktpFile, setKtpFile] = useState(null);
-  const [ocr, setOcr] = useState("");
-  const [isOnAction, setIsOnAction] = useState(false);
   const navigate = useNavigate();
 
   const handleFullNameChange = (e) => {
@@ -25,18 +26,35 @@ const Register = ({ address }) => {
   };
 
   const submit = async () => {
-    setIsOnAction(true);
+    Swal.fire({
+      title: "Verifying KTP",
+      text: "Please wait while we verify your KTP data...",
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
     const res = await Tesseract.recognize(ktpFile, "eng", {
       logger: (m) => console.log(m),
     });
-    setOcr(res.data.text);
 
     const extractedName = extractNameFromKTP(res.data.text);
     if (extractedName === fullName.toLowerCase()) {
-      const now = Math.floor(new Date().getTime() / 1000);
-      const res = await registerIdentity(address, now);
-      if (res.status === "success") {
+      const hash = keccak256(toUtf8Bytes(res.data.text));
+      const result = await delegate(hash);
+      const timestamp = await getBlockTimestamp();
+      const httpResult = await addTransaction(
+        address,
+        "Delegation",
+        "+10 NUSA",
+        result,
+        timestamp
+      );
+      if (httpResult) {
+        Swal.close();
         Swal.fire({
           title: "KTP Verified",
           text: "Your identity has been successfully verified. Welcome to NusaQuest!",
@@ -48,6 +66,7 @@ const Register = ({ address }) => {
           }
         });
       } else {
+        Swal.close();
         Swal.fire({
           title: "Something Went Wrong",
           text: "An internal server error occurred. Please try again in a moment.",
@@ -55,15 +74,14 @@ const Register = ({ address }) => {
           confirmButtonText: "Try Again",
         });
       }
-      setIsOnAction(false);
     } else {
+      Swal.close();
       Swal.fire({
         title: "Verification Failed",
         text: "The name you entered doesn’t match your KTP. Please try again.",
         icon: "error",
         confirmButtonText: "Close",
       });
-      setIsOnAction(false);
     }
   };
 
@@ -73,7 +91,6 @@ const Register = ({ address }) => {
     const nameLine = lines.find((line) => line.toLowerCase().includes("nama"));
 
     if (nameLine) {
-
       const name = nameLine
         .split(/nama\s*[:=]/i)[1]
         ?.trim()
@@ -84,8 +101,6 @@ const Register = ({ address }) => {
 
     return "";
   };
-
-  useEffect(() => {}, [isOnAction]);
 
   return (
     <div>
@@ -123,7 +138,7 @@ const Register = ({ address }) => {
             buttonColor={"bg-primary"}
             textColor={"text-secondary"}
             action={submit}
-            isOnAction={isOnAction}
+            // isOnAction={isOnAction}
           />
         </div>
       </div>

@@ -16,6 +16,7 @@ const ProposalRow = ({ proposal, onQueue, onExecute }) => {
     if (!proposalId) return;
 
     const proposalState = await state(proposalId);
+    console.log(proposalState)
     if (!proposalState) return;
 
     const statusText = mapStateToStatus(proposalState);

@@ -16,7 +16,6 @@ import {
   proposalSnapshot,
   proposalVotes,
   state,
-  userSubmissionHistory,
   vote,
 } from "../services/proposal";
 import Swal from "sweetalert2";
@@ -26,8 +25,8 @@ import ReusableButton from "../components/buttons/ReusableButton";
 import { pinata } from "../utils/env";
 import { addTransaction } from "../server/transaction";
 import { getBlockTimestamp } from "../services/helper/converter";
-import { getIdentity } from "../server/identity";
 import { CheckCircle } from "lucide-react";
+import { userSubmissionHistory, userVoteHistory } from "../services/history";
 
 const QuestDetail = ({ address, registered }) => {
   const { id } = useParams("id");
@@ -103,8 +102,8 @@ const QuestDetail = ({ address, registered }) => {
 
   const fetchTotalVotes = async () => {
     const [totalAgainst, totalFor] = await proposalVotes(quest);
-    setTotalAgainst(totalAgainst);
-    setTotalFor(totalFor);
+    setTotalAgainst(BigInt(totalAgainst) / BigInt(1e18));
+    setTotalFor(BigInt(totalFor) / BigInt(1e18));
   };
 
   const checkRegistered = async () => {
@@ -123,6 +122,25 @@ const QuestDetail = ({ address, registered }) => {
       return false;
     }
     return true;
+  };
+
+  const fetchVoteHistory = async () => {
+    if (!address) return;
+
+    const history = await userVoteHistory(address);
+    const questId = await getProposalId(quest);
+    setDisabled(history.some((item) => item.proposalId === questId));
+    const hasVoted = history.some((item) => {
+      console.log(
+        "Checking item.proposalId:",
+        item.proposalId,
+        "vs quest.id:",
+        quest.id
+      );
+      return item.proposalId === questId;
+    });
+    console.log("Has Voted:", hasVoted);
+    console.log(history);
   };
 
   const checkVotingAvailability = async () => {
@@ -169,7 +187,7 @@ const QuestDetail = ({ address, registered }) => {
         navigate(`/quest`);
         Swal.close();
         await Swal.fire({
-          title: "Vote Submitted ✅",
+          title: "Vote Submitted",
           text: "Your vote has been recorded successfully.",
           icon: "success",
           confirmButtonText: "Great!",
@@ -177,7 +195,7 @@ const QuestDetail = ({ address, registered }) => {
       } else {
         Swal.close();
         await Swal.fire({
-          title: "Vote Failed ❌",
+          title: "Vote Failed",
           text: "Something went wrong while submitting your vote. Please try again.",
           icon: "error",
           confirmButtonText: "Close",
@@ -321,7 +339,7 @@ const QuestDetail = ({ address, registered }) => {
 
     if (status === "Active") {
       fetchVotingActive();
-      setDisabled(false);
+      fetchVoteHistory();
     }
 
     if (status === "Queued") {
@@ -332,7 +350,6 @@ const QuestDetail = ({ address, registered }) => {
       fetchSubmissionPeriod();
     }
   }, [status]);
-
 
   useEffect(() => {
     if (quest) {
@@ -369,6 +386,7 @@ const QuestDetail = ({ address, registered }) => {
             )}
             {(status === "Active" ||
               status === "Defeated" ||
+              status == "Queued" || 
               status === "Succeeded") && (
               <div>
                 {status === "Active" && (
