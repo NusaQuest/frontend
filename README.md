@@ -31,8 +31,9 @@
 - 📜 Smart Contract : Foundry (Solidity)
 - 🛰️ Network : Lisk Sepolia
 - 🔧 Backend : GoFiber (Golang)
-- 📚 Library : Wagmi
+- 🗄️ Database : MongoDB
 - 🔐 Authentication : Xellar Wallet
+- 📚 Library : Wagmi
 - 🪪 Identity Verification : Tesseract OCR (Optical Character Recognition)
 - 🌐 IPFS Provider : Pinata
 - 🎨 Styling : TailwindCSS
