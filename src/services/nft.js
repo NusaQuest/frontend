@@ -1,7 +1,7 @@
 import { writeContract } from "wagmi/actions";
 import { config } from "../App";
-import { NUSAQUEST_ADDRESS } from "../utils/env";
 import nusaquest_abi from "../build/nusaquest_abi.json";
+import { NUSAQUEST_ADDRESS } from "../utils/address";
 
 export async function swap(id) {
   try {

@@ -1,7 +1,7 @@
 import { readContract, writeContract } from "wagmi/actions";
 import { config } from "../App";
-import { NUSATOKEN_ADDRESS } from "../utils/env";
 import nusatoken_abi from "../build/nusatoken_abi.json";
+import { NUSATOKEN_ADDRESS } from "../utils/address";
 
 export async function delegate(address) {
   try {
@@ -12,21 +12,6 @@ export async function delegate(address) {
       account: address,
     });
     return result;
-  } catch (error) {
-    console.error(error);
-    return;
-  }
-}
-
-export async function isAlreadyDelegate(address) {
-  try {
-    const status = await readContract(config, {
-      abi: nusatoken_abi,
-      address: NUSATOKEN_ADDRESS,
-      functionName: "isAlreadyDelegate",
-      args: [address],
-    });
-    return Boolean(status);
   } catch (error) {
     console.error(error);
     return;
