@@ -22,7 +22,6 @@
 - 🔗 Live Smart Contract Deployment : [View Blockscout]()
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
 - 📊 Pitch Deck : [View File]()
-- 📖 Usage Guidebook : [View Guide]()
 - 🎥 Demo Video : [Watch Video]()
 
 ## ⚙️ Tech Stack
@@ -73,6 +72,46 @@
     │   ├── README.md                    # Project documentation
     │   └── vite.config.js               # Vite bundler configuration
     ```
+
+## 🧭 How to Run
+
+This project uses [React](https://react.dev/) and [Vite](https://vite.dev/guide/) and a custom `Makefile` for a smoother development experience.  
+Just run `make <task>` without remembering long commands!
+
+### 📦 1. Install Node.js
+
+#### 📥 Download & Install
+
+Install Node.js (comes with npm) from the official site:
+🔗 https://nodejs.org/
+
+#### ✅ Verify Installation
+
+After installation, run the following command to confirm:
+
+```bash
+node -v
+npm -v
+```
+
+### 📁 2. Clone Repository
+
+```bash
+> git clone https://github.com/NusaQuest/frontend
+> cd frontend
+```
+
+### 📚 3. Install Dependencies
+
+```bash
+> make install
+```
+
+### 🧪 4. Run the Server Locally
+
+```bash
+> make run
+```
 
 ## 🖼️ Assets Reference
 
