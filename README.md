@@ -113,6 +113,27 @@ npm -v
 > make run
 ```
 
+## 🔐 .env Configuration
+
+Before running deploy or verification commands, make sure your `.env` file is properly set up in the root directory.
+
+```env
+# 🧠 Reown Project ID for identity verification
+VITE_REOWN_PROJECT_ID=23...
+
+# 🔐 Xellar Wallet App ID for authentication
+VITE_XELLAR_APP_ID=8dd...
+
+# 📦 Pinata JWT token for IPFS uploads
+VITE_PINATA_JWT=ey...
+
+# 🌐 Pinata gateway URL for retrieving IPFS files
+VITE_PINATA_GATEWAY=blue...
+
+# 🛰️ Backend API base URL
+VITE_BACKEND_API_URL=https://your-backend-url.com
+```
+
 ## 🖼️ Assets Reference
 
 - 📢 [Xellar Wallet Logo on Connect Button](https://play.google.com/store/apps/details?id=com.xellar.wallets&pli=1)
