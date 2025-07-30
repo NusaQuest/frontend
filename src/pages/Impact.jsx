@@ -26,17 +26,13 @@ import { contribution } from "../services/history";
 const Impact = ({ address, registered }) => {
   const [isClick, setIsClick] = useState(false);
   const [isOnAction, setIsOnAction] = useState(false);
-  const [proposalName, setProposalName] = useState(
-    "Bersih-bersih Parangtritis"
-  );
-  const [proposalDescription, setProposalDescription] = useState(
-    "Organize clean-up at Parangtritis Beach involving local volunteers and waste"
-  );
+  const [proposalName, setProposalName] = useState("");
+  const [proposalDescription, setProposalDescription] = useState("");
   const [images, setImages] = useState(null);
-  const [beachName, setBeachName] = useState("Parangtritis Beach");
-  const [province, setProvince] = useState("Daerah Istimewa Yogyakarta");
-  const [city, setCity] = useState("Bantul");
-  const [maps, setMaps] = useState("maps.com");
+  const [riverName, setRiverName] = useState("");
+  const [province, setProvince] = useState("");
+  const [city, setCity] = useState("");
+  const [maps, setMaps] = useState("");
   const [proposals, setProposals] = useState(null);
   const [allProposals, setAllProposals] = useState(null);
   const [totalProposals, setTotalProposals] = useState(0);
@@ -124,7 +120,7 @@ const Impact = ({ address, registered }) => {
     if (
       !proposalName ||
       !proposalDescription ||
-      !beachName ||
+      !riverName ||
       !city ||
       !province ||
       !maps ||
@@ -168,7 +164,7 @@ const Impact = ({ address, registered }) => {
       address,
       proposalName,
       proposalDescription,
-      beachName,
+      riverName,
       city,
       province,
       maps,
@@ -179,7 +175,7 @@ const Impact = ({ address, registered }) => {
       setIsOnAction(false);
       await Swal.fire({
         title: "Invalid Proposal ⚠️",
-        text: "Proposal input is not valid. Make sure the location exists and the activity clearly describes a beach cleanup.",
+        text: "Proposal input is not valid. Make sure the location exists and the activity clearly describes a river cleanup.",
         icon: "warning",
         confirmButtonText: "Close",
       });
@@ -225,7 +221,7 @@ const Impact = ({ address, registered }) => {
       address,
       proposalName,
       proposalDescription,
-      beachName,
+      riverName,
       city,
       province,
       maps,
@@ -404,7 +400,7 @@ const Impact = ({ address, registered }) => {
   const clear = () => {
     setProposalName("");
     setProposalDescription("");
-    setBeachName("");
+    setriverName("");
     setCity("");
     setProvince("");
     setMaps("");
@@ -448,7 +444,7 @@ const Impact = ({ address, registered }) => {
           setProposalName={setProposalName}
           setProposalDescription={setProposalDescription}
           setImages={setImages}
-          setBeachName={setBeachName}
+          setRiverName={setRiverName}
           setProvince={setProvince}
           setCity={setCity}
           setMaps={setMaps}

@@ -28,7 +28,7 @@ const QuestProfile = ({ quest, isDescription }) => {
             className="flex items-center gap-1 text-sm lg:text-base italic text-secondary hover:underline"
           >
             <MapPin size={14} className="text-primary" />
-            {quest.beachname}, {quest.city}, {quest.province}
+            {quest.rivername}, {quest.city}, {quest.province}
           </a>
           <div className="flex flex-row gap-1 items-center mt-2 mb-4">
             <User className="text-primary size-4" />

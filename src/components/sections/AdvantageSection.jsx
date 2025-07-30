@@ -17,7 +17,7 @@ const advantages = [
     advantage: "Impact & Rewards",
     icon: "gift",
     description:
-      "Join beach cleanups to earn NUSA tokens and redeem them for concert ticket NFTs.",
+      "Join river cleanups to earn NUSA tokens and redeem them for concert ticket NFTs.",
   },
   {
     advantage: "DAO-Powered Governance",
@@ -29,7 +29,7 @@ const advantages = [
     advantage: "AI-Powered Relevance Detection",
     icon: "brain",
     description:
-      "Our AI checks every proposal to ensure it's valid, relevant, and beach-related.",
+      "Our AI checks every proposal to ensure it's valid, relevant, and river-related.",
   },
   {
     advantage: "KTP-Based Registration",
@@ -47,7 +47,7 @@ const AdvantageSection = () => {
         boldText={"NusaQuest"}
         secondText={"?"}
         paragraph={
-          "Explore the unique benefits of joining Indonesia’s first DAO for beach cleanups — where real action meets real rewards."
+          "Explore the unique benefits of joining Indonesia’s first DAO for river cleanups — where real action meets real rewards."
         }
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:max-w-6xl mx-auto">

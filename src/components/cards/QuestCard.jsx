@@ -5,20 +5,8 @@ import { getProposalId, state } from "../../services/proposal";
 import { mapStateToStatus, statusColors } from "../../utils/helper";
 
 const QuestCard = ({ item }) => {
-  const now = Date.now() / 1000;
   const navigate = useNavigate();
   const [status, setStatus] = useState("Loading");
-
-  // let status = "Unknown";
-  // if (now < item.voteStart) {
-  //   status = "Upcoming";
-  // } else if (now >= item.voteStart && now <= item.voteEnd) {
-  //   status = "Voting";
-  // } else if (now > item.voteEnd && now < item.executionDelay) {
-  //   status = "Pending";
-  // } else if (now >= item.executionDelay) {
-  //   status = "Executed";
-  // }
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -72,7 +60,7 @@ const QuestCard = ({ item }) => {
             className="flex items-center gap-1 text-xs italic text-secondary hover:underline"
           >
             <MapPin size={14} className="text-primary" />
-            {item.beachname}, {item.city}, {item.province}
+            {item.rivername}, {item.city}, {item.province}
           </a>
         </div>
         <p className="text-sm text-secondary line-clamp-2">

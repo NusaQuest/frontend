@@ -1,17 +1,16 @@
-# NusaQuest : Beaches aren't gonna clean themselves. 🚀
+# NusaQuest : Turn River Cleanups into Concert Ticket NFTs. 🚀
 
 ## ✨ Overview
 
-🌏 NusaQuest is an impact-to-earn platform powered by AI 🤖 and DAO 🧠, built on the Lisk Sepolia network 🛰️, that turns real-world environmental actions into meaningful digital rewards. Through beach cleanups across Indonesia 🇮🇩, anyone can earn NUSA tokens 💰 and redeem them for NFT concert tickets 🎫. With KYC verification via OCR of KTP 🪪🔍, NusaQuest ensures trusted participation while bridging Web3 🌐 with real-world impact 🌱. It makes caring for the environment fun and rewarding — while empowering communities through transparent, decentralized systems and meaningful incentives.
+🌏 NusaQuest is an AI 🤖 and DAO 🧠-powered impact-to-earn platform on Lisk Sepolia 🛰️ that rewards you for joining river cleanups across Indonesia 🇮🇩. Collect trash before it reaches the ocean 🌊, earn NUSA tokens 💰, and redeem them for NFT concert tickets 🎫. With KTP-based KYC 🪪🔍, NusaQuest bridges real-world action 🌱 with the power of Web3 🌐.
 
 ## 💡 Features
 
-- 🪪 Verify Identity (KYC with OCR of KTP) : Verify your identity easily using KTP-based KYC with OCR — secure and effortless! 🔐
-- 🗳️ Delegate Voting Power : Delegate your vote to yourself to join quest voting — and get a chance to earn 10 NUSA tokens! 🎉
-- 🧭 Propose a Quest : Suggest a beach cleanup location in Indonesia — if your quest is approved, you’ll earn 10 NUSA tokens! 📍
-- 🤖 AI Proposal Checker : Our AI checks if your proposed location is a valid beach in Indonesia and ensures the description is relevant and clear! 🧠
+- 🪪 Identity Verification (KYC): Easily verify your KTP via OCR — only a Keccak256 hash is stored, not your actual data 🔐.
+- 🧭 Propose a Quest : Suggest a river cleanup location in Indonesia — if your quest is approved, you’ll earn 10 NUSA tokens! 📍
+- 🤖 AI Proposal Checker : Our AI checks if your proposed location is a valid river in Indonesia and ensures the description is relevant and clear! 🧠
 - ✅ Vote on Quests : Help decide which cleanup quests matter most by voting with the community! 🗳️
-- 📸 Submit Proof of Action : Upload a video of your beach cleanup to earn 40 NUSA tokens as proof of real impact! 🎥
+- 📸 Submit Proof of Action : Upload a video of your river cleanup to earn 40 NUSA tokens as proof of real impact! 🎥
 - 🔁 Swap NUSA Tokens : Redeem your NUSA tokens for exclusive NFT concert tickets available on the platform! 🎫
 
 ## 🚀 Insights

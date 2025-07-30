@@ -23,7 +23,7 @@ const Quest = () => {
         firstText="Explore"
         boldText="Quests"
         secondText="for Impact"
-        paragraph="Join community-driven cleanups across Indonesia. Browse available quests, earn NUSA tokens, and help restore our beaches."
+        paragraph="Join cleanups across Indonesia, earn NUSA tokens, and help protect rivers before they pollute our oceans."
       />
       <PageSection datas={proposals} type="quest" title={"Explore Quests"} />
     </div>

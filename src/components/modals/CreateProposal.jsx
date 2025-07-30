@@ -6,7 +6,7 @@ const CreateProposal = ({
   setProposalName,
   setProposalDescription,
   setImages,
-  setBeachName,
+  setRiverName,
   setProvince,
   setCity,
   setMaps,
@@ -56,8 +56,8 @@ const CreateProposal = ({
 
           <input
             type="text"
-            placeholder="Beach Name"
-            onChange={(e) => setBeachName(e.target.value)}
+            placeholder="River Name"
+            onChange={(e) => setRiverName(e.target.value)}
             className="bg-white/10 p-3 rounded-lg text-sm text-secondary outline-none"
           />
 
