@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import TextField from "../components/inputs/Textfield";
+import TextField from "../components/inputs/TextField";
 import FileUploadField from "../components/inputs/FileUploadField";
 import ReusableButton from "../components/buttons/ReusableButton";
 import Header from "../components/sections/Header";
