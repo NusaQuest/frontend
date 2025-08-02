@@ -1,8 +1,8 @@
-# NusaQuest : Turn River Cleanups into Concert Ticket NFTs. 🚀
+# NusaQuest : Turn River Cleanups into NFT Concert Tickets. 🚀
 
 ## ✨ Overview
 
-🌏 NusaQuest is an AI 🤖 and DAO 🧠-powered impact-to-earn platform on Lisk Sepolia 🛰️ that rewards you for joining river cleanups across Indonesia 🇮🇩. Collect trash before it reaches the ocean 🌊, earn NUSA tokens 💰, and redeem them for NFT concert tickets 🎫. With KTP-based KYC 🪪🔍, NusaQuest bridges real-world action 🌱 with the power of Web3 🌐.
+🌏 NusaQuest is an impact-to-earn platform that powered by AI 🤖 and DAO 🧠 on Lisk Sepolia 🛰️ that rewards user for joining river cleanups across Indonesia 🇮🇩. Collect trash before it reaches the ocean 🌊, earn NUSA tokens 💰, and redeem them for NFT concert tickets 🎫. With KTP-based KYC 🪪🔍, NusaQuest bridges real-world action 🌱 with the power of Web3 🌐.
 
 ## 💡 Features
 
@@ -18,10 +18,13 @@
 - 💻 Frontend : [View Code](https://github.com/NusaQuest/frontend.git)
 - 📜 Smart Contract : [View Code](https://github.com/NusaQuest/smart-contract.git)
 - 🧬 NFT Metadata : [View Metadata](https://github.com/NusaQuest/nft-metadata.git)
-- 🔗 Live Smart Contract Deployment : [View Blockscout]()
+- 🔗 Live Smart Contract Deployment (NusaQuest) : [View Blockscout](http://sepolia-blockscout.lisk.com/address/0x7c17956bDc30c297f17059ddd302e4DD43a700fA)
+- 🔗 Live Smart Contract Deployment (NusaToken) : [View Blockscout](http://sepolia-blockscout.lisk.com/address/0xbCFde6e263E10224f1E959D51dD2456bC09c16d1)
+- 🔗 Live Smart Contract Deployment (NusaReward) : [View Blockscout](http://sepolia-blockscout.lisk.com/address/0xa7C5b30E1246417e2FA9ddae4917E37a11A48761)
+- 🔗 Live Smart Contract Deployment (NusaTimelock) : [View Blockscout](http://sepolia-blockscout.lisk.com/address/0xb5565A254A5dD7Fd8E94b6c91714F2A17bC64f57)
 - 🔧 Backend : [View Code](https://github.com/NusaQuest/backend.git)
-- 📊 Pitch Deck : [View File]()
-- 🎥 Demo Video : [Watch Video]()
+- 📊 Pitch Deck : [View File](https://drive.google.com/file/d/1Qv5JGUpgw_R_K-bwBnjKdgQX4-jIDYsp/view?usp=drive_link)
+- 🎥 Presentation & Demo Video : [Watch Video](https://youtu.be/e6i-IX0POfE?si=Ka7M2SMiSqDeiAWV)
 
 ## ⚙️ Tech Stack
 
@@ -141,6 +144,10 @@ VITE_BACKEND_API_URL=https://your-backend-url.com
 - 📢 [Brain Illustration — Representative Asset for AI-Powered Relevance Detection](https://www.flaticon.com/free-sticker/brain_6639851?term=brain&page=1&position=4&origin=search&related_id=6639851)
 - 📢 [People Illustration — Representative Asset for DAO-Powered Governance](https://www.flaticon.com/free-sticker/team_6639779?term=group&page=1&position=1&origin=search&related_id=6639779)
 - 📢 [ID Card Illustration — Representative Asset for KTP-based Registration](https://www.flaticon.com/free-sticker/id-card_8140376?term=identity&page=1&position=11&origin=search&related_id=8140376)
+- 📢 [Ciliwung River Image (1) - For demo video purposes](https://cdn.antaranews.com/cache/1200x800/2020/01/03/Bersihkan-Sampah-Akibat-Banjir-03012020-fzn-2.jpg)
+- 📢 [Ciliwung River Image (2) — for demo video purposes](https://img.okezone.com/content/2017/04/25/338/1675865/wow-sudah-15-939-karung-sampah-diangkut-dari-sungai-ciliwung-lE0mPSTfvv.jpg)
+- 📢 [Ciliwung River Cleanups Video — For demo video purposes](https://youtu.be/x_DLGx0N93w?si=p8RE9qlhZjfJEUIY)
+- 📢 [Thames River Image — For demo video purposes](https://cdn-imgix.headout.com/media/images/f41bdd0b95a2fc1fa8aff71725ffe5e3-2963-london-evening-cruise-on-river-thames-04.JPG)
 
 ## 🤝 Contributors
 

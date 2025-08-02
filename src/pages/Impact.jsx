@@ -400,7 +400,7 @@ const Impact = ({ address, registered }) => {
   const clear = () => {
     setProposalName("");
     setProposalDescription("");
-    setriverName("");
+    setRiverName("");
     setCity("");
     setProvince("");
     setMaps("");

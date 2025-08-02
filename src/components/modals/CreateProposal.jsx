@@ -37,7 +37,7 @@ const CreateProposal = ({
           />
 
           <textarea
-            placeholder="Description"
+            placeholder="Description (max. 100 words)"
             onChange={(e) => setProposalDescription(e.target.value)}
             rows={4}
             className="bg-white/10 p-3 rounded-lg text-sm text-secondary outline-none"

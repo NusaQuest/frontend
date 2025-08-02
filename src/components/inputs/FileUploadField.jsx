@@ -15,11 +15,16 @@ const FileUploadField = ({ onChange, name, file, type }) => {
       >
         {isType && previewUrl ? (
           type === "image" ? (
-            <img
-              src={previewUrl}
-              alt="Preview"
-              className="object-contain rounded-md max-h-60"
-            />
+            <>
+              <Plus size={32} className="text-primary" />
+              <span className="text-secondary text-sm text-center">
+                {file
+                  ? `Selected: ${file.name} (${(file.size / 1024).toFixed(
+                      1
+                    )} KB)`
+                  : "Upload File"}
+              </span>
+            </>
           ) : type === "video" ? (
             <video src={previewUrl} controls className="rounded-md max-h-60" />
           ) : null
